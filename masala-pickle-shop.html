@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amma's Home Masala & Pickles</title>
+<style>
+:root{
+  --cream:#f8ecd4;
+  --cream2:#fbf8f2;
+  --green:#174b3f;
+  --green2:#0f3d34;
+  --gold:#d4a017;
+  --brown:#4a3427;
+  --muted:#777;
+  --white:#fff;
+  --whatsapp:#25D366;
+  --turmeric:#f0a500;
+  --chili:#c1432d;
+  --terracotta:#d9784f;
+  --leaf:#3f7d5c;
+  --bg-top:#fff6e6;
+  --bg-mid:#fdead0;
+  --bg-bottom:#f8d9ae;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background-color:var(--bg-bottom);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'><g opacity='0.055'><path d='M78 14c9 7 11 22 4 37-6 13-18 22-27 17-8-4-9-18-2-31 6-12 16-22 25-23z' fill='%23c1432d'/><path d='M76 12c2-5 7-7 10-6' stroke='%233f7d5c' stroke-width='3' fill='none' stroke-linecap='round'/><circle cx='30' cy='55' r='15' fill='%23f0a500'/><circle cx='30' cy='55' r='15' fill='none' stroke='%23a8331f' stroke-width='2' stroke-dasharray='3 4'/><circle cx='16' cy='30' r='4' fill='%233b2a1f'/><circle cx='24' cy='24' r='4' fill='%233b2a1f'/><circle cx='10' cy='20' r='4' fill='%233b2a1f'/><path d='M55 75c10-13 25-16 33-9-8 11-23 18-33 9z' fill='%233f7d5c'/><path d='M57 74c8-5 17-8 26-6' stroke='%232c5a41' stroke-width='1.5' fill='none'/></g></svg>"),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+  background-repeat: repeat, no-repeat;
+  background-size: 170px 142px, 100% 100%;
+  color:var(--brown);
+  padding-bottom:72px;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+
+/* TOP NAV */
+.topbar{
+  height:72px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 5%;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.brand{
+  color:var(--green);
+  font-weight:900;
+  font-size:1.25rem;
+  letter-spacing:.5px;
+  white-space:nowrap;
+}
+.brand small{
+  display:block;
+  color:var(--gold);
+  font-size:.55rem;
+  letter-spacing:3px;
+  text-align:center;
+}
+.navLinks{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:.94rem;
+}
+.navLinks a:hover{color:var(--gold)}
+.navActions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cartPill{
+  background:none;
+  color:#53615e;
+  border:0;
+  padding:4px;
+  font-weight:bold;
+}
+.cartPill span{color:var(--green)}
+.mobileMenu{display:none}
+
+/* HERO / PAGE TITLE */
+.hero{
+  position:relative;
+  overflow:hidden;
+  background-image: url('bg.jpeg');
+  background-size: 1200px 400px ;
+  color:#fff;
+  text-align:center;
+  padding:34px 16px 38px;
+  height: 400px;
+}
+
+.h
+
+.breadcrumb span{padding:0 8px;color:rgba(255,255,255,.55)}
+.hero h1{
+  font-family:Georgia,serif;
+  font-size:2rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  text-shadow:0 2px 6px rgba(0,0,0,.28);
+  position:relative;
+  z-index:1;
+}
+.offer{
+  background:linear-gradient(90deg,var(--chili),#8f2f1e);
+  color:white;
+  text-align:center;
+  padding:9px;
+  font-size:.82rem;
+  font-weight:bold;
+}
+
+/* CATEGORY SHORTCUTS */
+.categoryArea{
+  background:#fff;
+  padding:26px 5% 18px;
+}
+.categoryScroller{
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.categoryItem{
+  width:105px;
+  text-align:center;
+  color:#333;
+  border:0;
+  background:none;
+}
+.categoryCircle{
+  width:88px;
+  height:88px;
+  margin:0 auto 9px;
+  border-radius:50%;
+  overflow:hidden;
+  border:3px solid #f1dfc0;
+  background:linear-gradient(145deg,#ffe3a1,#f3a94a);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.6rem;
+  box-shadow:0 3px 9px rgba(0,0,0,.12);
+}
+.categoryItem:hover .categoryCircle,
+.categoryItem.active .categoryCircle{
+  border-color:var(--green);
+  transform:translateY(-2px);
+}
+.categoryItem strong{
+  display:block;
+  font-size:.78rem;
+  line-height:1.25;
+}
+
+/* MAIN PRODUCT SECTION */
+.section{
+  padding:28px 5%;
+}
+.section h2{
+  color:var(--green);
+  text-align:left;
+  margin-bottom:18px;
+  font-family:Georgia,serif;
+}
+#products{background:linear-gradient(180deg,#fdeee0,#f8dfc7)}
+.productsTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.productsTop h2{margin:0}
+.filterBar{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin:0;
+}
+.filterBar select{
+  border:0;
+  background:transparent;
+  padding:7px 4px;
+  color:#555;
+  font-size:.85rem;
+}
+
+/* PRODUCT GRID & PACKET STYLING */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:24px;
+}
+.card{
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+  text-align:center;
+  padding-bottom:15px;
+  position:relative;
+  transition:.2s;
+  border:2px solid #c8a24a;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 18px rgba(0,0,0,.2);
+}
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:2;
+  background:var(--green);
+  color:#fff;
+  font-size:.68rem;
+  padding:5px 8px;
+  border-radius:2px;
+}
+.cardImgWrap{padding:14px 15px 0}
+.cardImg{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:8px;
+  background:#f4efe4;
+  display:block;
+}
+.cardName{
+  margin:12px 15px 4px;
+  font-size:1rem;
+  color:#333;
+}
+.cardPrice{
+  margin:0 15px 12px;
+  font-size:1.2rem;
+  font-weight:bold;
+  color:var(--green);
+}
+.weightSel{
+  margin:6px 0;
+  padding:6px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  width:100%;
+}
+.add-btn{
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:9px 15px;
+  border-radius:3px;
+  font-weight:bold;
+}
+.add-btn:hover{background:var(--gold)}
+.cardAddBtn{
+  margin:0 15px 4px;
+  width:calc(100% - 30px);
+  border-radius:22px;
+  height:40px;
+}
+
+/* QUANTITY STEPPER (used in the product quick-view modal) */
+.cardQty{
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:22px;
+  height:38px;
+  overflow:hidden;
+  background:#fff;
+}
+.cardQty button{
+  border:0;
+  background:#f4f4f4;
+  width:31px;
+  height:100%;
+  font-size:1rem;
+}
+.cardQty span{
+  min-width:25px;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* CART PANEL */
+#cartPanel{
+  display:none;
+  max-width:760px;
+  margin:20px auto;
+  background:#fff;
+  padding:24px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#cartPanel.open{display:block}
+.cartHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+.cartHeader h2{
+  color:var(--green);
+  margin:0;
+}
+.cartGuarantee{
+  background:#f7f0e3;
+  padding:12px;
+  border-radius:6px;
+  margin-top:15px;
+  color:#555;
+  font-size:.85rem;
+  line-height:1.6;
+}
+.cartProduct{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  gap:14px;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+.cartProductImg{
+  width:80px;
+  height:90px;
+  border-radius:5px;
+  background:linear-gradient(145deg,#e6f0e8,#f4ead4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.7rem;
+}
+.cartProductInfo h4{
+  color:#304b41;
+  margin-bottom:5px;
+}
+.cartProductInfo small{
+  color:#777;
+  display:block;
+  margin-bottom:5px;
+}
+.cartProductPrice{
+  color:var(--green);
+  font-weight:bold;
+  margin-bottom:7px;
+}
+.cartQuantity{
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:22px;
+  overflow:hidden;
+  width:max-content;
+}
+.cartQuantity button{
+  border:0;
+  background:#f1f1f1;
+  width:32px;
+  height:32px;
+}
+.cartQuantity span{
+  min-width:32px;
+  text-align:center;
+}
+.cartRemove{
+  border:0;
+  background:none;
+  color:#999;
+  font-size:.8rem;
+  margin-left:8px;
+}
+.cartCheckoutBtn{
+  width:100%;
+  background:#0f6b55 !important;
+  color:#fff;
+  border:0;
+  padding:13px;
+  border-radius:24px;
+  font-weight:bold;
+  margin-top:15px;
+}
+.totalsBox{margin-top:12px;line-height:1.8}
+.totalsBox .grand{font-weight:bold;font-size:1.15rem;color:var(--green)}
+
+/* CHECKOUT FORM */
+#orderForm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#orderForm.open{display:block}
+#orderForm input,#orderForm select{
+  width:100%;padding:10px;margin:7px 0;border:1px solid #ddd;border-radius:5px
+}
+#orderForm h2{color:var(--green)}
+.payRow{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.payRow label{background:#f1eee7;padding:8px 12px;border-radius:18px}
+.payRow input{width:auto!important;margin-right:5px!important}
+#confirmOrderBtn{
+  width:100%;background:var(--green);color:#fff;border:0;padding:12px;border-radius:5px;font-weight:bold
+}
+.checkoutHint{
+  font-size:.78rem;
+  color:#777;
+  background:#eef8f1;
+  border:1px solid #d6ecdc;
+  border-radius:6px;
+  padding:8px 10px;
+  margin:10px 0 4px;
+  line-height:1.5;
+}
+
+/* PRODUCT QUICK-VIEW MODAL (weight, details & delivery info live here) */
+.modalOverlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,61,52,.55);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modalOverlay.open{display:flex}
+.productModal{
+  background:#fff;
+  max-width:440px;
+  width:100%;
+  max-height:88vh;
+  overflow-y:auto;
+  border-radius:12px;
+  padding:24px;
+  position:relative;
+}
+.modalClose{
+  position:absolute;
+  top:10px;right:12px;
+  border:0;background:#f3f3f3;
+  width:30px;height:30px;
+  border-radius:50%;
+  font-size:1rem;
+  color:#666;
+}
+.modalImgWrap img{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  border-radius:8px;
+  background:#f4efe4;
+}
+.modalName{
+  font-family:Georgia,serif;
+  color:var(--green);
+  font-size:1.3rem;
+  margin:14px 0 4px;
+}
+.modalSpiceRow{
+  font-size:.85rem;
+  color:#555;
+  margin-bottom:10px;
+}
+.modalDetails{
+  background:var(--cream);
+  padding:10px 12px;
+  border-radius:6px;
+  font-size:.8rem;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.modalLabel{
+  display:block;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  color:#888;
+  margin-top:10px;
+}
+.modalPriceRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:12px 0;
+}
+.modalPrice{
+  font-size:1.35rem;
+  font-weight:bold;
+  color:var(--green);
+}
+.modalDeliveryInfo{
+  margin:6px 0 14px;
+  padding:12px;
+  font-size:.78rem;
+  box-shadow:none;
+  border:1px solid #eee;
+  line-height:1.6;
+}
+.modalAddBtn{
+  width:100%;
+  border-radius:22px;
+  height:44px;
+}
+
+/* FEEDBACK FORM (shown after an order is placed) */
+#feedbackForm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:26px 22px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#feedbackForm.open{display:block}
+#feedbackForm h2{color:var(--green);margin-bottom:6px}
+#feedbackForm p{color:#666;font-size:.9rem;margin-bottom:12px;line-height:1.5}
+#feedbackForm select,#feedbackForm textarea{
+  width:100%;padding:10px;margin:7px 0;border:1px solid #ddd;border-radius:5px;resize:vertical;
+}
+#feedbackThanks{display:none;color:var(--green);font-weight:bold;margin-top:10px;font-size:.9rem}
+
+/* ORDER CONFIRMATION (WhatsApp handoff) */
+#orderConfirm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:30px 22px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+  text-align:center;
+}
+#orderConfirm.open{display:block}
+.orderConfirmIcon{font-size:2.6rem;margin-bottom:10px}
+#orderConfirm h2{color:var(--green);margin-bottom:6px}
+#orderConfirm p{color:#666;line-height:1.6;margin-bottom:6px}
+#orderConfirm .orderIdTag{
+  display:inline-block;
+  background:var(--cream);
+  color:var(--brown);
+  font-weight:bold;
+  padding:5px 14px;
+  border-radius:16px;
+  margin:6px 0 14px;
+  letter-spacing:.5px;
+}
+.trackBtn{
+  width:100%;
+  background:var(--whatsapp)!important;
+  color:#fff;
+  border:0;
+  padding:13px;
+  border-radius:24px;
+  font-weight:bold;
+  margin-top:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.trackBtn svg{width:18px;height:18px;fill:#fff}
+.backToShopBtn{
+  width:100%;
+  background:none;
+  border:1px solid #ddd;
+  color:#666;
+  padding:11px;
+  border-radius:24px;
+  margin-top:10px;
+}
+
+/* QUALITY / GUARANTEE */
+.guarantee-section{
+  background:linear-gradient(135deg,#fdeccb,#f6d29c);
+  padding:42px 5%;
+  text-align:center;
+}
+.guarantee-section h2{
+  color:var(--green);
+  font-family:Georgia,serif;
+  margin-bottom:8px;
+  text-align:center;
+}
+.guarantee-subtitle{
+  color:#777;
+  margin-bottom:24px;
+}
+.guarantee-grid{
+  max-width:1050px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.guarantee-card{
+  color:#fff;
+  min-height:105px;
+  border-radius:5px;
+  padding:18px 14px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 4px 10px rgba(0,0,0,.15);
+}
+.guarantee-card:nth-child(1){background:linear-gradient(135deg,#f6c453,#d68f1f);color:var(--brown)}
+.guarantee-card:nth-child(2){background:linear-gradient(135deg,var(--chili),#8f2f1e)}
+.guarantee-card:nth-child(3){background:linear-gradient(135deg,var(--green),var(--green2))}
+.guarantee-card:nth-child(4){background:linear-gradient(135deg,var(--terracotta),#a8331f)}
+.guarantee-icon{
+  font-size:1.8rem;
+  margin-bottom:7px;
+}
+.guarantee-card strong{
+  font-size:.9rem;
+  line-height:1.4;
+}
+
+/* DELIVERY / REVIEWS / ABOUT / CONTACT */
+.loc-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:10px}
+.loc-btn{
+  background:#fff;border:1px solid var(--green);color:var(--green);
+  padding:8px 16px;border-radius:20px
+}
+.loc-btn.selected,.loc-btn:hover{background:var(--green);color:#fff}
+#deliveryNote{text-align:center;font-weight:bold;color:var(--green)}
+.deliveryInfo,.reviewCard,.aboutBox,.contactCard{
+  background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)
+}
+.deliveryInfo{max-width:600px;margin:14px auto 0;padding:15px;line-height:1.7}
+.reviewCard{padding:12px 15px;margin-bottom:8px}
+.reviewCard .stars{color:#d6a83d}
+.aboutBox{max-width:700px;margin:auto;padding:20px;line-height:1.7}
+.contactGrid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:700px;margin:auto}
+.contactCard{padding:18px 22px;text-align:center;min-width:170px}
+.contactCard a,.contactCard button.linklike{display:inline-block;margin-top:6px;font-weight:bold;color:var(--green);border:0;background:none;font-size:1em;cursor:pointer}
+.contactCard.whatsappCard{border:1px solid #cdeeda}
+.contactCard.whatsappCard button.linklike{color:var(--whatsapp)}
+footer{background:var(--green2);color:#fff;text-align:center;padding:50px 16px 30px;font-size:.85rem}
+
+/* FLOATING CART BAR */
+#cartBox{
+  position:fixed;bottom:0;left:0;right:0;background:var(--green2);color:#fff;
+  padding:12px 5%;display:flex;justify-content:space-between;align-items:center;
+  z-index:60
+}
+#cartBox button{
+  background:var(--gold);color:#fff;border:0;padding:8px 18px;border-radius:18px;font-weight:bold
+}
+
+/* FLOATING WHATSAPP BUTTON */
+.whatsappFloat{
+  position:fixed;
+  right:20px;
+  bottom:92px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--whatsapp);
+  border:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.28);
+  z-index:70;
+  transition:transform .2s;
+}
+.whatsappFloat:hover{transform:scale(1.08)}
+.whatsappFloat svg{width:28px;height:28px;fill:#fff}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media(max-width:900px){
+  .navLinks{display:none}
+  .mobileMenu{display:block;border:0;background:none;font-size:1.3rem}
+  .topbar{padding:0 4%;height:64px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:700px){
+  .guarantee-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .hero h1{font-size:1.45rem}
+  .categoryScroller{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+  .categoryItem{min-width:92px}
+  .grid{grid-template-columns:1fr 1fr;gap:12px}
+  .productsTop{align-items:flex-start;gap:8px;flex-direction:column}
+  .filterBar{justify-content:flex-start}
+  .guarantee-grid{grid-template-columns:1fr}
+  .cartProduct{grid-template-columns:60px 1fr}
+  .cartProductImg{width:60px;height:75px;font-size:2.2rem}
+  .cartProduct > div:last-child{grid-column:2}
+  .whatsappFloat{width:48px;height:48px;right:14px;bottom:84px}
+  .whatsappFloat svg{width:24px;height:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- MAIN SHOP PAGE -->
+<div id="mainPage">
+
+<!-- TOP NAV -->
+<div class="topbar">
+  <button class="mobileMenu" onclick="document.querySelector('.navLinks').style.display='flex'">☰</button>
+
+  <a class="brand" href="#home">
+    AMMA'S
+    <small>MASALA</small>
+  </a>
+
+  <nav class="navLinks">
+    <a href="#home">Home</a>
+    <a href="#products">Shop All⌄</a>
+    <a href="#" onclick="trackOnWhatsApp();return false;">Track Order</a>
+    <a href="#contact">Contact Us</a>
+    <a href="#about">About Us</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+
+  <div class="navActions">
+    <button class="cartPill" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+  </div>
+</div>
+
+<!-- HERO HEADER -->
+<div class="hero" id="home">
+  <div class="breadcrumb"><a href="#home">Home</a><span>/</span>Our Products</div>
+  <h1>Blended Spices</h1>
+</div>
+
+<div class="offer">🎉 Buy any 25 Masalas @ Rs 499 &nbsp; | &nbsp; Freshly packed with traditional taste</div>
+
+<!-- CATEGORY CIRCLES -->
+<div class="categoryArea">
+  <div class="categoryScroller">
+    <button class="categoryItem active" onclick="setCategory('all',this)">
+      <div class="categoryCircle">🥣</div>
+      <strong>All Products</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('spice',this)">
+      <div class="categoryCircle">🌶️</div>
+      <strong>Powdered Pure<br>Spices</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('masala',this)">
+      <div class="categoryCircle">🫙</div>
+      <strong>Blended Spices</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('combo',this)">
+      <div class="categoryCircle">🍲</div>
+      <strong>Ready Mix Powders</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('pickle',this)">
+      <div class="categoryCircle">🌾</div>
+      <strong>Millet Flour</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('bestseller',this)">
+      <div class="categoryCircle">🎁</div>
+      <strong>Combos</strong>
+    </button>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section" id="products">
+  <div class="productsTop">
+    <h2>Popular Masalas</h2>
+    <div class="filterBar">
+      <select id="spiceFilter" onchange="renderProducts()">
+        <option value="all">All Spice Levels</option>
+        <option value="Mild">Mild</option>
+        <option value="Medium">Medium</option>
+        <option value="Hot">Hot</option>
+      </select>
+      <select id="sortBy" onchange="renderProducts()">
+        <option value="popular">SORT BY</option>
+        <option value="lowhigh">Price: Low to High</option>
+        <option value="highlow">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="grid" id="productGrid"></div>
+</div>
+
+<!-- QUALITY GUARANTEE -->
+<section class="guarantee-section">
+  <h2>Our Quality Guarantee</h2>
+  <p class="guarantee-subtitle">Traditional taste with carefully maintained quality standards.</p>
+  <div class="guarantee-grid">
+    <div class="guarantee-card">
+      <div class="guarantee-icon">🧪</div>
+      <strong>80+ prototypes and testing done for all products.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon">☀️</div>
+      <strong>Sun-dried and roasted at 70°C to enhance flavour.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon">🧼</div>
+      <strong>Hygienic process with minimal human intervention.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon">🌿</div>
+      <strong>No artificial flavours or colours.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT QUICK-VIEW MODAL: grams, full details & delivery info live here -->
+<div id="modalOverlay" class="modalOverlay" onclick="if(event.target===this) closeProductModal()">
+  <div class="productModal">
+    <button class="modalClose" onclick="closeProductModal()" aria-label="Close">✕</button>
+    <div class="modalImgWrap"><img id="modalImg" src="" alt=""></div>
+    <h3 id="modalName" class="modalName"></h3>
+    <div class="modalSpiceRow">🌶️ Spice Level: <strong id="modalSpice"></strong></div>
+
+    <div class="modalDetails">
+      <b>Ingredients:</b> <span id="modalIngredients"></span><br>
+      <b>Shelf Life:</b> <span id="modalShelf"></span><br>
+      <span id="modalDesc"></span>
+    </div>
+
+    <label class="modalLabel" for="modalWeight">Select Weight</label>
+    <select id="modalWeight" class="weightSel" onchange="updateModalPrice()">
+      <option value="100g">100g</option>
+      <option value="250g" selected>250g</option>
+      <option value="500g">500g</option>
+      <option value="1kg">1kg</option>
+    </select>
+
+    <div class="modalPriceRow">
+      <span class="modalPrice" id="modalPrice">₹0</span>
+      <div class="cardQty">
+        <button onclick="changeModalQty(-1)">-</button>
+        <span id="modalQty">1</span>
+        <button onclick="changeModalQty(1)">+</button>
+      </div>
+    </div>
+
+    <div class="deliveryInfo modalDeliveryInfo">
+      <p><b>🚚 Delivery charge:</b> ₹40 flat (FREE above ₹500 or on your first order)</p>
+      <p><b>⏱ Estimated delivery:</b> 1–3 business days</p>
+      <p><b>📦 Minimum order:</b> ₹150</p>
+    </div>
+
+    <button class="add-btn modalAddBtn" onclick="confirmAddToCart()">Add to Cart</button>
+  </div>
+</div>
+
+<!-- CART -->
+<div id="cartPanel">
+  <div class="cartHeader">
+    <h2>🛒 Your Cart</h2>
+    <span style="color:#777;font-size:.85rem;">Fresh & Homemade</span>
+  </div>
+
+  <div id="cartItems"></div>
+  <div class="totalsBox" id="cartTotals"></div>
+
+  <div class="cartGuarantee">
+    <b>🌿 Quality Guarantee</b><br>
+    ✓ No artificial flavours or colours<br>
+    ✓ Hygienic preparation process<br>
+    ✓ Carefully tested products<br>
+    ✓ Freshly packed for better taste
+  </div>
+
+  <button class="cartCheckoutBtn" id="placeOrderBtn" onclick="openCheckout()">Proceed to Checkout</button>
+</div>
+
+<!-- CHECKOUT -->
+<div id="orderForm">
+  <h2>Checkout</h2>
+  <div id="orderSummary" style="font-size:0.9em;margin-bottom:8px;"></div>
+  <input type="text" id="custName" placeholder="Full Name">
+  <input type="tel" id="custPhone" placeholder="Mobile Number">
+  <input type="text" id="custAddress" placeholder="Delivery Address">
+  <input type="text" id="custPincode" placeholder="Pincode">
+  <p style="margin-top:6px;font-weight:bold;">Payment Method</p>
+  <div class="payRow">
+    <label><input type="radio" name="pay" value="COD" checked> Cash on Delivery</label>
+    <label><input type="radio" name="pay" value="UPI"> UPI</label>
+    <label><input type="radio" name="pay" value="Online"> Online Payment</label>
+  </div>
+  <div class="checkoutHint">📲 After you place the order, WhatsApp will open with your order details pre-filled — just tap Send so we can confirm it and keep you posted on delivery.</div>
+  <button id="confirmOrderBtn" onclick="placeOrder()">Place Order</button>
+</div>
+
+<!-- ORDER CONFIRMATION -->
+<div id="orderConfirm">
+  <div class="orderConfirmIcon">✅</div>
+  <h2>Order Sent for Confirmation!</h2>
+  <p>We've opened WhatsApp with your order details filled in.</p>
+  <p>Just hit <strong>Send</strong> there and we'll confirm your order right away.</p>
+  <div class="orderIdTag">Order ID: <span id="confirmOrderId"></span></div>
+  <button class="trackBtn" onclick="trackOnWhatsApp()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+    Track This Order on WhatsApp
+  </button>
+  <button class="backToShopBtn" onclick="document.getElementById('orderConfirm').classList.remove('open');document.getElementById('products').scrollIntoView({behavior:'smooth'})">Continue Shopping</button>
+</div>
+
+<!-- FEEDBACK FORM: shown once an order is placed -->
+<div id="feedbackForm">
+  <h2>💭 Tell Us What You Think</h2>
+  <p>Got a question about your order, or an idea for a new masala or pickle? Share it below — it goes straight to us on WhatsApp.</p>
+  <div id="feedbackOrderTag" class="orderIdTag" style="display:none;"></div>
+  <select id="feedbackType">
+    <option value="Question about my order">Question about my order</option>
+    <option value="Product idea / suggestion">Product idea / suggestion</option>
+    <option value="General query">General query</option>
+    <option value="Compliment">Compliment</option>
+  </select>
+  <textarea id="feedbackText" rows="4" placeholder="Share your queries or ideas..."></textarea>
+  <button class="trackBtn" onclick="submitFeedback()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+    Send Feedback on WhatsApp
+  </button>
+  <div id="feedbackThanks">🙏 Thank you! We've opened WhatsApp with your message — just tap Send.</div>
+</div>
+
+<!-- DELIVERY INFO -->
+<div class="section" id="delivery">
+  <h2>📍 Delivery Information</h2>
+  <div class="loc-list">
+    <button class="loc-btn" onclick="selectLocation('Coimbatore',this)">Coimbatore</button>
+    <button class="loc-btn" onclick="selectLocation('Tirupur',this)">Tirupur</button>
+    <button class="loc-btn" onclick="selectLocation('Salem',this)">Salem</button>
+    <button class="loc-btn" onclick="selectLocation('Chennai',this)">Chennai</button>
+    <button class="loc-btn" onclick="selectLocation('Thanjavur',this)">Thanjavur</button>
+    <button class="loc-btn" onclick="selectLocation('Karur',this)">Karur</button>
+  </div>
+  <div id="deliveryNote"></div>
+  <div class="deliveryInfo">
+    <p><b>Delivery charge:</b> ₹40 flat (FREE within 2-3km, FREE on first order, FREE above ₹500)</p>
+    <p><b>Estimated delivery:</b> 1-3 business days depending on location</p>
+    <p><b>Minimum order:</b> ₹150</p>
+    <p><b>Order tracking:</b> You'll get a call/WhatsApp update once your order is packed and dispatched</p>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section" id="reviews">
+  <h2>⭐ Customer Reviews</h2>
+  <div id="reviewList" style="max-width:520px;margin:0 auto;"></div>
+</div>
+
+<!-- ABOUT -->
+<div class="section" id="about">
+  <h2>📜 Our Story</h2>
+  <div class="aboutBox">
+    <p>Amma's Home Masala & Pickles started in a home kitchen with recipes passed down through generations.
+    Every masala is stone-ground and every pickle is hand-mixed in small batches, packed fresh only after
+    you order — never sitting on a shelf for months. We believe good food starts with honest ingredients
+    and real tradition.</p>
+  </div>
+</div>
+
+<!-- CONTACT / SUPPORT -->
+<div class="section" id="contact">
+  <h2>💬 Contact & Support</h2>
+  <div class="contactGrid">
+    <div class="contactCard whatsappCard">📱 WhatsApp<br><button class="linklike" onclick="openWhatsAppChat()">Chat, confirm & track orders</button></div>
+    <div class="contactCard">☎️ Phone<br><a href="tel:+919999999999">+91 99999 99999</a></div>
+    <div class="contactCard">✉️ Email<br><a href="mailto:hello@ammamasala.com">hello@ammamasala.com</a></div>
+  </div>
+</div>
+
+<footer>© Amma's Home Masala & Pickles — Made fresh, made with love.</footer>
+
+</div>
+
+<!-- FLOATING CART BAR -->
+<div id="cartBox">
+  <span id="cartSummary">🛒 Cart: 0 items | ₹0</span>
+  <button onclick="toggleCart()">View Cart</button>
+</div>
+
+<!-- FLOATING WHATSAPP BUTTON -->
+<button class="whatsappFloat" onclick="openWhatsAppChat()" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+</button>
+
+<script>
+/* WHATSAPP CONFIG — replace with your real business number, country code first, no + or spaces */
+const WHATSAPP_NUMBER = "91-8122327330";
+
+/* PRODUCT DATA */
+const products = [
+  {id:1, name:"Sambar Podi", cat:"spice", tags:["bestseller"], price250:120, spice:"Medium", shelf:"6 months", ingredients:"Toor dal, coriander, red chilli, spices", desc:"Classic South Indian sambar powder, stone ground.", color:"c1", icon:"🥘",img:"sambar.png"},
+  {id:2, name:"Rasam Podi", cat:"spice", tags:[], price250:110, spice:"Mild", shelf:"6 months", ingredients:"Pepper, cumin, coriander, toor dal", desc:"Aromatic rasam powder for everyday comfort food.", color:"c2", icon:"🍲",img:"rasam.png"},
+  {id:3, name:"Vatha Kulambu Masala", cat:"masala", tags:[], price250:130, spice:"Medium", shelf:"6 months", ingredients:"Tamarind, red chilli, coriander, spices", desc:"Traditional tangy kulambu masala blend.", color:"c3", icon:"🍛",img:"vatha.jpg"},
+  {id:4, name:"Idly Podi", cat:"spice", tags:["bestseller"], price250:100, spice:"Mild", shelf:"4 months", ingredients:"Urad dal, chana dal, red chilli, sesame oil", desc:"Roasted lentil podi, perfect with idly & dosa.", color:"c4", icon:"🍘",img:"idly.png"},
+  {id:5, name:"Turmeric Powder", cat:"spice", tags:[], price250:90, spice:"Mild", shelf:"12 months", ingredients:"100% pure turmeric", desc:"Farm-sourced turmeric, sun dried and ground.", color:"c5", icon:"🟡",img:"tumeric.png"},
+  {id:6, name:"Garam Masala", cat:"spice", tags:[], price250:120, spice:"Medium", shelf:"6 months", ingredients:"Cinnamon, clove, cardamom, star anise", desc:"Warm aromatic blend for everyday cooking.", color:"c6", icon:"🧄",img:"garam.png"},
+  {id:7, name:"Biryani Masala", cat:"masala", tags:["bestseller"], price250:150, spice:"Hot", shelf:"6 months", ingredients:"Whole spices, dry chilli, bay leaf", desc:"Restaurant-style biryani masala blend.", color:"c7", icon:"🍛",img:"biryani.jpg"},
+  {id:8, name:"Chettinad Masala", cat:"masala", tags:["new"], price250:160, spice:"Hot", shelf:"6 months", ingredients:"Black pepper, star anise, dry chilli", desc:"Signature Chettinad spice blend.", color:"c8", icon:"🌶️",img:"chettinadu.jpg"},
+  {id:9, name:"Chicken 65 Masala", cat:"masala", tags:["bestseller"], price250:150, spice:"Hot", shelf:"6 months", ingredients:"Red chilli, ginger-garlic, curry leaf powder", desc:"Crispy, spicy Chicken 65 masala mix.", color:"c9", icon:"🍗",img:"chicken 65.jpg"},
+  {id:10, name:"Pallipalayam Masala", cat:"masala", tags:["new"], price250:160, spice:"Hot", shelf:"6 months", ingredients:"Dry red chilli, garlic, curry leaves", desc:"Kongu-style dry roast masala.", color:"c10", icon:"🐓",img:"pallipalayam.jpg"},
+  {id:11, name:"Madurai Chukka Masala", cat:"masala", tags:["new"], price250:160, spice:"Hot", shelf:"6 months", ingredients:"Red chilli, fennel, spices", desc:"Madurai-style spicy chukka masala.", color:"c11", icon:"🌶️",img:"madurai.jpg"},
+  {id:12, name:"Mutton Masala", cat:"masala", tags:[], price250:170, spice:"Hot", shelf:"6 months", ingredients:"Whole spices, red chilli, coconut", desc:"Rich masala for authentic mutton curry.", color:"c12", icon:"🐐",img:"mutton masala.png"},
+  {id:13, name:"Fish Masala", cat:"masala", tags:[], price250:150, spice:"Medium", shelf:"6 months", ingredients:"Coriander, chilli, tamarind, spices", desc:"Tangy masala for fish curry & fry.", color:"c13", icon:"🐟",img:"fish fry.jpg"},
+  {id:14, name:"Mango Pickle", cat:"pickle", tags:["bestseller"], price250:150, spice:"Hot", shelf:"12 months", ingredients:"Raw mango, mustard, red chilli, gingelly oil", desc:"Tangy-spicy traditional mango pickle.", color:"c14", icon:"🥭",img:"mango.jpg"},
+  {id:15, name:"Garlic Pickle", cat:"pickle", tags:[], price250:160, spice:"Medium", shelf:"12 months", ingredients:"Garlic, red chilli, mustard, oil", desc:"Bold, aromatic garlic pickle.", color:"c15", icon:"🧄",img:"garlic.jpg"},
+  {id:16, name:"Lemon Pickle", cat:"pickle", tags:[], price250:140, spice:"Medium", shelf:"12 months", ingredients:"Lemon, salt, red chilli, spices", desc:"Classic tangy lemon pickle.", color:"c16", icon:"🍋",img:"lemon.jpg"},
+  {id:17, name:"Chicken Pickle", cat:"pickle", tags:["bestseller"], price250:220, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Chicken, red chilli, vinegar, spices", desc:"Spicy homemade chicken pickle.", color:"c17", icon:"🍗",img:"chicken pic.jpg"},
+  {id:18, name:"Prawn Pickle", cat:"pickle", tags:[], price250:250, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Prawn, red chilli, vinegar, spices", desc:"Coastal-style spicy prawn pickle.", color:"c18", icon:"🦐",img:"prawn.jpg"},
+  {id:19, name:"Mutton Pickle", cat:"pickle", tags:[], price250:260, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Mutton, red chilli, vinegar, spices", desc:"Rich and spicy mutton pickle.", color:"c19", icon:"🐐",img:"mutton pic.jpg"},
+  {id:20, name:"Fish Pickle", cat:"pickle", tags:[], price250:230, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Fish, red chilli, vinegar, spices", desc:"Tangy coastal-style fish pickle.", color:"c20", icon:"🐟",img:"fish pickel.jpg"},
+  {id:21, name:"Fried Rice Masala", cat:"spice", tags:[], price250:140, spice:"Medium", shelf:"6 months", ingredients:"Pepper, spices, salt blend", desc:"Quick masala for restaurant-style fried rice.", color:"c1", icon:"🍚",img:"fried rice.jpg"},
+  {id:22, name:"Sambar + Rasam Combo", cat:"combo", tags:["bestseller"], price250:220, spice:"Medium", shelf:"6 months", ingredients:"Sambar podi + Rasam podi (250g each)", desc:"Our two most-loved powders together.", color:"c3", icon:"🎁",img:"sambar combo.jpg"},
+  {id:23, name:"Pickle Lovers Combo", cat:"combo", tags:["new"], price250:400, spice:"Hot", shelf:"12 months", ingredients:"Mango + Garlic + Lemon pickle (250g each)", desc:"3 classic pickles in one combo pack.", color:"c14", icon:"🎁",img:"mango combo.png"},
+  {id:24, name:"Non-Veg Masala Combo", cat:"combo", tags:[], price250:450, spice:"Hot", shelf:"6 months", ingredients:"Chicken + Mutton + Fish masala (200g each)", desc:"All 3 non-veg masalas in one pack.", color:"c9", icon:"🎁",img:"non veg combo.png"}
+];
+
+const colorMap = {c1:"#c96f26",c2:"#d62828",c3:"#8a3b12",c4:"#4a4a4a",c5:"#f2b705",c6:"#5b3a29",c7:"#1f6f4a",c8:"#8b0000",c9:"#e07a1f",c10:"#7a2e0e",c11:"#a83232",c12:"#7a1f1f",c13:"#1f7a9a",c14:"#f4a300",c15:"#6b6b6b",c16:"#c9b400",c17:"#b3261e",c18:"#a13c1f",c19:"#7a1f1f",c20:"#1f7a9a"};
+
+const weightMult = {"100g":0.45, "250g":1, "500g":1.85, "1kg":3.5};
+
+let cart = [];
+let currentCategory = "all";
+let selectedLocation = null;
+let lastOrder = null;
+
+/* RENDER PRODUCTS WITHOUT RATINGS */
+function renderProducts(){
+  const grid = document.getElementById('productGrid');
+  const spiceFilter = document.getElementById('spiceFilter').value;
+  const sortBy = document.getElementById('sortBy').value;
+
+  let list = products.filter(p => {
+    if(currentCategory !== "all" && currentCategory !== "bestseller" && currentCategory !== "new" && p.cat !== currentCategory) return false;
+    if(currentCategory === "bestseller" && !p.tags.includes("bestseller")) return false;
+    if(currentCategory === "new" && !p.tags.includes("new")) return false;
+    if(spiceFilter !== "all" && p.spice !== spiceFilter) return false;
+    return true;
+  });
+
+  if(sortBy === "lowhigh") list = list.slice().sort((a,b)=>a.price250-b.price250);
+  if(sortBy === "highlow") list = list.slice().sort((a,b)=>b.price250-a.price250);
+
+  grid.innerHTML = "";
+  list.forEach(p => {
+    const card = document.createElement('div');
+    card.className = "card";
+
+    card.innerHTML = `
+      ${p.tags.includes('bestseller') ? '<div class="badge">Best Seller</div>' : (p.tags.includes('new') ? '<div class="badge">New</div>' : '')}
+      <div class="cardImgWrap"><img src="${p.img || ''}" alt="${p.name}" class="cardImg"></div>
+      <h4 class="cardName">${p.name}</h4>
+      <div class="cardPrice">₹${p.price250}</div>
+      <button class="add-btn cardAddBtn" onclick="openProductModal(${p.id})">Add to Cart</button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+/* PRODUCT QUICK-VIEW MODAL: opened from "Add to Cart" on the home grid.
+   Weight (grams), full details, and delivery info are only shown here. */
+let modalProductId = null;
+
+function openProductModal(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  modalProductId = id;
+  document.getElementById('modalImg').src = p.img || '';
+  document.getElementById('modalImg').alt = p.name;
+  document.getElementById('modalName').innerText = p.name;
+  document.getElementById('modalSpice').innerText = p.spice;
+  document.getElementById('modalIngredients').innerText = p.ingredients;
+  document.getElementById('modalShelf').innerText = p.shelf;
+  document.getElementById('modalDesc').innerText = p.desc;
+  document.getElementById('modalWeight').value = '250g';
+  document.getElementById('modalQty').innerText = '1';
+  updateModalPrice();
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeProductModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  modalProductId = null;
+}
+
+function updateModalPrice() {
+  const p = products.find(x => x.id === modalProductId);
+  if (!p) return;
+  const weight = document.getElementById('modalWeight').value;
+  const price = Math.round(p.price250 * weightMult[weight]);
+  document.getElementById('modalPrice').innerText = `₹${price}`;
+}
+
+function changeModalQty(delta) {
+  const span = document.getElementById('modalQty');
+  let qty = parseInt(span.innerText) + delta;
+  if (qty < 1) qty = 1;
+  span.innerText = qty;
+}
+
+function confirmAddToCart() {
+  const p = products.find(x => x.id === modalProductId);
+  if (!p) return;
+  const weight = document.getElementById('modalWeight').value;
+  const qty = parseInt(document.getElementById('modalQty').innerText);
+  const priceUnit = Math.round(p.price250 * weightMult[weight]);
+
+  const existingIndex = cart.findIndex(item => item.id === p.id && item.weight === weight);
+  if (existingIndex > -1) {
+    cart[existingIndex].qty += qty;
+  } else {
+    cart.push({ id: p.id, name: p.name, icon: p.icon, color: p.color, weight, priceUnit, qty });
+  }
+
+  updateCartUI();
+  closeProductModal();
+  alert(`Added ${qty}x ${p.name} (${weight}) to your cart!`);
+}
+
+function setCategory(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.categoryItem').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderProducts();
+}
+
+function toggleCart() {
+  const panel = document.getElementById('cartPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    panel.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function updateCartUI() {
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.priceUnit * item.qty), 0);
+
+  document.getElementById('cartCount').innerText = totalItems;
+  document.getElementById('cartSummary').innerText = `🛒 Cart: ${totalItems} items | ₹${subtotal}`;
+
+  const container = document.getElementById('cartItems');
+  if (!container) return;
+
+  if (cart.length === 0) {
+    container.innerHTML = "<p style='padding:10px 0; color:#777;'>Your cart is currently empty.</p>";
+    document.getElementById('cartTotals').innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = cart.map((item, index) => `
+    <div class="cartProduct">
+      <div class="cartProductImg" style="background:${colorMap[item.color]}">${item.icon}</div>
+      <div class="cartProductInfo">
+        <h4>${item.name}</h4>
+        <small>Weight: ${item.weight}</small>
+        <div class="cartProductPrice">₹${item.priceUnit * item.qty}</div>
+        <div class="cartQuantity">
+          <button onclick="updateCartQty(${index}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="updateCartQty(${index}, 1)">+</button>
+        </div>
+      </div>
+      <button class="cartRemove" onclick="removeFromCart(${index})">✕ Remove</button>
+    </div>
+  `).join('');
+
+  document.getElementById('cartTotals').innerHTML = `
+    <p>Subtotal: <strong>₹${subtotal}</strong></p>
+    <p class="grand">Total Payable: ₹${subtotal}</p>
+  `;
+}
+
+function updateCartQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+  updateCartUI();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+function openCheckout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+  document.getElementById('orderForm').classList.add('open');
+  document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* Build a readable order summary to hand off to WhatsApp */
+function buildOrderMessage(name, phone, address, pincode, payMethod, orderId) {
+  const itemLines = cart.map(item => `• ${item.name} (${item.weight}) x${item.qty} — ₹${item.priceUnit * item.qty}`);
+  const subtotal = cart.reduce((sum, item) => sum + (item.priceUnit * item.qty), 0);
+
+  const lines = [
+    `🧺 *New Order — Amma's Home Masala & Pickles*`,
+    `Order ID: ${orderId}`,
+    ``,
+    `👤 Name: ${name}`,
+    `📞 Phone: ${phone}`,
+    `🏠 Address: ${address}`,
+    `📮 Pincode: ${pincode}`,
+    selectedLocation ? `📍 Delivery Area: ${selectedLocation}` : null,
+    ``,
+    `🛒 Items:`,
+    ...itemLines,
+    ``,
+    `Subtotal: ₹${subtotal}`,
+    `💳 Payment Method: ${payMethod}`,
+    ``,
+    `Please confirm this order — thank you!`
+  ];
+
+  return lines.filter(line => line !== null).join('\n');
+}
+
+function placeOrder() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pincode = document.getElementById('custPincode').value.trim();
+  const payMethodEl = document.querySelector('input[name="pay"]:checked');
+  const payMethod = payMethodEl ? payMethodEl.value : "COD";
+
+  if (!name || !phone || !address || !pincode) {
+    alert("Please fill in your name, mobile number, address, and pincode.");
+    return;
+  }
+
+  const orderId = "AM" + Date.now().toString().slice(-6);
+  const message = buildOrderMessage(name, phone, address, pincode, payMethod, orderId);
+  lastOrder = { id: orderId, name: name };
+
+  // Hand the order off to WhatsApp so the seller can confirm it directly
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+  document.getElementById('confirmOrderId').innerText = orderId;
+  document.getElementById('orderForm').classList.remove('open');
+  document.getElementById('cartPanel').classList.remove('open');
+  document.getElementById('orderConfirm').classList.add('open');
+  document.getElementById('orderConfirm').scrollIntoView({ behavior: 'smooth' });
+
+  // Invite the customer to share questions/ideas right after their order goes through
+  document.getElementById('feedbackOrderTag').style.display = 'inline-block';
+  document.getElementById('feedbackOrderTag').innerText = `Order ID: ${orderId}`;
+  document.getElementById('feedbackThanks').style.display = 'none';
+  document.getElementById('feedbackText').value = '';
+  document.getElementById('feedbackForm').classList.add('open');
+
+  cart = [];
+  updateCartUI();
+  document.getElementById('custName').value = '';
+  document.getElementById('custPhone').value = '';
+  document.getElementById('custAddress').value = '';
+  document.getElementById('custPincode').value = '';
+}
+
+function submitFeedback() {
+  const type = document.getElementById('feedbackType').value;
+  const text = document.getElementById('feedbackText').value.trim();
+
+  if (!text) {
+    alert("Please share a few words before sending.");
+    return;
+  }
+
+  const orderTag = lastOrder ? ` — Order ${lastOrder.id}` : '';
+  const message = `📝 *Feedback${orderTag}*\nType: ${type}\n\n${text}`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+  document.getElementById('feedbackThanks').style.display = 'block';
+  document.getElementById('feedbackText').value = '';
+}
+
+/* Generic pre-sales chat — used by the floating button and the contact card */
+function openWhatsAppChat() {
+  const text = "Hi! I have a question about your masalas & pickles.";
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+/* Post-order tracking — pre-fills the order ID when there's a recent order */
+function trackOnWhatsApp() {
+  const text = lastOrder
+    ? `Hi, I'd like to track my order ${lastOrder.id}. Could you share the current status?`
+    : `Hi, I'd like to check the status of my recent order. Could you help me track it?`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+function selectLocation(loc, btn) {
+  selectedLocation = loc;
+  document.querySelectorAll('.loc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  document.getElementById('deliveryNote').innerText = `Selected Delivery Location: ${loc}`;
+}
+renderProducts();
+</script>
+</body>
+</html>
