@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Amma's Masala — Admin</title>
+<style>
+:root{
+  --cream:#f8ecd4;
+  --green:#174b3f;
+  --green2:#0f3d34;
+  --gold:#d4a017;
+  --brown:#4a3427;
+  --chili:#c1432d;
+  --leaf:#3f7d5c;
+  --whatsapp:#25D366;
+  --bg:#f6f1e7;
+  --line:#e8e0d0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--brown);font-size:14px}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+
+/* Login */
+#loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.loginBox{background:#fff;padding:32px 26px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1);width:100%;max-width:360px;text-align:center}
+.loginBox .brand{color:var(--green);font-weight:900;font-size:1.5rem}
+.loginBox .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:3px}
+.loginBox p{color:#777;margin:10px 0 18px}
+.loginBox input{width:100%;padding:11px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px}
+.btn{background:var(--green);color:#fff;border:0;padding:9px 15px;border-radius:6px;font-weight:bold;text-decoration:none;display:inline-block}
+.btn:hover{background:var(--green2)}
+.btn.light{background:#fff;color:var(--green);border:1px solid var(--green)}
+.btn.light:hover{background:var(--cream)}
+.btn.wa{background:var(--whatsapp)}
+.btn.block{width:100%}
+.err{color:var(--chili);margin-top:8px;min-height:18px;font-size:.85rem}
+.demoNote{background:#fff7e0;border:1px solid #f0dca0;color:#7a5a00;padding:8px 10px;border-radius:6px;font-size:.8rem;margin-top:12px;line-height:1.5;text-align:left}
+
+/* App */
+.topbar{background:#fff;border-bottom:1px solid var(--line);padding:12px 4%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:20}
+.topbar .brand{color:var(--green);font-weight:900;font-size:1.15rem}
+.topbar .brand span{color:var(--gold);font-size:.75rem;letter-spacing:2px;margin-left:6px}
+.live{font-size:.75rem;color:#888;margin-left:12px;font-weight:normal}
+.live i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--whatsapp);margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3}}
+.topActions{display:flex;gap:8px;flex-wrap:wrap}
+main{padding:20px 4% 40px;max-width:1300px;margin:auto}
+
+.newBanner{display:none;background:var(--green);color:#fff;padding:12px 16px;border-radius:10px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.newBanner.show{display:flex}
+.newBanner button{background:var(--gold);color:#fff;border:0;padding:7px 14px;border-radius:16px;font-weight:bold}
+
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px}
+.stat{background:#fff;border-radius:10px;padding:14px 16px;border-left:4px solid var(--green);box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.stat:nth-child(2){border-color:var(--gold)}
+.stat:nth-child(3){border-color:var(--leaf)}
+.stat:nth-child(4){border-color:var(--chili)}
+.stat:nth-child(5){border-color:#d9784f}
+.stat:nth-child(6){border-color:#1d4f91}
+.stat small{color:#888;text-transform:uppercase;font-size:.7rem;letter-spacing:.5px}
+.stat b{display:block;font-size:1.45rem;color:var(--green);margin-top:4px}
+.stat .hint{font-size:.72rem;color:#999;margin-top:2px}
+
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:14px;overflow-x:auto}
+.tab{background:none;border:0;padding:10px 16px;color:#777;font-weight:bold;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.tab.active{color:var(--green);border-color:var(--green)}
+.tab .count{background:var(--chili);color:#fff;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.toolbar input,.toolbar select{padding:9px 10px;border:1px solid #ddd;border-radius:6px;background:#fff}
+.toolbar input{flex:1;min-width:200px}
+.panel{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.05);overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:760px}
+th{background:var(--cream);text-align:left;padding:10px 12px;font-size:.75rem;text-transform:uppercase;letter-spacing:.4px;color:#6b5646;white-space:nowrap}
+td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:#fbf8f2}
+tr.isNew td{background:#eef8f1}
+td .sub{color:#888;font-size:.8rem;display:block;margin-top:2px}
+.amt{font-weight:bold;color:var(--green);white-space:nowrap}
+.empty{padding:30px;text-align:center;color:#888}
+.status{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:bold;white-space:nowrap}
+.s-Pending{background:#fff3d6;color:#8a6200}
+.s-Confirmed{background:#e3eefc;color:#1d4f91}
+.s-Packed{background:#efe6fb;color:#5b2b91}
+.s-Dispatched{background:#e1f3f6;color:#12606e}
+.s-Delivered{background:#e3f4e8;color:#1f6b3a}
+.s-Cancelled{background:#fbe4e0;color:#9a2a17}
+.statusSel{padding:5px 6px;border:1px solid #ddd;border-radius:6px;background:#fff;font-size:.8rem}
+
+/* Insights */
+.insGrid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-bottom:16px}
+.card{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.05);padding:18px}
+.card h3{color:var(--green);font-family:Georgia,serif;font-size:1.05rem;margin-bottom:4px}
+.card .cardSub{color:#888;font-size:.8rem;margin-bottom:14px}
+.tip{display:flex;gap:10px;padding:11px 12px;border-radius:8px;margin-bottom:8px;line-height:1.5;border-left:4px solid}
+.tip b{display:block;color:var(--brown)}
+.tip span{color:#666;font-size:.85rem}
+.tip .ic{font-size:1.2rem;line-height:1.3}
+.tip.high{background:#fdf0ed;border-color:var(--chili)}
+.tip.mid{background:#fff8e6;border-color:var(--gold)}
+.tip.good{background:#eef8f1;border-color:var(--leaf)}
+.funnelRow{display:grid;grid-template-columns:130px 1fr 90px;gap:10px;align-items:center;margin-bottom:9px}
+.funnelRow label{font-size:.85rem;color:#555}
+.bar{background:#f1ece2;border-radius:4px;height:22px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:4px;min-width:2px}
+.funnelRow .num{text-align:right;font-size:.85rem}
+.funnelRow .num b{color:var(--green)}
+.funnelRow .num small{color:#999;display:block;font-size:.7rem}
+.drop{font-size:.75rem;color:var(--chili);margin:-4px 0 8px 140px}
+.miniGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line);font-size:.88rem}
+.kv:first-of-type{border-top:0}
+.kv b{color:var(--green)}
+.hbar{display:grid;grid-template-columns:90px 1fr 34px;gap:8px;align-items:center;margin-bottom:6px;font-size:.8rem}
+.hbar .bar{height:14px}
+.hbar .bar i{background:var(--gold)}
+.tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:bold}
+.tag.bad{background:#fbe4e0;color:#9a2a17}
+.tag.ok{background:#e3f4e8;color:#1f6b3a}
+.tag.warn{background:#fff3d6;color:#8a6200}
+
+/* Feedback */
+.fb{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.fb .fbHead{display:flex;justify-content:space-between;gap:10px;color:#888;font-size:.8rem;margin-bottom:6px;flex-wrap:wrap}
+.fb .fbType{font-weight:bold;color:var(--green)}
+.fb p{line-height:1.6;white-space:pre-wrap}
+
+/* Modal */
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,61,52,.55);z-index:50;align-items:center;justify-content:center;padding:16px}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:24px;position:relative}
+.modalClose{position:absolute;top:12px;right:12px;border:0;background:#f3f3f3;width:32px;height:32px;border-radius:50%;color:#666}
+.modal h2{color:var(--green);font-family:Georgia,serif;margin-bottom:4px}
+.modal .meta{color:#888;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.box{background:#fbf8f2;border:1px solid var(--line);border-radius:8px;padding:12px 14px;line-height:1.7}
+.box h4{color:var(--green);font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.modal table{min-width:0;margin-bottom:10px}
+.modal td,.modal th{padding:8px 10px}
+.totalRow td{font-weight:bold;color:var(--green);font-size:1.05rem}
+.modal label{display:block;font-size:.75rem;text-transform:uppercase;color:#888;margin:12px 0 4px}
+.modal textarea,.modal select{width:100%;padding:9px;border:1px solid #ddd;border-radius:6px}
+.modalActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green2);color:#fff;padding:10px 18px;border-radius:20px;display:none;z-index:100}
+
+@media(max-width:1000px){.stats{grid-template-columns:repeat(3,1fr)}.insGrid,.miniGrid{grid-template-columns:1fr}}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.stat b{font-size:1.2rem}.funnelRow{grid-template-columns:95px 1fr 70px}.drop{margin-left:105px}}
+@media print{
+  body *{visibility:hidden}
+  #orderModal .modal, #orderModal .modal *{visibility:visible}
+  #orderModal .modal{position:absolute;left:0;top:0;max-height:none;box-shadow:none}
+  .modalClose,.modalActions,.noPrint{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="loginBox">
+    <div class="brand">AMMA'S<small>MASALA · ADMIN</small></div>
+    <p>Enter your admin key to view orders</p>
+    <input type="password" id="adminKey" placeholder="Admin key" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn block" onclick="login()">Login</button>
+    <div class="err" id="loginErr"></div>
+    <div class="demoNote" id="demoNote" hidden>
+      <b>Demo mode:</b> no Google Sheet connected yet (API_URL is empty), so only orders placed in
+      <b>this same browser</b> on index.html are shown. Any key works. See setup steps in <code>apps-script.gs</code>.
+    </div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="app" hidden>
+  <div class="topbar">
+    <div class="brand">AMMA'S<span>ADMIN</span><span class="live" id="liveTxt"><i></i>Live</span></div>
+    <div class="topActions">
+      <button class="btn light" id="notifyBtn" onclick="enableNotifications()">🔔 Enable alerts</button>
+      <button class="btn light" onclick="refresh(true)">⟳ Refresh</button>
+      <button class="btn light" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <main>
+    <div class="newBanner" id="newBanner">
+      <span id="newBannerTxt"></span>
+      <button onclick="seeNewOrders()">View orders</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><small>Total Orders</small><b id="stTotal">0</b><div class="hint" id="stTotalHint"></div></div>
+      <div class="stat"><small>Revenue</small><b id="stRevenue">₹0</b><div class="hint">excl. cancelled</div></div>
+      <div class="stat"><small>Today's Orders</small><b id="stToday">0</b><div class="hint" id="stTodayHint"></div></div>
+      <div class="stat"><small>Pending</small><b id="stPending">0</b><div class="hint">need confirming</div></div>
+      <div class="stat"><small>Customers</small><b id="stCustomers">0</b><div class="hint" id="stRepeatHint"></div></div>
+      <div class="stat"><small>Visitors (30d)</small><b id="stVisitors">0</b><div class="hint" id="stConvHint"></div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="orders" onclick="showTab('orders')">📦 Orders <span class="count" id="pendingCount" hidden></span></button>
+      <button class="tab" data-tab="insights" onclick="showTab('insights')">💡 Insights & Improve</button>
+      <button class="tab" data-tab="customers" onclick="showTab('customers')">👤 Customers</button>
+      <button class="tab" data-tab="products" onclick="showTab('products')">🌶️ Products</button>
+      <button class="tab" data-tab="feedback" onclick="showTab('feedback')">💬 Feedback <span class="count" id="fbCount" hidden></span></button>
+    </div>
+
+    <!-- Orders -->
+    <section id="tab-orders">
+      <div class="toolbar">
+        <input type="search" id="orderSearch" placeholder="Search order ID, name, phone, pincode, product..." oninput="renderOrders()">
+        <select id="statusFilter" onchange="renderOrders()"><option value="all">All statuses</option></select>
+        <select id="dateFilter" onchange="renderOrders()">
+          <option value="all">All dates</option>
+          <option value="today">Today</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+        </select>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Area / Pincode</th><th>Items</th><th>Amount</th><th>Payment</th><th>Status</th></tr></thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Insights -->
+    <section id="tab-insights" hidden>
+      <div class="toolbar">
+        <span style="color:#777">Period:</span>
+        <select id="insPeriod" onchange="renderInsights()">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+      </div>
+      <div class="insGrid">
+        <div class="card">
+          <h3>✅ What to improve</h3>
+          <div class="cardSub">Suggestions worked out automatically from your orders, shop activity and feedback</div>
+          <div id="tips"></div>
+        </div>
+        <div class="card">
+          <h3>🛍️ Customer journey</h3>
+          <div class="cardSub">How many shoppers reach each step, and where they leave</div>
+          <div id="funnel"></div>
+        </div>
+      </div>
+      <div class="miniGrid">
+        <div class="card"><h3>📊 Key numbers</h3><div class="cardSub">For the selected period</div><div id="keyNums"></div></div>
+        <div class="card"><h3>📍 Orders by area</h3><div class="cardSub">Where your customers are</div><div id="areaBars"></div></div>
+        <div class="card"><h3>🗓️ Busiest days</h3><div class="cardSub">Orders by day of the week</div><div id="dayBars"></div></div>
+      </div>
+      <div class="card" style="padding:0">
+        <div style="padding:18px 18px 10px"><h3>🌶️ Product performance</h3>
+          <div class="cardSub" style="margin:0">Views = customers who opened the product. Conversion = orders ÷ views.</div></div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Product</th><th>Views</th><th>Added to cart</th><th>Orders</th><th>Qty sold</th><th>Revenue</th><th>Conversion</th><th>Verdict</th></tr></thead>
+            <tbody id="perfBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customers -->
+    <section id="tab-customers" hidden>
+      <div class="toolbar">
+        <input type="search" id="customerSearch" placeholder="Search name, phone, address..." oninput="renderCustomers()">
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Customer</th><th>Address</th><th>Orders</th><th>Total Spent</th><th>Last Order</th><th></th></tr></thead>
+          <tbody id="customersBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section id="tab-products" hidden>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Product</th><th>Weights Ordered</th><th>Qty Sold</th><th>Revenue</th></tr></thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+      <p style="color:#888;font-size:.8rem;margin-top:8px">All time. Cancelled orders are not counted.</p>
+    </section>
+
+    <!-- Feedback -->
+    <section id="tab-feedback" hidden>
+      <div class="toolbar">
+        <select id="fbFilter" onchange="renderFeedback()">
+          <option value="all">All feedback</option>
+          <option>Question about my order</option>
+          <option>Product idea / suggestion</option>
+          <option>General query</option>
+          <option>Compliment</option>
+        </select>
+      </div>
+      <div id="feedbackList"></div>
+    </section>
+  </main>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="overlay" id="orderModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Paste your Google Apps Script Web App URL here (the SAME one as in index.html)
+const API_URL = "";
+
+const POLL_SECONDS = 30;       // how often to check for new orders
+const STATUSES = ["Pending","Confirmed","Packed","Dispatched","Delivered","Cancelled"];
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+let orders = [], events = [], feedback = [];
+let adminKey = "";
+let knownIds = null;           // order IDs already seen — used to detect new orders
+let newIds = new Set();
+let pollTimer = null;
+const baseTitle = document.title;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const money = n => "₹" + Math.round(n || 0).toLocaleString("en-IN");
+const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+const fmtDate = d => { const x = new Date(d); return isNaN(x) ? esc(d) : x.toLocaleString("en-IN", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); };
+const itemCount = o => (o.items || []).reduce((s, i) => s + (i.qty || 0), 0);
+const waNumber = phone => { const d = String(phone).replace(/\D/g, ""); return d.length === 10 ? "91" + d : d; };
+const within = (d, days) => (Date.now() - new Date(d)) <= days * 86400000;
+
+STATUSES.forEach(s => $("statusFilter").insertAdjacentHTML("beforeend", `<option value="${s}">${s}</option>`));
+if (!API_URL) $("demoNote").hidden = false;
+
+// ---------- Data ----------
+async function api(payload) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },  // avoids CORS preflight with Apps Script
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if (!data.ok) throw new Error(data.error || "Request failed");
+  return data;
+}
+
+const readLocal = key => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) { return []; } };
+
+async function fetchData() {
+  if (API_URL) {
+    const d = await api({ action: "list", key: adminKey });
+    return { orders: d.orders || [], events: d.events || [], feedback: d.feedback || [] };
+  }
+  return { orders: readLocal("amma_orders"), events: readLocal("amma_events"), feedback: readLocal("amma_feedback") };
+}
+
+async function loadData(notify) {
+  const d = await fetchData();
+  orders = d.orders; events = d.events; feedback = d.feedback;
+  orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+  feedback.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const ids = new Set(orders.map(o => o.id));
+  if (knownIds && notify) {
+    const fresh = orders.filter(o => !knownIds.has(o.id));
+    if (fresh.length) announceNewOrders(fresh);
+  }
+  knownIds = ids;
+  renderAll();
+  $("liveTxt").innerHTML = `<i></i>Live · updated ${new Date().toLocaleTimeString("en-IN", {hour:"2-digit",minute:"2-digit"})}`;
+}
+
+async function saveOrderChange(id, changes) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  const before = { status: o.status, notes: o.notes };
+  Object.assign(o, changes);
+  renderAll();
+  try {
+    if (API_URL) {
+      await api({ action: "update", key: adminKey, id, ...changes });
+    } else {
+      const all = readLocal("amma_orders");
+      const x = all.find(a => a.id === id);
+      if (x) Object.assign(x, changes);
+      localStorage.setItem("amma_orders", JSON.stringify(all));
+    }
+    toast("Saved ✓");
+  } catch (e) {
+    Object.assign(o, before);
+    renderAll();
+    toast("Could not save: " + e.message);
+  }
+}
+
+// ---------- New order alerts ----------
+function announceNewOrders(fresh) {
+  fresh.forEach(o => newIds.add(o.id));
+  const n = newIds.size;
+  const latest = fresh[0];
+  $("newBannerTxt").innerHTML = `🎉 <b>${n} new order${n > 1 ? "s" : ""}!</b> Latest: ${esc(latest.name)} — ${money(latest.subtotal)} (${esc(latest.id)})`;
+  $("newBanner").classList.add("show");
+  document.title = `(${n}) New order${n > 1 ? "s" : ""} — ${baseTitle}`;
+  beep();
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("🧺 New order — Amma's Masala", {
+      body: `${latest.name} • ${money(latest.subtotal)} • ${itemCount(latest)} item(s)`
+    });
+  }
+}
+
+function seeNewOrders() {
+  $("newBanner").classList.remove("show");
+  document.title = baseTitle;
+  $("orderSearch").value = ""; $("statusFilter").value = "all"; $("dateFilter").value = "all";
+  showTab("orders");
+  renderOrders();
+  setTimeout(() => { newIds.clear(); }, 15000);   // keep new rows highlighted for a little while
+}
+
+function beep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [880, 1175].forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.18);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.16);
+      o.start(ctx.currentTime + i * 0.18); o.stop(ctx.currentTime + i * 0.18 + 0.17);
+    });
+  } catch (e) {}
+}
+
+async function enableNotifications() {
+  if (!("Notification" in window)) { toast("This browser doesn't support notifications"); return; }
+  const p = await Notification.requestPermission();
+  updateNotifyBtn();
+  toast(p === "granted" ? "Alerts enabled — keep this tab open" : "Alerts blocked in browser settings");
+}
+function updateNotifyBtn() {
+  if ("Notification" in window && Notification.permission === "granted") {
+    $("notifyBtn").innerText = "🔔 Alerts on";
+    $("notifyBtn").disabled = true;
+  }
+}
+
+function startLive() {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(() => loadData(true).catch(() => {}), POLL_SECONDS * 1000);
+}
+// Demo mode: instant update when index.html (open in another tab) saves an order
+window.addEventListener("storage", e => {
+  if (!API_URL && adminKey !== null && !$("app").hidden && e.key && e.key.startsWith("amma_")) loadData(true);
+});
+
+// ---------- Auth ----------
+async function login() {
+  const key = $("adminKey").value.trim();
+  if (API_URL && !key) { $("loginErr").innerText = "Please enter the admin key."; return; }
+  adminKey = key;
+  $("loginErr").innerText = "Checking...";
+  try {
+    await loadData(false);
+    sessionStorage.setItem("amma_admin_key", adminKey);
+    $("loginErr").innerText = "";
+    $("loginScreen").hidden = true;
+    $("app").hidden = false;
+    updateNotifyBtn();
+    startLive();
+  } catch (e) {
+    $("loginErr").innerText = e.message === "Wrong admin key" ? "Wrong admin key." : "Could not connect: " + e.message;
+  }
+}
+
+function logout() {
+  clearInterval(pollTimer);
+  sessionStorage.removeItem("amma_admin_key");
+  adminKey = ""; orders = []; events = []; feedback = []; knownIds = null;
+  $("adminKey").value = "";
+  $("app").hidden = true;
+  $("loginScreen").hidden = false;
+  document.title = baseTitle;
+}
+
+async function refresh(manual) {
+  try { await loadData(true); if (manual) toast("Updated ✓"); }
+  catch (e) { toast("Refresh failed: " + e.message); }
+}
+
+// ---------- Rendering ----------
+function renderAll() {
+  renderStats(); renderOrders(); renderInsights(); renderCustomers(); renderProducts(); renderFeedback();
+}
+
+function uniqueSessions(list, type) {
+  return new Set(list.filter(e => e.type === type).map(e => e.session)).size;
+}
+
+function renderStats() {
+  const active = orders.filter(o => o.status !== "Cancelled");
+  const todayStr = new Date().toDateString();
+  const yest = new Date(Date.now() - 86400000).toDateString();
+  const todayCount = orders.filter(o => new Date(o.date).toDateString() === todayStr).length;
+  const yestCount = orders.filter(o => new Date(o.date).toDateString() === yest).length;
+  const week = orders.filter(o => within(o.date, 7)).length;
+  const pending = orders.filter(o => o.status === "Pending").length;
+  const customers = getCustomers();
+  const repeat = customers.filter(c => c.orders > 1).length;
+  const ev30 = events.filter(e => within(e.date, 30));
+  const visitors = uniqueSessions(ev30, "visit");
+  const orders30 = orders.filter(o => within(o.date, 30)).length;
+
+  $("stTotal").innerText = orders.length;
+  $("stTotalHint").innerText = `${week} in last 7 days`;
+  $("stRevenue").innerText = money(active.reduce((s, o) => s + (o.subtotal || 0), 0));
+  $("stToday").innerText = todayCount;
+  $("stTodayHint").innerText = `yesterday: ${yestCount}`;
+  $("stPending").innerText = pending;
+  $("stCustomers").innerText = customers.length;
+  $("stRepeatHint").innerText = `${repeat} repeat (${pct(repeat, customers.length)}%)`;
+  $("stVisitors").innerText = visitors;
+  $("stConvHint").innerText = visitors ? `${pct(orders30, visitors)}% placed an order` : "no visit data yet";
+  $("pendingCount").hidden = !pending;
+  $("pendingCount").innerText = pending;
+  const fbNew = feedback.filter(f => within(f.date, 7)).length;
+  $("fbCount").hidden = !fbNew;
+  $("fbCount").innerText = fbNew;
+}
+
+function statusSelect(o) {
+  return `<select class="statusSel" onclick="event.stopPropagation()" onchange="saveOrderChange('${esc(o.id)}',{status:this.value})">
+    ${STATUSES.map(s => `<option ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}
+  </select>`;
+}
+
+function renderOrders() {
+  const q = $("orderSearch").value.trim().toLowerCase();
+  const st = $("statusFilter").value;
+  const df = $("dateFilter").value;
+  const now = new Date();
+
+  const list = orders.filter(o => {
+    if (st !== "all" && o.status !== st) return false;
+    if (df === "today" && new Date(o.date).toDateString() !== now.toDateString()) return false;
+    if (df !== "all" && df !== "today" && !within(o.date, Number(df))) return false;
+    if (q) {
+      const hay = [o.id, o.name, o.phone, o.address, o.pincode, o.location, ...(o.items || []).map(i => i.name)].join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  $("ordersBody").innerHTML = list.length ? list.map(o => `
+    <tr class="clickable ${newIds.has(o.id) ? "isNew" : ""}" onclick="openOrder('${esc(o.id)}')">
+      <td><b>${esc(o.id)}</b>${newIds.has(o.id) ? ' <span class="tag ok">NEW</span>' : ""}</td>
+      <td>${fmtDate(o.date)}</td>
+      <td>${esc(o.name)}<span class="sub">${esc(o.phone)}</span></td>
+      <td>${esc(o.location || "—")}<span class="sub">${esc(o.pincode)}</span></td>
+      <td>${itemCount(o)} item(s)<span class="sub">${esc((o.items || []).map(i => i.name).join(", ").slice(0, 60))}</span></td>
+      <td class="amt">${money(o.subtotal)}</td>
+      <td>${esc(o.payment)}</td>
+      <td>${statusSelect(o)}</td>
+    </tr>`).join("") : `<tr><td colspan="8" class="empty">No orders found.</td></tr>`;
+}
+
+// ---------- Insights ----------
+function productStats(ordersP, eventsP) {
+  const map = {};
+  const get = name => map[name] || (map[name] = { name, views: 0, adds: 0, orders: 0, qty: 0, revenue: 0 });
+  const viewSeen = new Set(), addSeen = new Set();
+  eventsP.forEach(e => {
+    if (!e.product) return;
+    const k = e.session + "|" + e.product;
+    if (e.type === "view" && !viewSeen.has(k)) { viewSeen.add(k); get(e.product).views++; }
+    if (e.type === "add" && !addSeen.has(k)) { addSeen.add(k); get(e.product).adds++; }
+  });
+  ordersP.filter(o => o.status !== "Cancelled").forEach(o => {
+    const inOrder = new Set();
+    (o.items || []).forEach(i => {
+      const p = get(i.name);
+      p.qty += i.qty || 0;
+      p.revenue += (i.qty || 0) * (i.priceUnit || 0);
+      if (!inOrder.has(i.name)) { inOrder.add(i.name); p.orders++; }
+    });
+  });
+  return Object.values(map);
+}
+
+function renderInsights() {
+  const days = Number($("insPeriod").value);
+  const oP = orders.filter(o => within(o.date, days));
+  const eP = events.filter(e => within(e.date, days));
+  const fP = feedback.filter(f => within(f.date, days));
+  const active = oP.filter(o => o.status !== "Cancelled");
+
+  // Funnel
+  const visits = uniqueSessions(eP, "visit");
+  const viewers = uniqueSessions(eP, "view");
+  const adders = uniqueSessions(eP, "add");
+  const checkouts = uniqueSessions(eP, "checkout");
+  const placed = uniqueSessions(eP, "order");
+  const steps = [
+    ["Visited shop", visits], ["Viewed a product", viewers], ["Added to cart", adders],
+    ["Opened checkout", checkouts], ["Placed order", placed]
+  ];
+  const top = Math.max(visits, 1);
+  $("funnel").innerHTML = eP.length ? steps.map((s, i) => {
+    const drop = i > 0 && steps[i - 1][1] > 0 ? steps[i - 1][1] - s[1] : 0;
+    return `${i > 0 && drop > 0 ? `<div class="drop">↓ ${drop} left here (${pct(drop, steps[i - 1][1])}%)</div>` : ""}
+      <div class="funnelRow"><label>${s[0]}</label>
+        <div class="bar"><i style="width:${Math.min(100, pct(s[1], top))}%"></i></div>
+        <div class="num"><b>${s[1]}</b><small>${pct(s[1], top)}% of visitors</small></div></div>`;
+  }).join("") : `<div class="empty">No shop activity recorded yet in this period.</div>`;
+
+  // Key numbers
+  const revenue = active.reduce((s, o) => s + o.subtotal, 0);
+  const aov = active.length ? revenue / active.length : 0;
+  const cancelled = oP.filter(o => o.status === "Cancelled").length;
+  const payCount = {};
+  oP.forEach(o => payCount[o.payment] = (payCount[o.payment] || 0) + 1);
+  const topPay = Object.entries(payCount).sort((a, b) => b[1] - a[1])[0];
+  const customersAll = getCustomers();
+  const phonesP = new Set(oP.map(o => waNumber(o.phone)));
+  const repeatP = customersAll.filter(c => phonesP.has(waNumber(c.phone)) && c.orders > 1).length;
+  $("keyNums").innerHTML = [
+    ["Orders", oP.length], ["Revenue", money(revenue)], ["Average order value", money(aov)],
+    ["Cancelled", `${cancelled} (${pct(cancelled, oP.length)}%)`],
+    ["Repeat customers", `${repeatP} of ${phonesP.size}`],
+    ["Most used payment", topPay ? `${esc(topPay[0])} (${pct(topPay[1], oP.length)}%)` : "—"],
+    ["Feedback received", fP.length]
+  ].map(([k, v]) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`).join("");
+
+  // Areas
+  const areas = {};
+  oP.forEach(o => { const a = o.location || "Not selected"; areas[a] = (areas[a] || 0) + 1; });
+  const areaList = Object.entries(areas).sort((a, b) => b[1] - a[1]);
+  const maxA = Math.max(1, ...areaList.map(a => a[1]));
+  $("areaBars").innerHTML = areaList.length ? areaList.map(([a, n]) =>
+    `<div class="hbar"><span>${esc(a)}</span><div class="bar"><i style="width:${pct(n, maxA)}%"></i></div><b>${n}</b></div>`).join("")
+    : `<div class="empty">No orders yet.</div>`;
+
+  // Days
+  const dayC = [0, 0, 0, 0, 0, 0, 0];
+  oP.forEach(o => dayC[new Date(o.date).getDay()]++);
+  const maxD = Math.max(1, ...dayC);
+  $("dayBars").innerHTML = oP.length ? dayC.map((n, i) =>
+    `<div class="hbar"><span>${DAYS[i]}</span><div class="bar"><i style="width:${pct(n, maxD)}%"></i></div><b>${n}</b></div>`).join("")
+    : `<div class="empty">No orders yet.</div>`;
+
+  // Product performance
+  const perf = productStats(oP, eP).sort((a, b) => b.revenue - a.revenue || b.views - a.views);
+  $("perfBody").innerHTML = perf.length ? perf.map(p => {
+    const conv = pct(p.orders, p.views);
+    let verdict;
+    if (p.views >= 5 && p.orders === 0) verdict = `<span class="tag bad">Viewed, never bought</span>`;
+    else if (p.adds >= 3 && p.orders === 0) verdict = `<span class="tag bad">Left in carts</span>`;
+    else if (p.views >= 5 && conv < 10) verdict = `<span class="tag warn">Low conversion</span>`;
+    else if (p.orders >= 3) verdict = `<span class="tag ok">Selling well</span>`;
+    else verdict = `<span style="color:#aaa">—</span>`;
+    return `<tr><td><b>${esc(p.name)}</b></td><td>${p.views}</td><td>${p.adds}</td><td>${p.orders}</td>
+      <td>${p.qty}</td><td class="amt">${money(p.revenue)}</td><td>${p.views ? conv + "%" : "—"}</td><td>${verdict}</td></tr>`;
+  }).join("") : `<tr><td colspan="8" class="empty">No product data yet.</td></tr>`;
+
+  // Suggestions
+  $("tips").innerHTML = buildTips({ days, oP, eP, fP, active, visits, viewers, adders, checkouts, placed, aov, cancelled, perf, areaList, dayC, phonesP, repeatP, payCount })
+    .map(t => `<div class="tip ${t.level}"><div class="ic">${t.icon}</div><div><b>${t.title}</b><span>${t.text}</span></div></div>`).join("");
+}
+
+function buildTips(d) {
+  const tips = [];
+  const add = (level, icon, title, text) => tips.push({ level, icon, title, text });
+
+  if (!d.oP.length && !d.eP.length) {
+    add("mid", "📣", "No activity yet in this period",
+      "Share your shop link on WhatsApp status, family groups, Instagram and local Facebook groups to bring in your first visitors.");
+    return tips;
+  }
+
+  // Pending orders waiting too long
+  const stale = orders.filter(o => o.status === "Pending" && !within(o.date, 1));
+  if (stale.length) add("high", "⏰", `${stale.length} order(s) still Pending for over 24 hours`,
+    `Confirm them on WhatsApp today. Slow confirmation is the #1 reason customers cancel. (${stale.slice(0, 3).map(o => esc(o.id)).join(", ")}${stale.length > 3 ? "…" : ""})`);
+
+  // Funnel drop-offs
+  if (d.visits >= 10 && pct(d.viewers, d.visits) < 30)
+    add("high", "👀", `Only ${pct(d.viewers, d.visits)}% of visitors open a product`,
+      "Most people leave without looking at products. Use brighter, clearer product photos, show your offer at the top, and put best sellers first.");
+  if (d.viewers >= 10 && pct(d.adders, d.viewers) < 20)
+    add("high", "🛒", `Only ${pct(d.adders, d.viewers)}% of product viewers add to cart`,
+      "Customers look but don't buy. Check if prices feel high, add a 100g trial size price upfront, and show reviews/ratings inside the product popup.");
+  if (d.adders >= 5 && pct(d.checkouts, d.adders) < 50)
+    add("mid", "🧾", `${d.adders - d.checkouts} shopper(s) added to cart but never opened checkout`,
+      "Show the delivery charge and 'FREE delivery above ₹500' inside the cart, and make the 'Proceed to Checkout' button more visible.");
+  if (d.checkouts >= 3 && pct(d.placed, d.checkouts) < 60)
+    add("high", "📝", `${d.checkouts - d.placed} shopper(s) opened checkout but didn't place the order`,
+      "The checkout form may feel long or they may not trust paying. Reassure with 'Cash on Delivery available', keep fields few, and add your phone number near the form.");
+
+  // Products
+  const neverBought = d.perf.filter(p => p.views >= 5 && p.orders === 0);
+  if (neverBought.length) add("mid", "🌶️", `Viewed a lot but never bought: ${neverBought.slice(0, 3).map(p => esc(p.name)).join(", ")}`,
+    "Review the price, photo and description for these. Try a small-pack price or add them to a combo with a best seller.");
+  const leftInCart = d.perf.filter(p => p.adds >= 3 && p.orders === 0 && p.views < 5);
+  if (leftInCart.length) add("mid", "🧺", `Often left in carts: ${leftInCart.slice(0, 3).map(p => esc(p.name)).join(", ")}`,
+    "People want these but drop them. A small discount or free delivery push could convert them.");
+  const best = d.perf.filter(p => p.orders > 0).sort((a, b) => b.qty - a.qty)[0];
+  if (best) add("good", "⭐", `Best seller: ${esc(best.name)} (${best.qty} sold, ${money(best.revenue)})`,
+    "Keep this always in stock, feature it at the top of the shop, and build a combo around it to lift order value.");
+
+  // Order value
+  if (d.active.length >= 3 && d.aov < 500)
+    add("mid", "💰", `Average order is ${money(d.aov)} — below the ₹500 free-delivery mark`,
+      "Suggest 'Add ₹X more for FREE delivery' in the cart, or promote combos (₹400+) so each order is bigger.");
+
+  // Cancellations
+  if (d.oP.length >= 5 && pct(d.cancelled, d.oP.length) > 10)
+    add("high", "❌", `${pct(d.cancelled, d.oP.length)}% of orders were cancelled`,
+      "Call or WhatsApp customers soon after they order, add notes on why each order was cancelled, and fix the most common reason.");
+
+  // Repeat customers
+  if (d.phonesP.size >= 5 && pct(d.repeatP, d.phonesP.size) < 20)
+    add("mid", "🔁", `Only ${pct(d.repeatP, d.phonesP.size)}% of customers ordered again`,
+      "Send a WhatsApp message 3–4 weeks after delivery (when their masala runs out) with a small repeat-order discount.");
+  else if (d.phonesP.size >= 5)
+    add("good", "🔁", `${pct(d.repeatP, d.phonesP.size)}% of customers come back`,
+      "Customers like your products. Ask happy repeat customers for a review or photo to show on the shop.");
+
+  // Areas
+  if (d.areaList.length) {
+    const noArea = d.areaList.find(a => a[0] === "Not selected");
+    if (noArea && d.oP.length >= 5 && pct(noArea[1], d.oP.length) > 40)
+      add("mid", "📍", `${pct(noArea[1], d.oP.length)}% of customers didn't choose a delivery area`,
+        "Move the delivery-area buttons into the checkout form so you always know where to deliver.");
+    const topArea = d.areaList.find(a => a[0] !== "Not selected");
+    if (topArea) add("good", "📍", `Most orders come from ${esc(topArea[0])} (${topArea[1]})`,
+      `Focus local promotions there — WhatsApp groups, apartment associations, local shops. Areas with few orders need more awareness.`);
+  }
+
+  // Busiest day
+  if (d.oP.length >= 7) {
+    const maxI = d.dayC.indexOf(Math.max(...d.dayC));
+    add("good", "🗓️", `${DAYS[maxI]} is your busiest day`,
+      `Post offers and WhatsApp status updates the day before (${DAYS[(maxI + 6) % 7]}) to catch customers when they plan their cooking.`);
+  }
+
+  // Payment
+  const onlineShare = pct((d.payCount.UPI || 0) + (d.payCount.Online || 0), d.oP.length);
+  if (d.oP.length >= 5 && onlineShare < 30)
+    add("mid", "💳", `Most customers pay Cash on Delivery (${100 - onlineShare}%)`,
+      "COD has more cancellations. Offer a small UPI discount (e.g. ₹10 off) to encourage prepaid orders.");
+
+  // Feedback
+  const questions = d.fP.filter(f => f.type === "Question about my order").length;
+  const ideas = d.fP.filter(f => f.type === "Product idea / suggestion").length;
+  if (questions) add("mid", "❓", `${questions} customer question(s) about orders`,
+    "Customers are asking about their orders — send proactive 'Packed' and 'Dispatched' updates so they don't need to ask. See the Feedback tab.");
+  if (ideas) add("good", "💡", `${ideas} product idea(s) from customers`,
+    "Check the Feedback tab — customer ideas are a great way to choose your next product.");
+
+  if (!d.eP.length && API_URL)
+    add("mid", "🔌", "No shop activity data yet",
+      "Make sure the same API_URL is pasted into index.html so visits, views and cart activity are recorded.");
+
+  const order = { high: 0, mid: 1, good: 2 };
+  return tips.sort((a, b) => order[a.level] - order[b.level]);
+}
+
+// ---------- Customers / products / feedback ----------
+function getCustomers() {
+  const map = {};
+  orders.forEach(o => {
+    const key = waNumber(o.phone);
+    if (!map[key]) map[key] = { name: o.name, phone: o.phone, address: o.address, pincode: o.pincode, location: o.location, orders: 0, spent: 0, last: o.date };
+    const c = map[key];
+    c.orders++;
+    if (o.status !== "Cancelled") c.spent += o.subtotal || 0;
+    if (new Date(o.date) >= new Date(c.last)) Object.assign(c, { last: o.date, name: o.name, address: o.address, pincode: o.pincode, location: o.location });
+  });
+  return Object.values(map).sort((a, b) => b.spent - a.spent);
+}
+
+function renderCustomers() {
+  const q = $("customerSearch").value.trim().toLowerCase();
+  const list = getCustomers().filter(c => !q || [c.name, c.phone, c.address, c.pincode, c.location].join(" ").toLowerCase().includes(q));
+  $("customersBody").innerHTML = list.length ? list.map(c => `
+    <tr>
+      <td><b>${esc(c.name)}</b> ${c.orders > 1 ? '<span class="tag ok">Repeat</span>' : ""}<span class="sub">📞 ${esc(c.phone)}</span></td>
+      <td>${esc(c.address)}<span class="sub">${esc(c.location ? c.location + " · " : "")}${esc(c.pincode)}</span></td>
+      <td>${c.orders}</td>
+      <td class="amt">${money(c.spent)}</td>
+      <td>${fmtDate(c.last)}</td>
+      <td style="white-space:nowrap">
+        <button class="btn light" onclick="viewCustomerOrders('${esc(c.phone)}')">Orders</button>
+        <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(c.phone)}">WhatsApp</a>
+      </td>
+    </tr>`).join("") : `<tr><td colspan="6" class="empty">No customers yet.</td></tr>`;
+}
+
+function viewCustomerOrders(phone) {
+  $("orderSearch").value = phone;
+  $("statusFilter").value = "all";
+  $("dateFilter").value = "all";
+  showTab("orders");
+  renderOrders();
+}
+
+function renderProducts() {
+  const map = {};
+  orders.filter(o => o.status !== "Cancelled").forEach(o => (o.items || []).forEach(i => {
+    if (!map[i.name]) map[i.name] = { name: i.name, qty: 0, revenue: 0, weights: {} };
+    const p = map[i.name];
+    p.qty += i.qty || 0;
+    p.revenue += (i.qty || 0) * (i.priceUnit || 0);
+    p.weights[i.weight] = (p.weights[i.weight] || 0) + (i.qty || 0);
+  }));
+  const list = Object.values(map).sort((a, b) => b.revenue - a.revenue);
+  $("productsBody").innerHTML = list.length ? list.map(p => `
+    <tr>
+      <td><b>${esc(p.name)}</b></td>
+      <td>${Object.entries(p.weights).map(([w, q]) => `${esc(w)} × ${q}`).join(", ")}</td>
+      <td>${p.qty}</td>
+      <td class="amt">${money(p.revenue)}</td>
+    </tr>`).join("") : `<tr><td colspan="4" class="empty">No sales yet.</td></tr>`;
+}
+
+function renderFeedback() {
+  const f = $("fbFilter").value;
+  const list = feedback.filter(x => f === "all" || x.type === f);
+  $("feedbackList").innerHTML = list.length ? list.map(x => {
+    const order = x.orderId ? orders.find(o => o.id === x.orderId) : null;
+    return `<div class="fb">
+      <div class="fbHead"><span class="fbType">${esc(x.type)}</span>
+        <span>${fmtDate(x.date)}${x.orderId ? ` · Order <a href="#" onclick="openOrder('${esc(x.orderId)}');return false">${esc(x.orderId)}</a>` : ""}${order ? ` · ${esc(order.name)}` : ""}</span></div>
+      <p>${esc(x.message)}</p>
+      ${order ? `<div style="margin-top:8px"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(order.phone)}">Reply on WhatsApp</a></div>` : ""}
+    </div>`;
+  }).join("") : `<div class="panel"><div class="empty">No feedback yet.</div></div>`;
+}
+
+function showTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  ["orders", "insights", "customers", "products", "feedback"].forEach(t => $("tab-" + t).hidden = t !== name);
+}
+
+// ---------- Order detail ----------
+function openOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) { toast("Order not found"); return; }
+  const prevOrders = orders.filter(x => waNumber(x.phone) === waNumber(o.phone)).length;
+  const waMsg = `Hi ${o.name}, this is Amma's Home Masala & Pickles. Your order ${o.id} is now: ${o.status}. Thank you!`;
+
+  $("modalContent").innerHTML = `
+    <button class="modalClose" onclick="closeModal()">✕</button>
+    <h2>Order ${esc(o.id)}</h2>
+    <div class="meta">${fmtDate(o.date)} &nbsp; <span class="status s-${esc(o.status)}">${esc(o.status)}</span></div>
+
+    <div class="grid2">
+      <div class="box">
+        <h4>👤 Customer</h4>
+        <b>${esc(o.name)}</b><br>
+        📞 ${esc(o.phone)}<br>
+        🧾 ${prevOrders} order(s) in total ${prevOrders > 1 ? '<span class="tag ok">Repeat</span>' : '<span class="tag warn">First order</span>'}
+      </div>
+      <div class="box">
+        <h4>🏠 Delivery Address</h4>
+        ${esc(o.address)}<br>
+        Pincode: <b>${esc(o.pincode)}</b><br>
+        ${o.location ? "Area: " + esc(o.location) : ""}
+      </div>
+    </div>
+
+    <table>
+      <thead><tr><th>Product</th><th>Weight</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+      <tbody>
+        ${(o.items || []).map(i => `<tr>
+          <td>${esc(i.name)}</td><td>${esc(i.weight)}</td><td>${i.qty}</td>
+          <td>${money(i.priceUnit)}</td><td class="amt">${money(i.qty * i.priceUnit)}</td></tr>`).join("")}
+        <tr class="totalRow"><td colspan="4">Subtotal</td><td>${money(o.subtotal)}</td></tr>
+      </tbody>
+    </table>
+    <div>💳 Payment method: <b>${esc(o.payment)}</b></div>
+
+    <div class="noPrint">
+      <label>Update status</label>
+      <select id="mStatus">${STATUSES.map(s => `<option ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}</select>
+      <label>Admin notes (only you see this)</label>
+      <textarea id="mNotes" rows="3" placeholder="e.g. Paid via UPI, dispatched with courier, cancelled because...">${esc(o.notes || "")}</textarea>
+    </div>
+
+    <div class="modalActions">
+      <button class="btn" onclick="saveModal('${esc(o.id)}')">Save</button>
+      <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(o.phone)}?text=${encodeURIComponent(waMsg)}">WhatsApp customer</a>
+      <a class="btn light" href="tel:${esc(String(o.phone).replace(/[^\d+]/g, ""))}">📞 Call</a>
+      <button class="btn light" onclick="window.print()">🖨 Print</button>
+    </div>`;
+  $("orderModal").classList.add("open");
+}
+
+function saveModal(id) {
+  saveOrderChange(id, { status: $("mStatus").value, notes: $("mNotes").value });
+  closeModal();
+}
+function closeModal() { $("orderModal").classList.remove("open"); }
+
+// ---------- Export ----------
+function exportCSV() {
+  const cell = v => `"${String(v == null ? "" : v).replace(/"/g, '""')}"`;
+  const rows = [["Order ID", "Date", "Name", "Phone", "Address", "Pincode", "Area", "Payment", "Items", "Subtotal", "Status", "Notes"]];
+  orders.forEach(o => rows.push([
+    o.id, new Date(o.date).toLocaleString("en-IN"), o.name, o.phone, o.address, o.pincode, o.location, o.payment,
+    (o.items || []).map(i => `${i.name} (${i.weight}) x${i.qty}`).join("; "), o.subtotal, o.status, o.notes
+  ]));
+  const blob = new Blob(["﻿" + rows.map(r => r.map(cell).join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `amma-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+}
+
+function toast(msg) {
+  const t = $("toast");
+  t.innerText = msg; t.style.display = "block";
+  clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 2500);
+}
+
+// Auto-login if key saved in this tab
+const saved = sessionStorage.getItem("amma_admin_key");
+if (saved !== null) { $("adminKey").value = saved; login(); }
+</script>
+</body>
+</html>

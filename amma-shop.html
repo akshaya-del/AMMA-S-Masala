@@ -1,0 +1,3316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Amma's Home Masala & Pickles</title>
+<style>
+:root{
+  --cream:#f8ecd4;
+  --cream2:#fbf8f2;
+  --green:#174b3f;
+  --green2:#0f3d34;
+  --gold:#d4a017;
+  --brown:#4a3427;
+  --muted:#777;
+  --white:#fff;
+  --whatsapp:#25D366;
+  --turmeric:#f0a500;
+  --chili:#c1432d;
+  --terracotta:#d9784f;
+  --leaf:#3f7d5c;
+  --bg-top:#e6eef9;
+  --bg-mid:#e3ecf8;
+  --bg-bottom:#e0eaf7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+  background-color:var(--bg-bottom);
+  color:var(--brown);
+  padding-bottom:72px;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.topbar{
+  height:72px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:0 5%;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:50;
+}
+.brand{
+  color:var(--green);
+  font-weight:900;
+  font-size:1.25rem;
+  letter-spacing:.5px;
+  white-space:nowrap;
+}
+.brand small{
+  display:block;
+  color:var(--gold);
+  font-size:.55rem;
+  letter-spacing:3px;
+  text-align:center;
+}
+.navLinks{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  font-size:.94rem;
+}
+.navLinks a:hover{color:var(--gold)}
+/* "Shop All" dropdown menu */
+.navDrop{position:relative}
+.navDrop::after{content:"";position:absolute;left:-10px;right:-10px;top:100%;height:18px}   /* keeps menu open while moving the mouse down */
+.navDropMenu{display:none;position:absolute;top:calc(100% + 14px);left:-18px;min-width:230px;background:#fff;
+  border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,.14);padding:8px 0;z-index:80}
+.navDrop:hover .navDropMenu,.navDrop:focus-within .navDropMenu{display:block}
+.navDropMenu a{display:block;padding:11px 22px;font-size:.95rem;color:#333;white-space:nowrap}
+.navDropMenu a:hover{background:#eef4fb;color:var(--green)}
+.navActions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.cartPill{
+  background:none;
+  color:#53615e;
+  border:0;
+  padding:4px;
+  font-weight:bold;
+}
+.cartPill span{color:var(--green)}
+.searchBtn{background:none;border:0;padding:4px;color:#53615e;display:flex;align-items:center}
+.searchBtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.searchBtn:hover{color:var(--green)}
+.searchBar{position:sticky;top:72px;z-index:49;background:#fff;padding:12px 5%;display:flex;gap:10px;align-items:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);border-top:1px solid #eee}
+.searchBar svg{width:20px;height:20px;fill:none;stroke:#888;stroke-width:2.2;stroke-linecap:round;flex-shrink:0}
+.searchBar input{flex:1;padding:11px 16px;border:1px solid #ddd;border-radius:24px;font-size:1rem;min-width:0}
+.searchBar input:focus{outline:none;border-color:var(--green)}
+.searchBar input::-webkit-search-cancel-button{display:none}
+.searchBar .searchClose{border:0;background:#f1f1f1;width:36px;height:36px;border-radius:50%;color:#666;flex-shrink:0}
+.mobileMenu{display:none}
+.hero{
+  position:relative;
+  overflow:hidden;
+  background-image: url('bg.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color:#fff;
+  text-align:center;
+  padding:34px 16px 38px;
+  height: 400px;
+}
+body.shopAllPage .hero,
+body.shopAllPage .categoryArea{display:none}
+.filterBar select#catFilter{font-weight:bold;color:var(--green)}
+.breadcrumb span{padding:0 8px;color:rgba(255,255,255,.55)}
+.hero h1{
+  font-family:Georgia,serif;
+  font-size:2rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  text-shadow:0 2px 6px rgba(0,0,0,.28);
+  position:relative;
+  z-index:1;
+}
+.offer{
+  background:linear-gradient(90deg,var(--chili),#8f2f1e);
+  color:white;
+  text-align:center;
+  padding:9px;
+  font-size:.82rem;
+  font-weight:bold;
+}
+.categoryArea{
+  background:#fff;
+  padding:26px 5% 18px;
+}
+.categoryScroller{
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.categoryItem{
+  width:105px;
+  text-align:center;
+  color:#333;
+  border:0;
+  background:none;
+}
+.categoryCircle{
+  width:88px;
+  height:88px;
+  margin:0 auto 9px;
+  border-radius:50%;
+  overflow:hidden;
+  border:3px solid #fff;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.6rem;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+  transition:transform .2s, box-shadow .2s, border-color .2s;
+}
+/* category photo fills the white circle (photos have a pure white background) */
+.categoryCircle img{width:100%!important;height:100%;object-fit:contain;border-radius:50%;background:#fff;padding:0;transform:scale(1.12)}
+/* selected / hovered circle: just a gentle lift and a very light outline (no dark ring) */
+.categoryItem:hover .categoryCircle,
+.categoryItem.active .categoryCircle{
+  border-color:#eef2f0;
+  box-shadow:0 6px 16px rgba(0,0,0,.12);
+  transform:translateY(-3px);
+}
+.categoryItem strong{
+  display:block;
+  font-size:.78rem;
+  line-height:1.25;
+}
+.section{
+  padding:28px 5%;
+}
+.section h2{
+  color:var(--green);
+  text-align:left;
+  margin-bottom:18px;
+  font-family:Georgia,serif;
+}
+#products{background:#e3ecf8}
+.productsTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.productsTop h2{margin:0}
+.filterBar{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin:0;
+}
+.filterBar select{
+  border:0;
+  background:transparent;
+  padding:7px 4px;
+  color:#555;
+  font-size:.85rem;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:34px 24px;
+}
+.grid.homeGrid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  max-width:1100px;
+  margin:0 auto;
+  gap:34px 30px;
+}
+.card{
+  background:#fff;
+  border:1px solid #e8eef5;
+  border-radius:12px;
+  padding:14px 14px 16px;
+  text-align:center;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  cursor:pointer;
+  transition:box-shadow .25s, transform .25s, border-color .25s;
+}
+/* light hover: the card lifts and glows softly so customers know it's clickable */
+.card:hover{box-shadow:0 10px 26px rgba(23,75,63,.13);transform:translateY(-4px);border-color:#cfe0f0}
+.card:hover .cardImg{transform:scale(1.04)}
+.card:hover .cardName{color:#0f6b55}
+.badge{
+  position:absolute;
+  top:10px;
+  left:10px;
+  z-index:2;
+  background:var(--green);
+  color:#fff;
+  font-size:.68rem;
+  padding:5px 8px;
+  border-radius:2px;
+}
+.imgBox{position:relative;display:block;overflow:hidden;background:#fff}
+.cardImg{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .3s;
+}
+.cardName{
+  margin:12px 6px 2px;
+  font-size:1rem;
+  font-weight:600;
+  color:#1f7a5c;
+  transition:color .2s;
+}
+/* thin line with a small red diamond, like the JP Masala cards */
+.cardDivider{position:relative;height:14px;margin:4px 12px}
+.cardDivider::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px solid #eee}
+.cardDivider::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;background:#d9362b;transform:translate(-50%,-50%) rotate(45deg)}
+.cardPrice{
+  margin:2px 0 12px;
+  font-size:1.05rem;
+  color:#444;
+}
+.weightSel{
+  margin:6px 0;
+  padding:6px;
+  border:1px solid #ddd;
+  border-radius:4px;
+  width:100%;
+}
+.add-btn{
+  background:var(--green);
+  color:white;
+  border:none;
+  padding:9px 15px;
+  border-radius:3px;
+  font-weight:bold;
+}
+.add-btn:hover{background:var(--gold)}
+.add-btn:disabled{background:#bbb;cursor:not-allowed}
+.card.soldOut .cardImg{filter:grayscale(.7);opacity:.7}
+.badge.out{background:var(--chili)}
+.emptyShop{grid-column:1/-1;text-align:center;color:#777;padding:30px}
+.cardAddBtn{
+  margin-top:auto;
+  width:100%;
+  border-radius:6px;
+  height:42px;
+  background:#15803d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.cardAddBtn svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#productsTitle{position:relative;padding-bottom:10px}
+#productsTitle::after{content:"";position:absolute;left:0;bottom:0;width:70px;height:2px;background:var(--green)}
+#products.homeMode .productsTop{justify-content:center}
+#products.homeMode #productsTitle::after{left:50%;transform:translateX(-50%);width:60%}
+#products.homeMode .filterBar{display:none}
+.viewAllWrap{text-align:center;margin-top:30px}
+.viewAllBtn{display:inline-block;background:#15803d;color:#fff;padding:12px 30px;border-radius:24px;font-weight:bold;transition:background .2s}
+.viewAllBtn:hover{background:var(--gold)}
+.cardQty{
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:22px;
+  height:38px;
+  overflow:hidden;
+  background:#fff;
+}
+.cardQty button{
+  border:0;
+  background:#f4f4f4;
+  width:31px;
+  height:100%;
+  font-size:1rem;
+}
+.cardQty span{
+  min-width:25px;
+  text-align:center;
+  font-weight:bold;
+}
+
+#cartPanel{
+  display:none;
+  max-width:760px;
+  margin:20px auto;
+  background:#fff;
+  padding:24px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#cartPanel.open{display:block}
+.cartHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+.cartHeader h2{
+  color:var(--green);
+  margin:0;
+}
+.cartGuarantee{
+  background:#f7f0e3;
+  padding:12px;
+  border-radius:6px;
+  margin-top:15px;
+  color:#555;
+  font-size:.85rem;
+  line-height:1.6;
+}
+.cartProduct{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  gap:14px;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid #eee;
+}
+.cartProductImg{
+  width:80px;
+  height:90px;
+  border-radius:5px;
+  background:linear-gradient(145deg,#e6f0e8,#f4ead4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2.7rem;
+  overflow:hidden;
+  border:1px solid #eee;
+}
+.cartProductImg img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.cartProductInfo h4{
+  color:#304b41;
+  margin-bottom:5px;
+}
+.cartProductInfo small{
+  color:#777;
+  display:block;
+  margin-bottom:5px;
+}
+.cartProductPrice{
+  color:var(--green);
+  font-weight:bold;
+  margin-bottom:7px;
+}
+.cartQuantity{
+  display:flex;
+  align-items:center;
+  border:1px solid #ddd;
+  border-radius:22px;
+  overflow:hidden;
+  width:max-content;
+}
+.cartQuantity button{
+  border:0;
+  background:#f1f1f1;
+  width:32px;
+  height:32px;
+}
+.cartQuantity span{
+  min-width:32px;
+  text-align:center;
+}
+.cartRemove{
+  border:0;
+  background:none;
+  color:#999;
+  font-size:.8rem;
+  margin-left:8px;
+}
+.cartCheckoutBtn{
+  width:100%;
+  background:#0f6b55 !important;
+  color:#fff;
+  border:0;
+  padding:13px;
+  border-radius:24px;
+  font-weight:bold;
+  margin-top:15px;
+}
+.totalsBox{margin-top:12px;line-height:1.8}
+.totalsBox .grand{font-weight:bold;font-size:1.15rem;color:var(--green)}
+#orderForm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#orderForm.open{display:block}
+#orderForm input,#orderForm select{
+  width:100%;padding:10px;margin:7px 0;border:1px solid #ddd;border-radius:5px
+}
+#orderForm h2{color:var(--green)}
+.payRow{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.payRow label{background:#f1eee7;padding:8px 12px;border-radius:18px}
+.payRow input{width:auto!important;margin-right:5px!important}
+#confirmOrderBtn{
+  width:100%;background:var(--green);color:#fff;border:0;padding:12px;border-radius:5px;font-weight:bold
+}
+.checkoutHint{
+  font-size:.78rem;
+  color:#777;
+  background:#eef8f1;
+  border:1px solid #d6ecdc;
+  border-radius:6px;
+  padding:8px 10px;
+  margin:10px 0 4px;
+  line-height:1.5;
+}
+.modalOverlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,61,52,.55);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.modalOverlay.open{display:flex}
+.productModal{
+  background:#fff;
+  max-width:440px;
+  width:100%;
+  max-height:88vh;
+  overflow-y:auto;
+  border-radius:12px;
+  padding:24px;
+  position:relative;
+}
+.modalClose{
+  position:absolute;
+  top:10px;right:12px;
+  border:0;background:#f3f3f3;
+  width:30px;height:30px;
+  border-radius:50%;
+  font-size:1rem;
+  color:#666;
+}
+.modalImgWrap img{
+  width:100%;
+  height:260px;
+  object-fit:contain;
+  border-radius:8px;
+  background:#fff;
+}
+.modalName{
+  font-family:Georgia,serif;
+  color:var(--green);
+  font-size:1.3rem;
+  margin:14px 0 4px;
+}
+.modalSpiceRow{
+  font-size:.85rem;
+  color:#555;
+  margin-bottom:10px;
+}
+.modalDetails{
+  background:var(--cream);
+  padding:10px 12px;
+  border-radius:6px;
+  font-size:.8rem;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.modalLabel{
+  display:block;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  color:#888;
+  margin-top:10px;
+}
+.modalPriceRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:12px 0;
+}
+.modalPrice{
+  font-size:1.35rem;
+  font-weight:bold;
+  color:var(--green);
+}
+.modalDeliveryInfo{
+  margin:6px 0 14px;
+  padding:12px;
+  font-size:.78rem;
+  box-shadow:none;
+  border:1px solid #eee;
+  line-height:1.6;
+}
+.modalAddBtn{
+  width:100%;
+  border-radius:22px;
+  height:44px;
+}
+#feedbackForm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:26px 22px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+#feedbackForm.open{display:block}
+#feedbackForm h2{color:var(--green);margin-bottom:6px}
+#feedbackForm p{color:#666;font-size:.9rem;margin-bottom:12px;line-height:1.5}
+#feedbackForm select,#feedbackForm textarea{
+  width:100%;padding:10px;margin:7px 0;border:1px solid #ddd;border-radius:5px;resize:vertical;
+}
+#feedbackThanks{display:none;color:var(--green);font-weight:bold;margin-top:10px;font-size:.9rem}
+#orderConfirm{
+  display:none;
+  max-width:500px;
+  margin:20px auto;
+  background:#fff;
+  padding:30px 22px;
+  border-radius:8px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+  text-align:center;
+}
+#orderConfirm.open{display:block}
+.orderConfirmIcon{font-size:2.6rem;margin-bottom:10px}
+#orderConfirm h2{color:var(--green);margin-bottom:6px}
+#orderConfirm p{color:#666;line-height:1.6;margin-bottom:6px}
+#orderConfirm .orderIdTag{
+  display:inline-block;
+  background:var(--cream);
+  color:var(--brown);
+  font-weight:bold;
+  padding:5px 14px;
+  border-radius:16px;
+  margin:6px 0 14px;
+  letter-spacing:.5px;
+}
+.trackBtn{
+  width:100%;
+  background:var(--whatsapp)!important;
+  color:#fff;
+  border:0;
+  padding:13px;
+  border-radius:24px;
+  font-weight:bold;
+  margin-top:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.trackBtn svg{width:18px;height:18px;fill:#fff}
+.backToShopBtn{
+  width:100%;
+  background:none;
+  border:1px solid #ddd;
+  color:#666;
+  padding:11px;
+  border-radius:24px;
+  margin-top:10px;
+}
+.guarantee-section{
+  background:#e3ecf8;
+  padding:42px 5%;
+  text-align:center;
+}
+.guarantee-section h2{
+  color:var(--green);
+  font-family:Georgia,serif;
+  margin-bottom:8px;
+  text-align:center;
+}
+.guarantee-subtitle{
+  color:#777;
+  margin-bottom:24px;
+}
+.guarantee-grid{
+  max-width:1050px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.guarantee-card{
+  color:#fff;
+  min-height:110px;
+  border-radius:14px;
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 6px 16px rgba(74,52,39,.18);
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+  transition:transform .2s, box-shadow .2s;
+}
+.guarantee-card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(74,52,39,.25)}
+.guarantee-card:nth-child(1){background:linear-gradient(135deg,#14BBA6,#0e9f8d)}
+.guarantee-card:nth-child(2){background:linear-gradient(135deg,#3A7D44,#2f6a38)}
+.guarantee-card:nth-child(3){background:linear-gradient(135deg,#E67E22,#cf6a13)}
+.guarantee-card:nth-child(4){background:linear-gradient(135deg,#4A1C1A,#6a2b27)}
+.guarantee-icon{
+  font-size:1.8rem;
+  margin-bottom:7px;
+}
+.guarantee-icon:empty{display:none}
+.guarantee-card strong{
+  font-size:.9rem;
+  line-height:1.4;
+}
+.loc-list{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:10px}
+.loc-btn{
+  background:#fff;border:1px solid var(--green);color:var(--green);
+  padding:8px 16px;border-radius:20px
+}
+.loc-btn.selected,.loc-btn:hover{background:var(--green);color:#fff}
+#deliveryNote{text-align:center;font-weight:bold;color:var(--green)}
+.deliveryInfo,.reviewCard,.aboutBox,.contactCard{
+  background:#fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)
+}
+.deliveryInfo{max-width:600px;margin:14px auto 0;padding:15px;line-height:1.7}
+.reviewSummary{text-align:center;margin:-6px 0 18px;color:#555;font-size:.95rem}
+.reviewSummary .stars{color:#f5a623;font-size:1.2rem;letter-spacing:2px;margin-right:6px}
+.reviewSummary b{color:var(--green);font-size:1.1rem}
+.reviewGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;max-width:1100px;margin:0 auto 20px}
+.reviewCard{padding:18px 20px;display:flex;flex-direction:column;gap:10px;border-radius:12px;border-top:4px solid #14BBA6}
+.reviewCard:nth-child(3n+2){border-top-color:#E67E22}
+.reviewCard:nth-child(3n+3){border-top-color:#3A7D44}
+.reviewCard .stars{color:#f5a623;font-size:1.05rem;letter-spacing:2px}
+.reviewCard p{line-height:1.6;color:#444;font-size:.92rem;flex:1}
+.reviewWho{font-weight:bold;color:var(--green);font-size:.9rem}
+.reviewWho small{display:block;color:#888;font-weight:normal;font-size:.78rem;margin-top:2px}
+.reviewEmpty{grid-column:1/-1;text-align:center;color:#777;background:#fff;border-radius:12px;padding:22px}
+.reviewFormBox{max-width:520px;margin:0 auto;text-align:center}
+.reviewToggle{border-radius:22px;padding:11px 24px}
+#reviewForm{background:#fff;border-radius:12px;padding:20px;margin-top:14px;text-align:left;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+#reviewForm h3{color:var(--green);font-family:Georgia,serif;margin-bottom:8px}
+#reviewForm input,#reviewForm select,#reviewForm textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:6px;resize:vertical}
+#reviewForm .add-btn{width:100%;border-radius:22px;height:42px;margin-top:6px}
+.starPick{margin:4px 0 6px}
+.starPick button{border:0;background:none;font-size:1.9rem;color:#ddd;padding:0 2px;line-height:1}
+.starPick button.on{color:#f5a623}
+.reviewNote{font-size:.78rem;color:#888;margin:4px 0}
+#reviewThanks{color:var(--green);font-weight:bold;margin-top:10px;text-align:center}
+.aboutBox{max-width:700px;margin:auto;padding:20px;line-height:1.7}
+.contactGrid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:700px;margin:auto}
+.contactCard{padding:18px 22px;text-align:center;min-width:170px}
+.contactCard a,.contactCard button.linklike{display:inline-block;margin-top:6px;font-weight:bold;color:var(--green);border:0;background:none;font-size:1em;cursor:pointer}
+.contactCard.whatsappCard{border:1px solid #cdeeda}
+.contactCard.whatsappCard button.linklike{color:var(--whatsapp)}
+footer{background:var(--green2);color:#fff;text-align:center;padding:50px 16px 30px;font-size:.85rem}
+#cartBox{
+  position:fixed;bottom:0;left:0;right:0;background:var(--green2);color:#fff;
+  padding:12px 5%;display:flex;justify-content:space-between;align-items:center;
+  z-index:60
+}
+#cartBox button{
+  background:var(--gold);color:#fff;border:0;padding:8px 18px;border-radius:18px;font-weight:bold
+}
+.whatsappFloat{
+  position:fixed;
+  right:20px;
+  bottom:92px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--whatsapp);
+  border:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.28);
+  z-index:70;
+  transition:transform .2s;
+}
+.whatsappFloat:hover{transform:scale(1.08)}
+.whatsappFloat svg{width:28px;height:28px;fill:#fff}
+@media(max-width:900px){
+  .navLinks{display:none}
+  .mobileMenu{display:block;border:0;background:none;font-size:1.3rem}
+  .topbar{padding:0 4%;height:64px}
+  .searchBar{top:64px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.homeGrid{gap:24px 14px}
+}
+@media(max-width:700px){
+  .guarantee-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .hero h1{font-size:1.45rem}
+  .categoryScroller{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+  .categoryItem{min-width:92px}
+  .grid{grid-template-columns:1fr 1fr;gap:24px 12px}
+  .grid.homeGrid{grid-template-columns:1fr 1fr}
+
+  .productsTop{align-items:flex-start;gap:8px;flex-direction:column}
+  .filterBar{justify-content:flex-start}
+  .guarantee-grid{grid-template-columns:1fr}
+  .cartProduct{grid-template-columns:60px 1fr}
+  .cartProductImg{width:60px;height:75px;font-size:2.2rem}
+  .cartProduct > div:last-child{grid-column:2}
+  .whatsappFloat{width:48px;height:48px;right:14px;bottom:84px}
+  .whatsappFloat svg{width:24px;height:24px}
+}
+#adminRoot,body.adminMode{
+  --cream:#f8ecd4;
+  --green:#174b3f;
+  --green2:#0f3d34;
+  --gold:#d4a017;
+  --brown:#4a3427;
+  --chili:#c1432d;
+  --leaf:#3f7d5c;
+  --whatsapp:#25D366;
+  --bg:#f6f1e7;
+  --line:#e8e0d0;
+}
+[hidden]{display:none!important}
+body.adminMode{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--brown);font-size:14px}
+
+#adminRoot #loginScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+#adminRoot .loginBox{background:#fff;padding:32px 26px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1);width:100%;max-width:360px;text-align:center}
+#adminRoot .loginBox .brand{color:var(--green);font-weight:900;font-size:1.5rem}
+#adminRoot .loginBox .brand small{display:block;color:var(--gold);font-size:.6rem;letter-spacing:3px}
+#adminRoot .loginBox p{color:#777;margin:10px 0 18px}
+#adminRoot .loginBox input{width:100%;padding:11px;border:1px solid #ddd;border-radius:6px;margin-bottom:10px}
+#adminRoot .btn{background:var(--green);color:#fff;border:0;padding:9px 15px;border-radius:6px;font-weight:bold;text-decoration:none;display:inline-block}
+#adminRoot .btn:hover{background:var(--green2)}
+#adminRoot .btn.light{background:#fff;color:var(--green);border:1px solid var(--green)}
+#adminRoot .btn.light:hover{background:var(--cream)}
+#adminRoot .btn.wa{background:var(--whatsapp)}
+#adminRoot .btn.block{width:100%}
+#adminRoot .err{color:var(--chili);margin-top:8px;min-height:18px;font-size:.85rem}
+#adminRoot .demoNote{background:#fff7e0;border:1px solid #f0dca0;color:#7a5a00;padding:8px 10px;border-radius:6px;font-size:.8rem;margin-top:12px;line-height:1.5;text-align:left}
+
+#adminRoot .topbar{background:#fff;border-bottom:1px solid var(--line);padding:12px 4%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:20}
+#adminRoot .topbar .brand{color:var(--green);font-weight:900;font-size:1.15rem}
+#adminRoot .topbar .brand span{color:var(--gold);font-size:.75rem;letter-spacing:2px;margin-left:6px}
+#adminRoot .live{font-size:.75rem;color:#888;margin-left:12px;font-weight:normal}
+#adminRoot .live i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--whatsapp);margin-right:5px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.3}}
+#adminRoot .topActions{display:flex;gap:8px;flex-wrap:wrap}
+#adminRoot main{padding:20px 4% 40px;max-width:1300px;margin:auto}
+#adminRoot .newBanner{display:none;background:var(--green);color:#fff;padding:12px 16px;border-radius:10px;margin-bottom:16px;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#adminRoot .newBanner.show{display:flex}
+#adminRoot .newBanner button{background:var(--gold);color:#fff;border:0;padding:7px 14px;border-radius:16px;font-weight:bold}
+#adminRoot .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:20px}
+#adminRoot .stat{background:#fff;border-radius:10px;padding:14px 16px;border-left:4px solid var(--green);box-shadow:0 2px 6px rgba(0,0,0,.05)}
+#adminRoot .stat:nth-child(2){border-color:var(--gold)}
+#adminRoot .stat:nth-child(3){border-color:var(--leaf)}
+#adminRoot .stat:nth-child(4){border-color:var(--chili)}
+#adminRoot .stat:nth-child(5){border-color:#d9784f}
+#adminRoot .stat:nth-child(6){border-color:#1d4f91}
+#adminRoot .stat small{color:#888;text-transform:uppercase;font-size:.7rem;letter-spacing:.5px}
+#adminRoot .stat b{display:block;font-size:1.45rem;color:var(--green);margin-top:4px}
+#adminRoot .stat .hint{font-size:.72rem;color:#999;margin-top:2px}
+#adminRoot .tabs{display:flex;gap:4px;border-bottom:2px solid var(--line);margin-bottom:14px;overflow-x:auto}
+#adminRoot .tab{background:none;border:0;padding:10px 16px;color:#777;font-weight:bold;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+#adminRoot .tab.active{color:var(--green);border-color:var(--green)}
+#adminRoot .tab .count{background:var(--chili);color:#fff;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px}
+#adminRoot .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+#adminRoot .toolbar input,#adminRoot .toolbar select{padding:9px 10px;border:1px solid #ddd;border-radius:6px;background:#fff}
+#adminRoot .toolbar input{flex:1;min-width:200px}
+#adminRoot .panel{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.05);overflow-x:auto}
+#adminRoot table{width:100%;border-collapse:collapse;min-width:760px}
+#adminRoot th{background:var(--cream);text-align:left;padding:10px 12px;font-size:.75rem;text-transform:uppercase;letter-spacing:.4px;color:#6b5646;white-space:nowrap}
+#adminRoot td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+#adminRoot tr.clickable{cursor:pointer}
+#adminRoot tr.clickable:hover td{background:#fbf8f2}
+#adminRoot tr.isNew td{background:#eef8f1}
+#adminRoot td .sub{color:#888;font-size:.8rem;display:block;margin-top:2px}
+#adminRoot .amt{font-weight:bold;color:var(--green);white-space:nowrap}
+#adminRoot .empty{padding:30px;text-align:center;color:#888}
+#adminRoot .status{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:bold;white-space:nowrap}
+#adminRoot .s-Pending{background:#fff3d6;color:#8a6200}
+#adminRoot .s-Confirmed{background:#e3eefc;color:#1d4f91}
+#adminRoot .s-Packed{background:#efe6fb;color:#5b2b91}
+#adminRoot .s-Dispatched{background:#e1f3f6;color:#12606e}
+#adminRoot .s-Delivered{background:#e3f4e8;color:#1f6b3a}
+#adminRoot .s-Cancelled{background:#fbe4e0;color:#9a2a17}
+#adminRoot .statusSel{padding:5px 6px;border:1px solid #ddd;border-radius:6px;background:#fff;font-size:.8rem}
+
+#adminRoot .insGrid{display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-bottom:16px}
+#adminRoot .acard{background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.05);padding:18px}
+#adminRoot .acard h3{color:var(--green);font-family:Georgia,serif;font-size:1.05rem;margin-bottom:4px}
+#adminRoot .acard .acardSub{color:#888;font-size:.8rem;margin-bottom:14px}
+#adminRoot .tip{display:flex;gap:10px;padding:11px 12px;border-radius:8px;margin-bottom:8px;line-height:1.5;border-left:4px solid}
+#adminRoot .tip b{display:block;color:var(--brown)}
+#adminRoot .tip span{color:#666;font-size:.85rem}
+#adminRoot .tip .ic{font-size:1.2rem;line-height:1.3}
+#adminRoot .tip.high{background:#fdf0ed;border-color:var(--chili)}
+#adminRoot .tip.mid{background:#fff8e6;border-color:var(--gold)}
+#adminRoot .tip.good{background:#eef8f1;border-color:var(--leaf)}
+#adminRoot .funnelRow{display:grid;grid-template-columns:130px 1fr 90px;gap:10px;align-items:center;margin-bottom:9px}
+#adminRoot .funnelRow label{font-size:.85rem;color:#555}
+#adminRoot .bar{background:#f1ece2;border-radius:4px;height:22px;overflow:hidden}
+#adminRoot .bar i{display:block;height:100%;background:var(--green);border-radius:4px;min-width:2px}
+#adminRoot .funnelRow .num{text-align:right;font-size:.85rem}
+#adminRoot .funnelRow .num b{color:var(--green)}
+#adminRoot .funnelRow .num small{color:#999;display:block;font-size:.7rem}
+#adminRoot .drop{font-size:.75rem;color:var(--chili);margin:-4px 0 8px 140px}
+#adminRoot .miniGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px}
+#adminRoot .kv{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line);font-size:.88rem}
+#adminRoot .kv:first-of-type{border-top:0}
+#adminRoot .kv b{color:var(--green)}
+#adminRoot .hbar{display:grid;grid-template-columns:90px 1fr 34px;gap:8px;align-items:center;margin-bottom:6px;font-size:.8rem}
+#adminRoot .hbar .bar{height:14px}
+#adminRoot .hbar .bar i{background:var(--gold)}
+#adminRoot .tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:bold}
+#adminRoot .tag.bad{background:#fbe4e0;color:#9a2a17}
+#adminRoot .tag.ok{background:#e3f4e8;color:#1f6b3a}
+#adminRoot .tag.warn{background:#fff3d6;color:#8a6200}
+
+#adminRoot .thumb{width:48px;height:48px;border-radius:6px;object-fit:cover;background:#f4efe4;display:block}
+#adminRoot .rowBtns{display:flex;gap:5px;flex-wrap:wrap}
+#adminRoot .rowBtns button{padding:5px 9px;font-size:.78rem}
+#adminRoot .btn.danger{background:#fff;color:var(--chili);border:1px solid var(--chili)}
+#adminRoot .btn.danger:hover{background:#fdf0ed}
+#adminRoot tr.hiddenRow td:not(:last-child){opacity:.55}
+#adminRoot .form{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px}
+#adminRoot .form .full{grid-column:1/-1}
+#adminRoot .form input,#adminRoot .form select,#adminRoot .form textarea{width:100%;padding:9px;border:1px solid #ddd;border-radius:6px}
+#adminRoot .checks{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+#adminRoot .checks label{display:flex;gap:6px;align-items:center;text-transform:none;font-size:.88rem;color:var(--brown);margin:0}
+#adminRoot .checks input{width:auto}
+#adminRoot .priceGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#adminRoot .imgPreview{width:100%;height:140px;object-fit:cover;border-radius:8px;background:#f4efe4;margin-top:6px}
+#adminRoot .settingsBox{max-width:640px}
+#adminRoot .settingsBox label{display:block;font-size:.75rem;text-transform:uppercase;color:#888;margin:14px 0 4px}
+#adminRoot .settingsBox input{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px}
+#adminRoot .saveState{font-size:.8rem;color:#888}
+@media(max-width:560px){#adminRoot .form{grid-template-columns:1fr}
+#adminRoot .priceGrid{grid-template-columns:1fr 1fr}
+}
+
+#adminRoot .rv{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05);display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap;border-left:4px solid var(--leaf)}
+#adminRoot .rv.Pending{border-left-color:var(--gold)}
+#adminRoot .rv.Hidden{border-left-color:#bbb;opacity:.75}
+#adminRoot .rv .stars{color:#f5a623;letter-spacing:2px}
+#adminRoot .rv p{margin:6px 0;line-height:1.6;white-space:pre-wrap}
+#adminRoot .rv .who{color:#888;font-size:.8rem}
+#adminRoot .rv .rowBtns{align-items:flex-start}
+
+#adminRoot .fb{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+#adminRoot .fb .fbHead{display:flex;justify-content:space-between;gap:10px;color:#888;font-size:.8rem;margin-bottom:6px;flex-wrap:wrap}
+#adminRoot .fb .fbType{font-weight:bold;color:var(--green)}
+#adminRoot .fb p{line-height:1.6;white-space:pre-wrap}
+
+#adminRoot .overlay{display:none;position:fixed;inset:0;background:rgba(15,61,52,.55);z-index:50;align-items:center;justify-content:center;padding:16px}
+#adminRoot .overlay.open{display:flex}
+#adminRoot .modal{background:#fff;border-radius:12px;max-width:640px;width:100%;max-height:90vh;overflow-y:auto;padding:24px;position:relative}
+#adminRoot .modalClose{position:absolute;top:12px;right:12px;border:0;background:#f3f3f3;width:32px;height:32px;border-radius:50%;color:#666}
+#adminRoot .modal h2{color:var(--green);font-family:Georgia,serif;margin-bottom:4px}
+#adminRoot .modal .meta{color:#888;margin-bottom:16px}
+#adminRoot .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+#adminRoot .box{background:#fbf8f2;border:1px solid var(--line);border-radius:8px;padding:12px 14px;line-height:1.7}
+#adminRoot .box h4{color:var(--green);font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+#adminRoot .modal table{min-width:0;margin-bottom:10px}
+#adminRoot .modal td,#adminRoot .modal th{padding:8px 10px}
+#adminRoot .totalRow td{font-weight:bold;color:var(--green);font-size:1.05rem}
+#adminRoot .modal label{display:block;font-size:.75rem;text-transform:uppercase;color:#888;margin:12px 0 4px}
+#adminRoot .modal textarea,#adminRoot .modal select{width:100%;padding:9px;border:1px solid #ddd;border-radius:6px}
+#adminRoot .modalActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+#adminRoot .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--green2);color:#fff;padding:10px 18px;border-radius:20px;display:none;z-index:100}
+@media(max-width:1000px){#adminRoot .stats{grid-template-columns:repeat(3,1fr)}
+#adminRoot .insGrid,#adminRoot .miniGrid{grid-template-columns:1fr}
+}
+@media(max-width:560px){#adminRoot .grid2{grid-template-columns:1fr}
+#adminRoot .stats{grid-template-columns:1fr 1fr}
+#adminRoot .stat b{font-size:1.2rem}
+#adminRoot .funnelRow{grid-template-columns:95px 1fr 70px}
+#adminRoot .drop{margin-left:105px}
+}
+@media print{body.adminMode *{visibility:hidden}
+#adminRoot #orderModal .modal,#adminRoot #orderModal .modal *{visibility:visible}
+#adminRoot #orderModal .modal{position:absolute;left:0;top:0;max-height:none;box-shadow:none}
+#adminRoot .modalClose,#adminRoot .modalActions,#adminRoot .noPrint{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="mainPage">
+<div class="topbar">
+  <button class="mobileMenu" onclick="document.querySelector('.navLinks').style.display='flex'">☰</button>
+  <a class="brand" href="#home">
+    AMMA'S
+    <small>MASALA</small>
+  </a>
+  <nav class="navLinks">
+    <a href="#home">Home</a>
+    <div class="navDrop">
+      <a href="#shopall">Shop All⌄</a>
+      <div class="navDropMenu" id="navDropMenu"></div>
+    </div>
+    <a href="#" onclick="trackOnWhatsApp();return false;">Track Order</a>
+    <a href="#contact">Contact Us</a>
+    <a href="#about">About Us</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+  <div class="navActions">
+    <button class="searchBtn" onclick="toggleSearch()" aria-label="Search products" title="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+    <button class="cartPill" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+  </div>
+</div>
+<div class="searchBar" id="searchBar" hidden>
+  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+  <input type="search" id="searchInput" placeholder="Search masalas, pickles, combos..." autocomplete="off"
+         oninput="onSearchInput(this.value)" onkeydown="if(event.key==='Escape')closeSearch(); if(event.key==='Enter')this.blur();">
+  <button class="searchClose" onclick="closeSearch()" aria-label="Close search">✕</button>
+</div>
+<div class="hero" id="home">
+  <div class="breadcrumb"><a href="#home">Home</a><span>/</span>Our Products</div>
+  <h1 id="heroTitle">Blended Spices</h1>
+</div>
+<div class="offer" id="offerText">Buy any 25 Masalas @ Rs 599 &nbsp; | &nbsp; Freshly packed with traditional taste</div>
+<div class="categoryArea">
+  <div class="categoryScroller">
+    <button class="categoryItem active" onclick="setCategory('all',this)">
+      <div class="categoryCircle">
+      <img src="white-bg/categories/termeric.jpg" alt="all products" style="width:110px; border-radius:50%;"onerror="this.remove()">
+    </div>
+      <strong>All Products</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('masala',this)">
+      <div class="categoryCircle">
+        <img src="white-bg/categories/chilli.jpg" alt="Blended Spices" style="width:110px; border-radius:50%;"onerror="this.remove()">
+      </div>
+      <strong>Blended Spices</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('combo',this)">
+      <div class="categoryCircle">
+         <img src="white-bg/categories/demo3.jpg" alt="Ready Mix Powder" style="width: 80px; border-radius:50%;"onerror="this.remove()"></div>
+      <strong>Ready Mix Powders</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('pickle',this)">
+      <div class="categoryCircle">
+        <img src="white-bg/categories/flour.jpg" alt="Millet Flour" style="width:110px; border-radius:50%;"onerror="this.remove()">
+      </div>
+      <strong>Millet Flour</strong>
+    </button>
+    <button class="categoryItem" onclick="setCategory('bestseller',this)">
+      <div class="categoryCircle">
+        <img src="white-bg/categories/combo.jpg" alt="Combos" style="width:80px; border-radius:50%;"onerror="this.remove()">
+      </div>
+      <strong>Combos</strong>
+    </button>
+  </div>
+</div>
+<div class="section" id="products">
+  <div class="productsTop">
+    <h2 id="productsTitle">Best Sellers</h2>
+    <div class="filterBar">
+      <select id="catFilter" onchange="setCategory(this.value)" aria-label="Category"></select>
+      <select id="spiceFilter" onchange="renderShop()">
+        <option value="all">All Spice Levels</option>
+        <option value="Mild">Mild</option>
+        <option value="Medium">Medium</option>
+        <option value="Hot">Hot</option>
+      </select>
+      <select id="sortBy" onchange="renderShop()">
+        <option value="popular">SORT BY</option>
+        <option value="lowhigh">Price: Low to High</option>
+        <option value="highlow">Price: High to Low</option>
+      </select>
+    </div>
+  </div>
+  <div class="grid" id="productGrid"></div>
+  <div class="viewAllWrap" id="viewAllWrap"><a class="viewAllBtn" href="#shopall">View All Products →</a></div>
+</div>
+<section class="guarantee-section">
+  <h2>Our Quality Guarantee</h2>
+  <p class="guarantee-subtitle">Traditional taste with carefully maintained quality standards.</p>
+  <div class="guarantee-grid">
+    <div class="guarantee-card">
+      <div class="guarantee-icon"></div>
+      <strong>80+ prototypes and testing done for all products.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon"></div>
+      <strong>Sun-dried and roasted at 70°C to enhance flavour.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon"></div>
+      <strong>Hygienic process with minimal human intervention.</strong>
+    </div>
+    <div class="guarantee-card">
+      <div class="guarantee-icon"></div>
+      <strong>No artificial flavours or colours.</strong>
+    </div>
+  </div>
+</section>
+<div id="modalOverlay" class="modalOverlay" onclick="if(event.target===this) closeProductModal()">
+  <div class="productModal">
+    <button class="modalClose" onclick="closeProductModal()" aria-label="Close">✕</button>
+    <div class="modalImgWrap"><img id="modalImg" src="" alt=""></div>
+    <h3 id="modalName" class="modalName"></h3>
+    <div class="modalSpiceRow">🌶️ Spice Level: <strong id="modalSpice"></strong></div>
+    <div class="modalDetails">
+      <b>Ingredients:</b> <span id="modalIngredients"></span><br>
+      <b>Shelf Life:</b> <span id="modalShelf"></span><br>
+      <span id="modalDesc"></span>
+    </div>
+    <label class="modalLabel" for="modalWeight">Select Weight</label>
+    <select id="modalWeight" class="weightSel" onchange="updateModalPrice()">
+      <option value="100g">100g</option>
+      <option value="250g" selected>250g</option>
+      <option value="500g">500g</option>
+      <option value="1kg">1kg</option>
+    </select>
+    <div class="modalPriceRow">
+      <span class="modalPrice" id="modalPrice">₹0</span>
+      <div class="cardQty">
+        <button onclick="changeModalQty(-1)">-</button>
+        <span id="modalQty">1</span>
+        <button onclick="changeModalQty(1)">+</button>
+      </div>
+    </div>
+    <div class="deliveryInfo modalDeliveryInfo">
+      <p><b>🚚 Delivery charge:</b> ₹40 flat (FREE above ₹500 or on your first order)</p>
+      <p><b>⏱ Estimated delivery:</b> 1–3 business days</p>
+      <p><b>📦 Minimum order:</b> ₹150</p>
+    </div>
+    <button class="add-btn modalAddBtn" onclick="confirmAddToCart()">Add to Cart</button>
+  </div>
+</div>
+<div id="cartPanel">
+  <div class="cartHeader">
+    <h2>🛒 Your Cart</h2>
+    <span style="color:#777;font-size:.85rem;">Fresh & Homemade</span>
+  </div>
+  <div id="cartItems"></div>
+  <div class="totalsBox" id="cartTotals"></div>
+  <div class="cartGuarantee">
+    <b>🌿 Quality Guarantee</b><br>
+    ✓ No artificial flavours or colours<br>
+    ✓ Hygienic preparation process<br>
+    ✓ Carefully tested products<br>
+    ✓ Freshly packed for better taste
+  </div>
+  <button class="cartCheckoutBtn" id="placeOrderBtn" onclick="openCheckout()">Proceed to Checkout</button>
+</div>
+<div id="orderForm">
+  <h2>Checkout</h2>
+  <div id="orderSummary" style="font-size:0.9em;margin-bottom:8px;"></div>
+  <input type="text" id="custName" placeholder="Full Name">
+  <input type="tel" id="custPhone" placeholder="Mobile Number">
+  <input type="text" id="custAddress" placeholder="Delivery Address">
+  <input type="text" id="custPincode" placeholder="Pincode">
+  <p style="margin-top:6px;font-weight:bold;">Payment Method</p>
+  <div class="payRow">
+    <label><input type="radio" name="pay" value="COD" checked> Cash on Delivery</label>
+    <label><input type="radio" name="pay" value="UPI"> UPI</label>
+    <label><input type="radio" name="pay" value="Online"> Online Payment</label>
+  </div>
+  <div class="checkoutHint">📲 After you place the order, WhatsApp will open with your order details pre-filled — just tap Send so we can confirm it and keep you posted on delivery.</div>
+  <button id="confirmOrderBtn" onclick="placeOrder()">Place Order</button>
+</div>
+<div id="orderConfirm">
+  <div class="orderConfirmIcon">✅</div>
+  <h2>Order Sent for Confirmation!</h2>
+  <p>We've opened WhatsApp with your order details filled in.</p>
+  <p>Just hit <strong>Send</strong> there and we'll confirm your order right away.</p>
+  <div class="orderIdTag">Order ID: <span id="confirmOrderId"></span></div>
+  <button class="trackBtn" onclick="trackOnWhatsApp()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+    Track This Order on WhatsApp
+  </button>
+  <button class="backToShopBtn" onclick="document.getElementById('orderConfirm').classList.remove('open');document.getElementById('products').scrollIntoView({behavior:'smooth'})">Continue Shopping</button>
+</div>
+<div id="feedbackForm">
+  <h2>💭 Tell Us What You Think</h2>
+  <p>Got a question about your order, or an idea for a new masala or pickle? Share it below — it goes straight to us on WhatsApp.</p>
+  <div id="feedbackOrderTag" class="orderIdTag" style="display:none;"></div>
+  <select id="feedbackType">
+    <option value="Question about my order">Question about my order</option>
+    <option value="Product idea / suggestion">Product idea / suggestion</option>
+    <option value="General query">General query</option>
+    <option value="Compliment">Compliment</option>
+  </select>
+  <textarea id="feedbackText" rows="4" placeholder="Share your queries or ideas..."></textarea>
+  <button class="trackBtn" onclick="submitFeedback()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+    Send Feedback on WhatsApp
+  </button>
+  <div id="feedbackThanks">🙏 Thank you! We've opened WhatsApp with your message — just tap Send.</div>
+</div>
+<div class="section" id="delivery">
+  <h2>📍 Delivery Information</h2>
+  <div class="loc-list">
+    <button class="loc-btn" onclick="selectLocation('Coimbatore',this)">Coimbatore</button>
+    <button class="loc-btn" onclick="selectLocation('Tirupur',this)">Tirupur</button>
+    <button class="loc-btn" onclick="selectLocation('Salem',this)">Salem</button>
+    <button class="loc-btn" onclick="selectLocation('Chennai',this)">Chennai</button>
+    <button class="loc-btn" onclick="selectLocation('Thanjavur',this)">Thanjavur</button>
+    <button class="loc-btn" onclick="selectLocation('Karur',this)">Karur</button>
+  </div>
+  <div id="deliveryNote"></div>
+  <div class="deliveryInfo">
+    <p><b>Delivery charge:</b> ₹40 flat (FREE within 2-3km, FREE on first order, FREE above ₹500)</p>
+    <p><b>Estimated delivery:</b> 1-3 business days depending on location</p>
+    <p><b>Minimum order:</b> ₹70</p>
+    <p><b>Order tracking:</b> You'll get a call/WhatsApp update once your order is packed and dispatched</p>
+  </div>
+</div>
+<div class="section" id="reviews">
+  <h2>⭐ Customer Reviews</h2>
+  <div id="reviewSummary" class="reviewSummary"></div>
+  <div id="reviewList" class="reviewGrid"></div>
+  <div class="reviewFormBox">
+    <button class="add-btn reviewToggle" onclick="toggleReviewForm()">✍️ Write a review</button>
+    <div id="reviewForm" hidden>
+      <h3>Share your experience</h3>
+      <div class="starPick" id="starPick">
+        <button type="button" class="on" onclick="setReviewRating(1)" aria-label="1 star">★</button><button type="button" class="on" onclick="setReviewRating(2)" aria-label="2 stars">★</button><button type="button" class="on" onclick="setReviewRating(3)" aria-label="3 stars">★</button><button type="button" class="on" onclick="setReviewRating(4)" aria-label="4 stars">★</button><button type="button" class="on" onclick="setReviewRating(5)" aria-label="5 stars">★</button>
+      </div>
+      <input id="revName" placeholder="Your name *" maxlength="60">
+      <input id="revCity" placeholder="Your city (optional)" maxlength="40">
+      <select id="revProduct"><option value="">Which product did you try? (optional)</option></select>
+      <textarea id="revText" rows="3" placeholder="What did you like about it? *" maxlength="1000"></textarea>
+      <p class="reviewNote">Your name, city and review will be shown on this website after we check it.</p>
+      <button class="add-btn" onclick="submitReview()">Submit review</button>
+      <div id="reviewThanks" hidden>🙏 Thank you! Your review will appear here once it's approved.</div>
+    </div>
+  </div>
+</div>
+<div class="section" id="about">
+  <h2>📜 Our Story</h2>
+  <div class="aboutBox">
+    <p>Amma's Home Masala & Pickles started in a home kitchen with recipes passed down through generations.
+    Every masala is stone-ground and every pickle is hand-mixed in small batches, packed fresh only after
+    you order — never sitting on a shelf for months. We believe good food starts with honest ingredients
+    and real tradition.</p>
+  </div>
+</div>
+<div class="section" id="contact">
+  <h2>💬 Contact & Support</h2>
+  <div class="contactGrid">
+    <div class="contactCard whatsappCard">📱 WhatsApp<br><button class="linklike" onclick="openWhatsAppChat()">Chat, confirm & track orders</button></div>
+    <div class="contactCard">☎️ Phone<br><a href="tel:+918122327330">+91 81223 27330</a></div>
+    <div class="contactCard">✉️ Email<br><a href="mailto:hello@ammamasala.com">hello@ammamasala.com</a></div>
+  </div>
+</div>
+<footer>© Amma's Home Masala & Pickles — Made fresh, made with love.</footer>
+</div>
+<div id="cartBox">
+  <span id="cartSummary">🛒 Cart: 0 items | ₹0</span>
+  <button onclick="toggleCart()">View Cart</button>
+</div>
+<button class="whatsappFloat" onclick="openWhatsAppChat()" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.1-1.34A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.6 0-3.1-.44-4.4-1.2l-.32-.19-3 .79.8-2.92-.2-.3A7.94 7.94 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8zm4.4-5.6c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.9-1.17-.7-.62-1.17-1.39-1.31-1.63-.14-.24-.02-.37.1-.49.12-.12.28-.31.42-.47.14-.16.18-.28.28-.46.1-.18.04-.34-.04-.46-.08-.12-.5-1.2-.68-1.64-.18-.42-.36-.36-.5-.37h-.42c-.14 0-.38.06-.58.28-.2.22-.78.76-.78 1.85 0 1.09.8 2.15.92 2.3.12.14 1.56 2.38 3.78 3.24 2.22.86 2.22.58 2.62.54.4-.04 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28z"/></svg>
+</button>
+<div id="adminRoot" hidden>
+<div id="loginScreen">
+  <div class="loginBox">
+    <div class="brand">AMMA'S<small>MASALA · ADMIN</small></div>
+    <p id="loginMsg">Admin only — enter your admin password</p>
+    <input type="password" id="adminKey" placeholder="Admin password" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+    <input type="password" id="adminKey2" placeholder="Type the password again" autocomplete="new-password" hidden onkeydown="if(event.key==='Enter')login()">
+    <button class="btn block" id="loginBtn" onclick="login()">Login</button>
+    <div class="err" id="loginErr"></div>
+    <div class="demoNote" id="demoNote" hidden>
+      <b>Test mode:</b> no Google Sheet connected yet (<code>API_URL</code> in this file is empty), so only data from
+      <b>this same browser</b> is shown and saved. After login, see <b>⚙️ Shop Settings → Go live</b>.
+    </div>
+  </div>
+</div>
+<div id="app" hidden>
+  <div class="topbar">
+    <div class="brand"><a href="#shop" title="Back to website">AMMA'S</a><span>ADMIN</span><span class="live" id="liveTxt"><i></i>Live</span></div>
+    <div class="topActions">
+      <button class="btn light" id="notifyBtn" onclick="enableNotifications()">🔔 Enable alerts</button>
+      <button class="btn light" onclick="refresh(true)">⟳ Refresh</button>
+      <button class="btn light" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+  <main>
+    <div class="newBanner" id="newBanner">
+      <span id="newBannerTxt"></span>
+      <button onclick="seeNewOrders()">View orders</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><small>Total Orders</small><b id="stTotal">0</b><div class="hint" id="stTotalHint"></div></div>
+      <div class="stat"><small>Revenue</small><b id="stRevenue">₹0</b><div class="hint">excl. cancelled</div></div>
+      <div class="stat"><small>Today's Orders</small><b id="stToday">0</b><div class="hint" id="stTodayHint"></div></div>
+      <div class="stat"><small>Pending</small><b id="stPending">0</b><div class="hint">need confirming</div></div>
+      <div class="stat"><small>Customers</small><b id="stCustomers">0</b><div class="hint" id="stRepeatHint"></div></div>
+      <div class="stat"><small>Visitors (30d)</small><b id="stVisitors">0</b><div class="hint" id="stConvHint"></div></div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="orders" onclick="showTab('orders')">📦 Orders <span class="count" id="pendingCount" hidden></span></button>
+      <button class="tab" data-tab="insights" onclick="showTab('insights')">💡 Insights & Improve</button>
+      <button class="tab" data-tab="customers" onclick="showTab('customers')">👤 Customers</button>
+      <button class="tab" data-tab="products" onclick="showTab('products')">🌶️ Products <span class="count" id="outCount" hidden></span></button>
+      <button class="tab" data-tab="reviews" onclick="showTab('reviews')">⭐ Reviews <span class="count" id="revCount" hidden></span></button>
+      <button class="tab" data-tab="feedback" onclick="showTab('feedback')">💬 Feedback <span class="count" id="fbCount" hidden></span></button>
+      <button class="tab" data-tab="settings" onclick="showTab('settings')">⚙️ Shop Settings</button>
+    </div>
+
+    <section id="tab-orders">
+      <div class="toolbar">
+        <input type="search" id="orderSearch" placeholder="Search order ID, name, phone, pincode, product..." oninput="renderOrders()">
+        <select id="statusFilter" onchange="renderOrders()"><option value="all">All statuses</option></select>
+        <select id="dateFilter" onchange="renderOrders()">
+          <option value="all">All dates</option>
+          <option value="today">Today</option>
+          <option value="7">Last 7 days</option>
+          <option value="30">Last 30 days</option>
+        </select>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Order ID</th><th>Date</th><th>Customer</th><th>Area / Pincode</th><th>Items</th><th>Amount</th><th>Payment</th><th>Status</th></tr></thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </section>
+    <section id="tab-insights" hidden>
+      <div class="toolbar">
+        <span style="color:#777">Period:</span>
+        <select id="insPeriod" onchange="renderInsights()">
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+      </div>
+      <div class="insGrid">
+        <div class="acard">
+          <h3>✅ What to improve</h3>
+          <div class="acardSub">Suggestions worked out automatically from your orders, shop activity and feedback</div>
+          <div id="tips"></div>
+        </div>
+        <div class="acard">
+          <h3>🛍️ Customer journey</h3>
+          <div class="acardSub">How many shoppers reach each step, and where they leave</div>
+          <div id="funnel"></div>
+        </div>
+      </div>
+      <div class="miniGrid">
+        <div class="acard"><h3>📊 Key numbers</h3><div class="acardSub">For the selected period</div><div id="keyNums"></div></div>
+        <div class="acard"><h3>📍 Orders by area</h3><div class="acardSub">Where your customers are</div><div id="areaBars"></div></div>
+        <div class="acard"><h3>🗓️ Busiest days</h3><div class="acardSub">Orders by day of the week</div><div id="dayBars"></div></div>
+      </div>
+      <div class="acard" style="padding:0">
+        <div style="padding:18px 18px 10px"><h3>🌶️ Product performance</h3>
+          <div class="acardSub" style="margin:0">Views = customers who opened the product. Conversion = orders ÷ views.</div></div>
+        <div style="overflow-x:auto">
+          <table>
+            <thead><tr><th>Product</th><th>Views</th><th>Added to cart</th><th>Orders</th><th>Qty sold</th><th>Revenue</th><th>Conversion</th><th>Verdict</th></tr></thead>
+            <tbody id="perfBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section id="tab-customers" hidden>
+      <div class="toolbar">
+        <input type="search" id="customerSearch" placeholder="Search name, phone, address..." oninput="renderCustomers()">
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Customer</th><th>Address</th><th>Orders</th><th>Total Spent</th><th>Last Order</th><th></th></tr></thead>
+          <tbody id="customersBody"></tbody>
+        </table>
+      </div>
+    </section>
+    <section id="tab-products" hidden>
+      <div class="demoNote" id="defaultsNote" hidden style="margin:0 0 12px">
+        These are the built-in starting products. Make any change (or click
+        <b>Publish current list</b>) and from then on the website shows the list you manage here.
+        <button class="btn" style="margin-left:8px;padding:5px 10px" onclick="saveProducts('Products published ✓')">Publish current list</button>
+      </div>
+      <div class="toolbar">
+        <input type="search" id="productSearch" placeholder="Search products, ingredients..." oninput="renderProducts()">
+        <select id="productCat" onchange="renderProducts()"><option value="all">All categories</option></select>
+        <select id="productState" onchange="renderProducts()">
+          <option value="all">All products</option>
+          <option value="live">Showing on website</option>
+          <option value="hidden">Hidden</option>
+          <option value="out">Out of stock</option>
+        </select>
+        <button class="btn" onclick="openProductEditor()">＋ Add product</button>
+        <a class="btn light" href="#shop" target="_blank" rel="noopener">👁 View website</a>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th></th><th>Product</th><th>Category</th><th>Prices (100g / 250g / 500g / 1kg)</th><th>Spice</th><th>Sold</th><th>Revenue</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="productsBody"></tbody>
+        </table>
+      </div>
+      <p style="color:#888;font-size:.8rem;margin-top:8px">Changes save automatically and show on the website on its next load. Sold / Revenue are all-time, excluding cancelled orders.</p>
+    </section>
+    <section id="tab-settings" hidden>
+      <div class="acard settingsBox">
+        <h3>⚙️ Website text</h3>
+        <div class="acardSub">Change the top of the website without editing code</div>
+        <label for="setHero">Big heading on the banner</label>
+        <input id="setHero" maxlength="80">
+        <label for="setOffer">Red offer strip text</label>
+        <input id="setOffer" maxlength="200">
+        <div style="margin-top:16px;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <button class="btn" onclick="saveSettings()">Save settings</button>
+          <button class="btn light" onclick="fillSettings(DEFAULT_SETTINGS)">Reset to default</button>
+          <a class="btn light" href="#shop" target="_blank" rel="noopener">👁 View website</a>
+        </div>
+      </div>
+      <div class="acard settingsBox" style="margin-top:16px">
+        <h3>🌐 Go live (Google Sheet connection)</h3>
+        <div class="cardSub" id="connInfo"></div>
+        <ol style="line-height:1.9;padding-left:20px;font-size:.88rem">
+          <li>Create a new <b>Google Sheet</b> → <b>Extensions → Apps Script</b>.</li>
+          <li>Click <b>Copy Google Sheet code</b> below and paste it there (replace everything).</li>
+          <li>In that code, change <code>ADMIN_KEY</code> to your own strong password.</li>
+          <li>Select the function <b>setup</b> and click <b>▶ Run</b>, then allow the permissions.</li>
+          <li><b>Deploy → New deployment → Web app</b>, Execute as <b>Me</b>, Who has access <b>Anyone</b>. Copy the URL ending in <code>/exec</code>.</li>
+          <li>Open <code>amma-shop.html</code> in a text editor and paste the URL into <code>const API_URL = "https://script.google.com/macros/s/AKfycbxmzBh3bmOkX1G0Gr2JqWxHPDWJpAsVbxd01x9ns_Wrsl_m3yrOV3634AFaik5QOhEThA/exec";</code> near the top of the script. Upload the file.</li>
+          <li>Open <code>yoursite/amma-shop.html#admin</code> and log in with your <code>ADMIN_KEY</code>.</li>
+        </ol>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
+          <button class="btn" onclick="copyBackendCode()">📋 Copy Google Sheet code</button>
+          <button class="btn light" onclick="testConnection()">🔌 Test connection</button>
+        </div>
+        <textarea id="backendCodeBox" readonly rows="6" style="width:100%;font-family:monospace;font-size:.75rem;padding:8px;border:1px solid #ddd;border-radius:6px"></textarea>
+      </div>
+      <div class="acard settingsBox" style="margin-top:16px">
+        <h3>🔒 Admin access</h3>
+        <div class="acardSub" id="securityInfo"></div>
+      </div>
+    </section>
+    <section id="tab-reviews" hidden>
+      <div class="toolbar">
+        <select id="revFilter" onchange="renderAdminReviews()">
+          <option value="all">All reviews</option>
+          <option value="Pending">Waiting for approval</option>
+          <option value="Approved">Showing on website</option>
+          <option value="Hidden">Hidden</option>
+        </select>
+        <button class="btn" onclick="openReviewEditor()">＋ Add a review a customer sent you</button>
+      </div>
+      <p style="color:#888;font-size:.8rem;margin:-4px 0 12px">Reviews written on the website wait here until you approve them.
+        Use “Add a review” only for real reviews real customers sent you (for example on WhatsApp).</p>
+      <div id="adminReviewList"></div>
+    </section>
+    <section id="tab-feedback" hidden>
+      <div class="toolbar">
+        <select id="fbFilter" onchange="renderFeedback()">
+          <option value="all">All feedback</option>
+          <option>Question about my order</option>
+          <option>Product idea / suggestion</option>
+          <option>General query</option>
+          <option>Compliment</option>
+        </select>
+      </div>
+      <div id="feedbackList"></div>
+    </section>
+  </main>
+</div>
+<div class="overlay" id="productModal" onclick="if(event.target===this)closeProductEditor()">
+  <div class="modal">
+    <button class="modalClose" onclick="closeProductEditor()">✕</button>
+    <h2 id="peTitle">Add product</h2>
+    <div class="meta">Everything here is shown to customers on the website</div>
+    <div class="form">
+      <div class="full"><label for="peName">Product name *</label><input id="peName" maxlength="100"></div>
+      <div><label for="peCat">Category</label><select id="peCat"></select></div>
+      <div><label for="peSpice">Spice level</label>
+        <select id="peSpice"><option>Mild</option><option>Medium</option><option>Hot</option></select></div>
+      <div class="full">
+        <label>Price for each weight (₹) — 250g is required, others auto-calculate if left empty</label>
+        <div class="priceGrid" id="pePrices"></div>
+      </div>
+      <div><label for="peShelf">Shelf life</label><input id="peShelf" maxlength="60" placeholder="e.g. 6 months"></div>
+      <div><label for="peIcon">Icon (emoji, shown in cart)</label><input id="peIcon" maxlength="4" placeholder="🌶️"></div>
+      <div class="full"><label for="peIngredients">Ingredients</label><input id="peIngredients" maxlength="500"></div>
+      <div class="full"><label for="peDesc">Description</label><textarea id="peDesc" rows="2" maxlength="1000"></textarea></div>
+      <div class="full">
+        <label for="peImg">Image file name or link (put the image file in the same folder as the website)</label>
+        <input id="peImg" maxlength="500" placeholder="e.g. sambar.png" oninput="$('peImgPrev').src=this.value">
+        <img id="peImgPrev" class="imgPreview" alt="Image preview" onerror="this.style.opacity=.3" onload="this.style.opacity=1">
+      </div>
+      <div class="full checks">
+        <label><input type="checkbox" id="peBest"> Best Seller badge</label>
+        <label><input type="checkbox" id="peNew"> New badge</label>
+        <label><input type="checkbox" id="peVisible"> Show on website</label>
+        <label><input type="checkbox" id="peStock"> In stock</label>
+      </div>
+    </div>
+    <div class="err" id="peErr"></div>
+    <div class="modalActions">
+      <button class="btn" onclick="saveProductEditor()">Save product</button>
+      <button class="btn light" onclick="closeProductEditor()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="reviewModal" onclick="if(event.target===this)closeReviewEditor()">
+  <div class="modal">
+    <button class="modalClose" onclick="closeReviewEditor()">✕</button>
+    <h2>Add a customer review</h2>
+    <div class="meta">Copy a real review a customer sent you. It shows on the website straight away.</div>
+    <div class="form">
+      <div><label for="arName">Customer name *</label><input id="arName" maxlength="60"></div>
+      <div><label for="arCity">City</label><input id="arCity" maxlength="40"></div>
+      <div><label for="arRating">Rating</label>
+        <select id="arRating"><option value="5">★★★★★ (5)</option><option value="4">★★★★☆ (4)</option><option value="3">★★★☆☆ (3)</option><option value="2">★★☆☆☆ (2)</option><option value="1">★☆☆☆☆ (1)</option></select></div>
+      <div><label for="arProduct">Product</label><select id="arProduct"></select></div>
+      <div class="full"><label for="arText">Review *</label><textarea id="arText" rows="3" maxlength="1000"></textarea></div>
+    </div>
+    <div class="err" id="arErr"></div>
+    <div class="modalActions">
+      <button class="btn" onclick="saveReviewEditor()">Save review</button>
+      <button class="btn light" onclick="closeReviewEditor()">Cancel</button>
+    </div>
+  </div>
+</div>
+<div class="overlay" id="orderModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+</div>
+<script type="text/plain" id="backendCode">
+/**
+ * Amma's Home Masala & Pickles — Backend (Google Apps Script)
+ * Connects the shop and the admin page through one Google Sheet.
+ *
+ * SETUP (one time, ~5 minutes):
+ * 1. Create a new Google Sheet (e.g. "Amma's Shop").
+ * 2. In the sheet: Extensions → Apps Script. Delete the sample code and paste this whole file.
+ * 3. Change ADMIN_KEY below to your own strong secret password (only the admin should know it).
+ * 4. At the top, choose the function "setup" and click ▶ Run. Allow the permissions.
+ *    (This creates the sheet tabs. "Google hasn't verified this app" → Advanced → Go to project.)
+ * 5. Click Deploy → New deployment → gear icon → "Web app".
+ *      Execute as:      Me
+ *      Who has access:  Anyone        <-- must be "Anyone", not "Anyone with Google account"
+ *    Click Deploy and copy the "Web app URL" (it ends with /exec).
+ * 6. Paste that URL into API_URL (in the SETTINGS section) of your website HTML file.
+ *
+ * If you edit this script later, use Deploy → Manage deployments → Edit → Version: New version
+ * so the same URL keeps working.
+ *
+ * Sheet tabs created automatically:
+ *   Orders, Events (shop activity), Feedback, Products, Settings, Reviews
+ *
+ * Security: customers can only ADD orders / feedback / activity / reviews (reviews wait for
+ * admin approval) and READ visible products and approved reviews.
+ * Everything else (viewing orders & customers, editing products, settings, order status)
+ * needs ADMIN_KEY. After 10 wrong passwords, admin login is blocked for 15 minutes.
+ */
+
+const ADMIN_KEY = "change-this-password";   // <-- CHANGE THIS
+
+const ORDER_HEADERS = ["Order ID", "Date", "Name", "Phone", "Address", "Pincode", "Area",
+                       "Payment", "Items", "Items JSON", "Subtotal", "Status", "Notes"];
+const EVENT_HEADERS = ["Date", "Session", "Type", "Product"];
+const FEEDBACK_HEADERS = ["Date", "Type", "Message", "Order ID"];
+const PRODUCT_HEADERS = ["ID", "Name", "Category", "Tags", "Price 250g", "Custom Prices JSON", "Spice",
+                         "Shelf Life", "Ingredients", "Description", "Image", "Icon", "Color", "Visible", "In Stock"];
+const SETTINGS_HEADERS = ["Key", "Value"];
+const REVIEW_HEADERS = ["ID", "Date", "Name", "City", "Rating", "Product", "Review", "Status"];
+const REVIEW_STATUSES = ["Pending", "Approved", "Hidden"];
+
+const STATUSES = ["Pending", "Confirmed", "Packed", "Dispatched", "Delivered", "Cancelled"];
+const EVENT_TYPES = ["visit", "view", "add", "checkout", "order"];
+const SETTING_KEYS = ["heroTitle", "offerText"];
+const EVENT_DAYS_RETURNED = 90;
+
+// ---------------- Entry points ----------------
+// Run this once from the Apps Script editor (select "setup" → Run) to create all sheet tabs.
+function setup() {
+  getSheet("Orders", ORDER_HEADERS);
+  getSheet("Events", EVENT_HEADERS);
+  getSheet("Feedback", FEEDBACK_HEADERS);
+  getSheet("Products", PRODUCT_HEADERS);
+  getSheet("Settings", SETTINGS_HEADERS);
+  getSheet("Reviews", REVIEW_HEADERS);
+  Logger.log("Setup done. Now Deploy → New deployment → Web app.");
+}
+function doGet(e) {
+  try {
+    return handleGet(e);
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) });
+  }
+}
+function handleGet(e) {
+  const action = e && e.parameter && e.parameter.action;
+  if (action === "ping") return json({ ok: true, message: "Connected" });
+  if (action === "products") {
+    // Public: only visible products, for the shop page
+    return json({ ok: true, products: listProducts().filter(function (p) { return p.visible; }),
+                  settings: getSettings(), reviews: listReviews(true) });
+  }
+  return ContentService.createTextOutput("Amma's Masala API is running.");
+}
+function doPost(e) {
+  try {
+    return handlePost(e);
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) });
+  }
+}
+function handlePost(e) {
+  let body;
+  try {
+    if (!e || !e.postData) return json({ ok: false, error: "No data sent" });
+    body = JSON.parse(e.postData.contents);
+  } catch (err) {
+    return json({ ok: false, error: "Bad request" });
+  }
+  // ---- Public (called by the shop) ----
+  if (body.action === "create")   return json(createOrder(body.order || {}));
+  if (body.action === "event")    return json(logEvent(body));
+  if (body.action === "feedback") return json(saveFeedback(body));
+  if (body.action === "review")   return json(submitReview(body.review || {}));
+
+  // ---- Admin only ----
+  const authError = checkKey(body.key);
+  if (authError) return json({ ok: false, error: authError });
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(15000);
+  try {
+    switch (body.action) {
+      case "list":
+        return json({ ok: true, orders: listOrders(), events: listEvents(), feedback: listFeedback(),
+                      products: listProducts(), settings: getSettings(), reviews: listReviews(false) });
+      case "update":       return json(updateOrder(body.id, body.status, body.notes));
+      case "saveProducts": return json(saveProducts(body.products));
+      case "saveSettings": return json(saveSettings(body.settings || {}));
+      case "addReview":       return json(addReview(body.review || {}));
+      case "setReviewStatus": return json(setReviewStatus(body.id, body.status));
+      case "deleteReview":    return json(deleteReview(body.id));
+      default:             return json({ ok: false, error: "Unknown action" });
+    }
+  } finally {
+    lock.releaseLock();
+  }
+}
+function checkKey(key) {
+  if (ADMIN_KEY === "change-this-password") return "Set your own ADMIN_KEY in Apps Script first";
+  const cache = CacheService.getScriptCache();
+  const fails = Number(cache.get("adminFails") || 0);
+  if (fails >= 10) return "Too many wrong attempts. Try again in 15 minutes.";
+  if (key !== ADMIN_KEY) {
+    cache.put("adminFails", String(fails + 1), 900);
+    return "Wrong admin key";
+  }
+  return null;
+}
+// ---------------- Helpers ----------------
+function getSheet(name, headers) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) throw new Error("Open this script from your Google Sheet (Extensions → Apps Script)");
+  let sh = ss.getSheetByName(name);
+  if (!sh) sh = ss.insertSheet(name);
+  if (sh.getLastRow() === 0) {
+    sh.appendRow(headers);
+    sh.setFrozenRows(1);
+    sh.getRange(1, 1, 1, headers.length).setFontWeight("bold");
+  }
+  return sh;
+}
+// Trim length and stop spreadsheet formula injection (values starting with = + - @)
+function clean(v, max) {
+  let s = String(v == null ? "" : v).slice(0, max || 500);
+  if (/^[=+\-@]/.test(s)) s = "'" + s;
+  return s;
+}
+function unq(v) { return String(v == null ? "" : v).replace(/^'/, ""); }
+function iso(d) { return d instanceof Date ? d.toISOString() : String(d); }
+
+// ---------------- Orders ----------------
+function createOrder(o) {
+  const items = Array.isArray(o.items) ? o.items.slice(0, 100).map(function (i) {
+    return {
+      name: String(i.name || "").slice(0, 100),
+      weight: String(i.weight || "").slice(0, 20),
+      qty: Math.max(0, parseInt(i.qty, 10) || 0),
+      priceUnit: Math.max(0, Number(i.priceUnit) || 0)
+    };
+  }) : [];
+  if (!o.id || !o.name || !o.phone || items.length === 0) {
+    return { ok: false, error: "Missing order details" };
+  }
+  const subtotal = items.reduce(function (s, i) { return s + i.qty * i.priceUnit; }, 0);
+  const itemsText = items.map(function (i) {
+    return i.name + " (" + i.weight + ") x" + i.qty + " = ₹" + (i.qty * i.priceUnit);
+  }).join("\n");
+
+  getSheet("Orders", ORDER_HEADERS).appendRow([
+    clean(o.id, 30), new Date(), clean(o.name, 100), clean(o.phone, 20), clean(o.address, 500),
+    clean(o.pincode, 10), clean(o.location, 50), clean(o.payment, 20),
+    clean(itemsText, 5000), JSON.stringify(items), subtotal, "Pending", ""
+  ]);
+  return { ok: true };
+}
+function listOrders() {
+  const rows = getSheet("Orders", ORDER_HEADERS).getDataRange().getValues().slice(1);
+  return rows.filter(function (r) { return r[0]; }).map(function (r) {
+    let items = [];
+    try { items = JSON.parse(r[9] || "[]"); } catch (e) {}
+    return {
+      id: unq(r[0]), date: iso(r[1]), name: unq(r[2]), phone: unq(r[3]), address: unq(r[4]),
+      pincode: unq(r[5]), location: unq(r[6]), payment: unq(r[7]), items: items,
+      subtotal: Number(r[10]) || 0, status: String(r[11] || "Pending"), notes: unq(r[12])
+    };
+  });
+}
+function updateOrder(id, status, notes) {
+  if (status && STATUSES.indexOf(status) === -1) return { ok: false, error: "Invalid status" };
+  const sh = getSheet("Orders", ORDER_HEADERS);
+  if (sh.getLastRow() < 2) return { ok: false, error: "Order not found" };
+  const ids = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues();
+  for (let i = 0; i < ids.length; i++) {
+    if (unq(ids[i][0]) === String(id)) {
+      if (status) sh.getRange(i + 2, 12).setValue(status);
+      if (notes !== undefined) sh.getRange(i + 2, 13).setValue(clean(notes, 1000));
+      return { ok: true };
+    }
+  }
+  return { ok: false, error: "Order not found" };
+}
+// ---------------- Events (shop activity) ----------------
+function logEvent(b) {
+  if (EVENT_TYPES.indexOf(b.type) === -1) return { ok: false, error: "Bad event" };
+  getSheet("Events", EVENT_HEADERS).appendRow([
+    new Date(), clean(b.session, 40), b.type, clean(b.product, 100)
+  ]);
+  return { ok: true };
+}
+function listEvents() {
+  const cutoff = Date.now() - EVENT_DAYS_RETURNED * 86400000;
+  const rows = getSheet("Events", EVENT_HEADERS).getDataRange().getValues().slice(1);
+  const out = [];
+  rows.forEach(function (r) {
+    const d = r[0] instanceof Date ? r[0] : new Date(r[0]);
+    if (d.getTime() >= cutoff) out.push({ date: d.toISOString(), session: unq(r[1]), type: String(r[2]), product: unq(r[3]) });
+  });
+  return out;
+}
+// ---------------- Feedback ----------------
+function saveFeedback(b) {
+  const msg = String(b.message || "").trim();
+  if (!msg) return { ok: false, error: "Empty message" };
+  getSheet("Feedback", FEEDBACK_HEADERS).appendRow([
+    new Date(), clean(b.type, 60), clean(msg, 2000), clean(b.orderId, 30)
+  ]);
+  return { ok: true };
+}
+function listFeedback() {
+  const rows = getSheet("Feedback", FEEDBACK_HEADERS).getDataRange().getValues().slice(1);
+  return rows.filter(function (r) { return r[2]; }).map(function (r) {
+    return { date: iso(r[0]), type: unq(r[1]), message: unq(r[2]), orderId: unq(r[3]) };
+  });
+}
+// ---------------- Products ----------------
+function listProducts() {
+  const rows = getSheet("Products", PRODUCT_HEADERS).getDataRange().getValues().slice(1);
+  return rows.filter(function (r) { return r[1]; }).map(function (r) {
+    let prices = {};
+    try { prices = JSON.parse(r[5] || "{}"); } catch (e) {}
+    return {
+      id: Number(r[0]), name: unq(r[1]), cat: unq(r[2]),
+      tags: unq(r[3]) ? unq(r[3]).split(",").map(function (t) { return t.trim(); }).filter(String) : [],
+      price250: Number(r[4]) || 0, prices: prices, spice: unq(r[6]), shelf: unq(r[7]),
+      ingredients: unq(r[8]), desc: unq(r[9]), img: unq(r[10]), icon: unq(r[11]), color: unq(r[12]),
+      visible: r[13] !== false && String(r[13]).toUpperCase() !== "FALSE",
+      inStock: r[14] !== false && String(r[14]).toUpperCase() !== "FALSE"
+    };
+  });
+}
+function saveProducts(list) {
+  if (!Array.isArray(list)) return { ok: false, error: "Bad product list" };
+  if (list.length > 500) return { ok: false, error: "Too many products" };
+  const rows = list.map(function (p) {
+    const prices = {};
+    if (p.prices) Object.keys(p.prices).slice(0, 10).forEach(function (w) {
+      const v = Number(p.prices[w]);
+      if (v > 0) prices[String(w).slice(0, 10)] = v;
+    });
+    return [
+      Number(p.id) || 0, clean(p.name, 100), clean(p.cat, 30),
+      clean((Array.isArray(p.tags) ? p.tags : []).join(","), 100),
+      Math.max(0, Number(p.price250) || 0), JSON.stringify(prices), clean(p.spice, 20),
+      clean(p.shelf, 60), clean(p.ingredients, 500), clean(p.desc, 1000), clean(p.img, 500),
+      clean(p.icon, 10), clean(p.color, 20), p.visible !== false, p.inStock !== false
+    ];
+  });
+  const sh = getSheet("Products", PRODUCT_HEADERS);
+  if (sh.getLastRow() > 1) sh.getRange(2, 1, sh.getLastRow() - 1, PRODUCT_HEADERS.length).clearContent();
+  if (rows.length) sh.getRange(2, 1, rows.length, PRODUCT_HEADERS.length).setValues(rows);
+  return { ok: true };
+}
+// ---------------- Settings ----------------
+function getSettings() {
+  const out = {};
+  getSheet("Settings", SETTINGS_HEADERS).getDataRange().getValues().slice(1).forEach(function (r) {
+    if (SETTING_KEYS.indexOf(String(r[0])) > -1) out[r[0]] = unq(r[1]);
+  });
+  return out;
+}
+function saveSettings(s) {
+  const sh = getSheet("Settings", SETTINGS_HEADERS);
+  const rows = SETTING_KEYS.map(function (k) { return [k, clean(s[k], 300)]; });
+  if (sh.getLastRow() > 1) sh.getRange(2, 1, sh.getLastRow() - 1, 2).clearContent();
+  sh.getRange(2, 1, rows.length, 2).setValues(rows);
+  return { ok: true };
+}
+// ---------------- Reviews ----------------
+// Customers submit reviews from the website (status Pending); the admin approves them.
+function submitReview(r) {
+  const rating = Math.round(Number(r.rating));
+  if (!String(r.name || "").trim() || !String(r.text || "").trim() || !(rating >= 1 && rating <= 5)) {
+    return { ok: false, error: "Missing review details" };
+  }
+  const cache = CacheService.getScriptCache();
+  const count = Number(cache.get("reviewCount") || 0);
+  if (count >= 50) return { ok: false, error: "Too many reviews right now. Please try again later." };
+  cache.put("reviewCount", String(count + 1), 3600);
+  appendReview(r, "Pending");
+  return { ok: true };
+}
+// Admin adds a real review a customer sent (e.g. on WhatsApp) — shown straight away
+function addReview(r) {
+  if (!String(r.name || "").trim() || !String(r.text || "").trim()) {
+    return { ok: false, error: "Customer name and review text are needed" };
+  }
+  return { ok: true, id: appendReview(r, "Approved") };
+}
+function appendReview(r, status) {
+  const id = "R" + Date.now().toString(36) + Math.floor(Math.random() * 1000);
+  const rating = Math.min(5, Math.max(1, Math.round(Number(r.rating)) || 5));
+  getSheet("Reviews", REVIEW_HEADERS).appendRow([
+    id, new Date(), clean(r.name, 60), clean(r.city, 40), rating, clean(r.product, 100), clean(r.text, 1000), status
+  ]);
+  return id;
+}
+function listReviews(approvedOnly) {
+  const rows = getSheet("Reviews", REVIEW_HEADERS).getDataRange().getValues().slice(1);
+  const all = rows.filter(function (r) { return r[0]; }).map(function (r) {
+    return {
+      id: unq(r[0]), date: iso(r[1]), name: unq(r[2]), city: unq(r[3]), rating: Number(r[4]) || 5,
+      product: unq(r[5]), text: unq(r[6]), status: String(r[7] || "Pending")
+    };
+  }).reverse();
+  return approvedOnly ? all.filter(function (r) { return r.status === "Approved"; }).slice(0, 50) : all;
+}
+function findReviewRow(id) {
+  const sh = getSheet("Reviews", REVIEW_HEADERS);
+  if (sh.getLastRow() < 2) return 0;
+  const ids = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues();
+  for (let i = 0; i < ids.length; i++) if (unq(ids[i][0]) === String(id)) return i + 2;
+  return 0;
+}
+function setReviewStatus(id, status) {
+  if (REVIEW_STATUSES.indexOf(status) === -1) return { ok: false, error: "Invalid status" };
+  const row = findReviewRow(id);
+  if (!row) return { ok: false, error: "Review not found" };
+  getSheet("Reviews", REVIEW_HEADERS).getRange(row, 8).setValue(status);
+  return { ok: true };
+}
+function deleteReview(id) {
+  const row = findReviewRow(id);
+  if (!row) return { ok: false, error: "Review not found" };
+  getSheet("Reviews", REVIEW_HEADERS).deleteRow(row);
+  return { ok: true };
+}
+function json(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+</script>
+
+<script>
+const API_URL = "";
+
+const WHATSAPP_NUMBER = "918122327330";
+const WEIGHT_MULT = { "100g": 0.45, "250g": 1, "500g": 1.85, "1kg": 3.5 };
+const WEIGHTS = Object.keys(WEIGHT_MULT);
+const CATEGORIES = {
+  spice:  "Powdered Pure Spices",
+  masala: "Blended Spices",
+  combo:  "Ready Mix Powders / Combos",
+  pickle: "Pickles (Millet Flour button)"
+};
+const DEFAULT_SETTINGS = {
+  heroTitle: "Blended Spices",
+  offerText:"Buy any 25 Masalas @ Rs 599  |  Freshly packed with traditional taste"
+};
+const STARTER_REVIEWS = [
+  { name: "Akshaya", city: "", rating: 5, product: "Chicken Masala & Mutton Masala", text: "Taste was very good." }
+];
+function priceFor(p, w) {
+  if (p.prices && Number(p.prices[w]) > 0) return Math.round(Number(p.prices[w]));
+  return Math.round((Number(p.price250) || 0) * (WEIGHT_MULT[w] || 1));
+}
+const DEFAULT_PRODUCTS = [
+  {id:1, name:"Sambar Podi", cat:"spice", tags:["bestseller"], price250:80, spice:"Medium", shelf:"6 months", ingredients:"Toor dal, coriander, red chilli, spices", desc:"Classic South Indian sambar powder, stone ground.", color:"c1",img:"white-bg/sambar.jpg"},
+  {id:2, name:"Rasam Podi", cat:"spice", tags:[], price250:70, spice:"Mild", shelf:"6 months", ingredients:"Pepper, cumin, coriander, toor dal", desc:"Aromatic rasam powder for everyday comfort food.", color:"c2", icon:"🍲",img:"white-bg/rasam.jpg"},
+  {id:3, name:"Vatha Kulambu Masala", cat:"masala", tags:[], price250:90, spice:"Medium", shelf:"6 months", ingredients:"Tamarind, red chilli, coriander, spices", desc:"Traditional tangy kulambu masala blend.", color:"c3", icon:"🍛",img:"white-bg/vatha.jpg"},
+  {id:4, name:"Idly Podi", cat:"spice", tags:["bestseller"], price250:100, spice:"Mild", shelf:"4 months", ingredients:"Urad dal, chana dal, red chilli, sesame oil", desc:"Roasted lentil podi, perfect with idly & dosa.", color:"c4", icon:"🍘",img:"white-bg/idly.jpg"},
+  {id:5, name:"Turmeric Powder", cat:"spice", tags:[], price250:90, spice:"Mild", shelf:"12 months", ingredients:"100% pure turmeric", desc:"Farm-sourced turmeric, sun dried and ground.", color:"c5", icon:"🟡",img:"white-bg/tumeric.jpg"},
+  {id:6, name:"Garam Masala", cat:"spice", tags:[], price250:120, spice:"Medium", shelf:"6 months", ingredients:"Cinnamon, clove, cardamom, star anise", desc:"Warm aromatic blend for everyday cooking.", color:"c6", icon:"🧄",img:"white-bg/garam.jpg"},
+  {id:7, name:"Biryani Masala", cat:"masala", tags:["bestseller"], price250:150, spice:"Hot", shelf:"6 months", ingredients:"Whole spices, dry chilli, bay leaf", desc:"Restaurant-style biryani masala blend.", color:"c7", icon:"🍛",img:"white-bg/biryani.jpg"},
+  {id:8, name:"Chettinad Masala", cat:"masala", tags:["new"], price250:160, spice:"Hot", shelf:"6 months", ingredients:"Black pepper, star anise, dry chilli", desc:"Signature Chettinad spice blend.", color:"c8", icon:"🌶️",img:"white-bg/chettinadu.jpg"},
+  {id:9, name:"Chicken 65 Masala", cat:"masala", tags:["bestseller"], price250:60, spice:"Hot", shelf:"6 months", ingredients:"Red chilli, ginger-garlic, curry leaf powder", desc:"Crispy, spicy Chicken 65 masala mix.", color:"c9", icon:"🍗",img:"white-bg/chicken 65.jpg"},
+  {id:10, name:"Pallipalayam Masala", cat:"masala", tags:["new"], price250:50, spice:"Hot", shelf:"6 months", ingredients:"Dry red chilli, garlic, curry leaves", desc:"Kongu-style dry roast masala.", color:"c10", icon:"🐓",img:"white-bg/pallipalayam.jpg"},
+  {id:11, name:"Madurai Chukka Masala", cat:"masala", tags:["new"], price250:160, spice:"Hot", shelf:"6 months", ingredients:"Red chilli, fennel, spices", desc:"Madurai-style spicy chukka masala.", color:"c11", icon:"🌶️",img:"white-bg/madurai.jpg"},
+  {id:12, name:"Mutton Masala", cat:"masala", tags:[], price250:70, spice:"Hot", shelf:"6 months", ingredients:"Whole spices, red chilli, coconut", desc:"Rich masala for authentic mutton curry.", color:"c12", icon:"🐐",img:"white-bg/mutton masala.jpg"},
+  {id:13, name:"Fish Masala", cat:"masala", tags:[], price250:150, spice:"Medium", shelf:"6 months", ingredients:"Coriander, chilli, tamarind, spices", desc:"Tangy masala for fish curry & fry.", color:"c13", icon:"🐟",img:"white-bg/fish fry.jpg"},
+  {id:14, name:"Mango Pickle", cat:"pickle", tags:["bestseller"], price250:150, spice:"Hot", shelf:"12 months", ingredients:"Raw mango, mustard, red chilli, gingelly oil", desc:"Tangy-spicy traditional mango pickle.", color:"c14", icon:"🥭",img:"white-bg/mango.jpg"},
+  {id:15, name:"Garlic Pickle", cat:"pickle", tags:[], price250:160, spice:"Medium", shelf:"12 months", ingredients:"Garlic, red chilli, mustard, oil", desc:"Bold, aromatic garlic pickle.", color:"c15", icon:"🧄",img:"white-bg/garlic.jpg"},
+  {id:16, name:"Lemon Pickle", cat:"pickle", tags:[], price250:140, spice:"Medium", shelf:"12 months", ingredients:"Lemon, salt, red chilli, spices", desc:"Classic tangy lemon pickle.", color:"c16", icon:"🍋",img:"white-bg/lemon.jpg"},
+  {id:17, name:"Chicken Pickle", cat:"pickle", tags:["bestseller"], price250:170, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Chicken, red chilli, vinegar, spices", desc:"Spicy homemade chicken pickle.", color:"c17", icon:"🍗",img:"white-bg/chicken pic.jpg"},
+  {id:18, name:"Prawn Pickle", cat:"pickle", tags:[], price250:250, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Prawn, red chilli, vinegar, spices", desc:"Coastal-style spicy prawn pickle.", color:"c18", icon:"🦐",img:"white-bg/prawn.jpg"},
+  {id:19, name:"Mutton Pickle", cat:"pickle", tags:[], price250:200, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Mutton, red chilli, vinegar, spices", desc:"Rich and spicy mutton pickle.", color:"c19", icon:"🐐",img:"white-bg/mutton pic.jpg"},
+  {id:20, name:"Fish Pickle", cat:"pickle", tags:[], price250:230, spice:"Hot", shelf:"3 months (refrigerate)", ingredients:"Fish, red chilli, vinegar, spices", desc:"Tangy coastal-style fish pickle.", color:"c20", icon:"🐟",img:"white-bg/fish pickel.jpg"},
+  {id:21, name:"Fried Rice Masala", cat:"spice", tags:[], price250:140, spice:"Medium", shelf:"6 months", ingredients:"Pepper, spices, salt blend", desc:"Quick masala for restaurant-style fried rice.", color:"c1", icon:"🍚",img:"white-bg/fried rice.jpg"},
+  {id:22, name:"Sambar + Rasam Combo", cat:"combo", tags:["bestseller"], price250:220, spice:"Medium", shelf:"6 months", ingredients:"Sambar podi + Rasam podi (250g each)", desc:"Our two most-loved powders together.", color:"c3", icon:"🎁",img:"white-bg/sambar combo.jpg"},
+  {id:23, name:"Pickle Lovers Combo", cat:"combo", tags:["new"], price250:400, spice:"Hot", shelf:"12 months", ingredients:"Mango + Garlic + Lemon pickle (250g each)", desc:"3 classic pickles in one combo pack.", color:"c14", icon:"🎁",img:"white-bg/mango combo.jpg"},
+  {id:24, name:"Non-Veg Masala Combo", cat:"combo", tags:[], price250:450, spice:"Hot", shelf:"6 months", ingredients:"Chicken + Mutton + Fish masala (200g each)", desc:"All 3 non-veg masalas in one pack.", color:"c9", icon:"🎁",img:"white-bg/non veg combo.jpg"}
+];
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+</script>
+<script>
+let SESSION_ID;
+try {
+  SESSION_ID = sessionStorage.getItem("amma_sid");
+  if (!SESSION_ID) {
+    SESSION_ID = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    sessionStorage.setItem("amma_sid", SESSION_ID);
+  }
+} catch (e) {
+  SESSION_ID = Math.random().toString(36).slice(2);
+}
+
+function sendToAdmin(payload) {
+  if (!API_URL) return;
+  fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+    keepalive: true
+  }).catch(() => {});
+}
+function saveLocal(key, record, max) {
+  try {
+    const list = JSON.parse(localStorage.getItem(key) || "[]");
+    list.push(record);
+    localStorage.setItem(key, JSON.stringify(list.slice(-(max || 5000))));
+  } catch (e) {}
+}
+function trackEvent(type, product) {
+  saveLocal("amma_events", { date: new Date().toISOString(), session: SESSION_ID, type, product: product || "" }, 3000);
+  sendToAdmin({ action: "event", session: SESSION_ID, type, product: product || "" });
+}
+function saveOrderToAdmin(order) {
+  saveLocal("amma_orders", order);
+  sendToAdmin({ action: "create", order });
+}
+function saveFeedbackToAdmin(type, message, orderId) {
+  saveLocal("amma_feedback", { date: new Date().toISOString(), type, message, orderId: orderId || "" });
+  sendToAdmin({ action: "feedback", type, message, orderId: orderId || "" });
+}
+let shopProducts = DEFAULT_PRODUCTS.map(p => ({ ...p, visible: true, inStock: true }));
+
+function readJSON(key) {
+  try { return JSON.parse(localStorage.getItem(key) || "null"); } catch (e) { return null; }
+}
+
+function applyShopData(list, settings) {
+  if (Array.isArray(list) && list.length) {
+    shopProducts = list.filter(p => p.visible !== false);
+  }
+  const s = Object.assign({}, DEFAULT_SETTINGS, settings || {});
+  document.getElementById('heroTitle').innerText = s.heroTitle;
+  // offer strip: plain text only — remove any emoji / icons (e.g. 🎉) even if saved in Shop Settings
+  document.getElementById('offerText').innerText =
+    String(s.offerText).replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu, "").replace(/^\s+|\s+$/g, "");
+  renderShop();
+}
+async function loadShopData() {
+  if (!API_URL) {
+    applyShopData(readJSON("amma_products"), readJSON("amma_settings"));
+    shopReviews = (readJSON("amma_reviews") || []).filter(r => r.status === "Approved").reverse();
+    renderReviews();
+    return;
+  }
+  const cached = readJSON("amma_shop_cache");
+  if (cached) { applyShopData(cached.products, cached.settings); shopReviews = cached.reviews || []; renderReviews(); }
+  try {
+    const res = await fetch(`${API_URL}?action=products`);
+    const d = await res.json();
+    if (d.ok) {
+      applyShopData(d.products, d.settings);
+      shopReviews = d.reviews || [];
+      renderReviews();
+      try { localStorage.setItem("amma_shop_cache", JSON.stringify({ products: d.products, settings: d.settings, reviews: shopReviews })); } catch (e) {}
+    }
+  } catch (e) {}
+}
+window.addEventListener("storage", e => {
+  if (!API_URL && (e.key === "amma_products" || e.key === "amma_settings" || e.key === "amma_reviews")) loadShopData();
+});
+
+// ===== Customer reviews (only reviews approved by the admin are shown) =====
+let shopReviews = [];
+let reviewRating = 5;
+const starText = n => "★".repeat(n) + "☆".repeat(5 - n);
+
+function renderReviews() {
+  const box = document.getElementById('reviewList');
+  const sum = document.getElementById('reviewSummary');
+  const list = [...shopReviews, ...STARTER_REVIEWS];   // newest approved reviews first, then built-in ones
+  if (!list.length) {
+    sum.innerHTML = "";
+    box.innerHTML = '<div class="reviewEmpty">No reviews yet — be the first to share your experience! ⭐</div>';
+    return;
+  }
+  const avg = list.reduce((s, r) => s + (Number(r.rating) || 0), 0) / list.length;
+  sum.innerHTML = `<span class="stars">${starText(Math.round(avg))}</span><b>${avg.toFixed(1)}</b> out of 5 · ${list.length} review${list.length > 1 ? "s" : ""}`;
+  box.innerHTML = list.slice(0, 12).map(r => {
+    const stars = Math.max(1, Math.min(5, Math.round(Number(r.rating)) || 5));
+    const d = new Date(r.date);
+    return `<div class="reviewCard">
+      <div class="stars">${starText(stars)}</div>
+      <p>“${esc(r.text)}”</p>
+      <div class="reviewWho">${esc(r.name)}${r.city ? ", " + esc(r.city) : ""}
+        <small>${[r.product ? esc(r.product) : "", isNaN(d) ? "" : d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })].filter(Boolean).join(" · ")}</small></div>
+    </div>`;
+  }).join("");
+}
+
+function setReviewRating(n) {
+  reviewRating = n;
+  document.querySelectorAll('#starPick button').forEach((b, i) => b.classList.toggle('on', i < n));
+}
+
+function toggleReviewForm() {
+  const form = document.getElementById('reviewForm');
+  form.hidden = !form.hidden;
+  if (!form.hidden) {
+    const sel = document.getElementById('revProduct');
+    sel.innerHTML = '<option value="">Which product did you try? (optional)</option>' +
+      shopProducts.map(p => `<option>${esc(p.name)}</option>`).join("");
+    document.getElementById('reviewThanks').hidden = true;
+    document.getElementById('revName').focus();
+  }
+}
+
+function submitReview() {
+  const name = document.getElementById('revName').value.trim();
+  const city = document.getElementById('revCity').value.trim();
+  const product = document.getElementById('revProduct').value;
+  const text = document.getElementById('revText').value.trim();
+  if (!name || !text) {
+    alert("Please enter your name and a few words about the product.");
+    return;
+  }
+  const review = { name, city, rating: reviewRating, product, text };
+  saveLocal("amma_reviews", { id: "R" + Date.now(), date: new Date().toISOString(), ...review, status: "Pending" });
+  sendToAdmin({ action: "review", review });
+  document.getElementById('revName').value = '';
+  document.getElementById('revCity').value = '';
+  document.getElementById('revProduct').value = '';
+  document.getElementById('revText').value = '';
+  setReviewRating(5);
+  document.getElementById('reviewThanks').hidden = false;
+}
+
+const colorMap = {c1:"#c96f26",c2:"#d62828",c3:"#8a3b12",c4:"#4a4a4a",c5:"#f2b705",c6:"#5b3a29",c7:"#1f6f4a",c8:"#8b0000",c9:"#e07a1f",c10:"#7a2e0e",c11:"#a83232",c12:"#7a1f1f",c13:"#1f7a9a",c14:"#f4a300",c15:"#6b6b6b",c16:"#c9b400",c17:"#b3261e",c18:"#a13c1f",c19:"#7a1f1f",c20:"#1f7a9a"};
+let cart = [];
+let currentCategory = "all";
+let selectedLocation = null;
+let lastOrder = null;
+// ===== Product search (search icon at the top) =====
+let searchQuery = "";
+function toggleSearch() {
+  const bar = document.getElementById('searchBar');
+  if (bar.hidden) { bar.hidden = false; document.getElementById('searchInput').focus(); }
+  else closeSearch();
+}
+function onSearchInput(value) {
+  searchQuery = value.trim();
+  if (searchQuery && location.hash !== "#shopall") {        // show results on the Shop All page
+    currentCategory = "all";
+    location.hash = "#shopall";
+    return;
+  }
+  renderShop();
+}
+function closeSearch() {
+  document.getElementById('searchBar').hidden = true;
+  document.getElementById('searchInput').value = "";
+  if (searchQuery) { searchQuery = ""; renderShop(); }
+}
+
+const HOME_PRODUCT_COUNT = 3;
+const BASKET_ICON = '<svg viewBox="0 0 24 24"><path d="M5 10h14l-1.5 9h-11z"/><path d="M9 10l3-6 3 6"/><path d="M10 14v2M14 14v2"/></svg>';
+function renderShop(){
+  const grid = document.getElementById('productGrid');
+  const spiceFilter = document.getElementById('spiceFilter').value;
+  const sortBy = document.getElementById('sortBy').value;
+  const tags = p => p.tags || [];
+  // Home page: only a few best sellers. "Shop All" or a category: every product.
+  const showAll = location.hash === "#shopall";
+  document.getElementById('products').classList.toggle('homeMode', !showAll);
+  grid.classList.toggle('homeGrid', !showAll);
+  document.getElementById('viewAllWrap').hidden = showAll;
+  document.getElementById('productsTitle').innerText = !showAll ? "Best Sellers" : categoryLabel(currentCategory);
+  if (!showAll) {
+    const best = shopProducts.filter(p => tags(p).includes("bestseller") && p.inStock !== false);
+    const rest = shopProducts.filter(p => !best.includes(p));
+    const picks = best.concat(rest).slice(0, HOME_PRODUCT_COUNT);
+    grid.innerHTML = "";
+    picks.forEach(p => grid.appendChild(productCard(p)));
+    return;
+  }
+
+  let list = shopProducts.filter(p => {
+    if(currentCategory !== "all" && currentCategory !== "bestseller" && currentCategory !== "new" && p.cat !== currentCategory) return false;
+    if(currentCategory === "bestseller" && !tags(p).includes("bestseller")) return false;
+    if(currentCategory === "new" && !tags(p).includes("new")) return false;
+    if(spiceFilter !== "all" && p.spice !== spiceFilter) return false;
+    if(searchQuery) {
+      const text = [p.name, p.ingredients, p.desc, categoryLabel(p.cat)].join(" ").toLowerCase();
+      if (!searchQuery.toLowerCase().split(/\s+/).every(word => text.includes(word))) return false;
+    }
+    return true;
+  });
+  if(sortBy === "lowhigh") list = list.slice().sort((a,b)=>priceFor(a,"250g")-priceFor(b,"250g"));
+  if(sortBy === "highlow") list = list.slice().sort((a,b)=>priceFor(b,"250g")-priceFor(a,"250g"));
+  if (searchQuery) document.getElementById('productsTitle').innerText = `Search results for “${searchQuery}” (${list.length})`;
+  grid.innerHTML = list.length ? "" : (searchQuery
+    ? `<div class="emptyShop">No products found for “${esc(searchQuery)}”. Try another word, like “chicken”, “pickle” or “sambar”.</div>`
+    : '<div class="emptyShop">No products in this category right now.</div>');
+  list.forEach(p => grid.appendChild(productCard(p)));
+}
+function productCard(p) {
+  const tags = p.tags || [];
+  const out = p.inStock === false;
+  const card = document.createElement('div');
+  card.className = "card" + (out ? " soldOut" : "");
+  const badge = out ? '<div class="badge out">Out of Stock</div>' : tags.includes('bestseller') ? '<div class="badge">Best Seller</div>' : (tags.includes('new') ? '<div class="badge">New</div>' : '');
+  card.innerHTML = `
+    <div class="cardImgWrap"><span class="imgBox">${badge}<img src="${esc(p.img)}" alt="${esc(p.name)}" class="cardImg" loading="lazy"></span></div>
+    <h4 class="cardName">${esc(p.name)}</h4>
+    <div class="cardDivider"></div>
+    <div class="cardPrice">Rs. ${priceFor(p, "250g")}.00</div>
+    <button class="add-btn cardAddBtn">${BASKET_ICON}${out ? 'View Details' : 'Add To Cart'}</button>
+  `;
+  card.onclick = () => openProductModal(Number(p.id));   // the whole card opens the product
+  return card;
+}
+let modalProductId = null;
+function openProductModal(id) {
+  const p = shopProducts.find(x => x.id === id);
+  if (!p) return;
+  modalProductId = id;
+  document.getElementById('modalImg').src = p.img || '';
+  document.getElementById('modalImg').alt = p.name;
+  document.getElementById('modalName').innerText = p.name;
+  document.getElementById('modalSpice').innerText = p.spice;
+  document.getElementById('modalIngredients').innerText = p.ingredients;
+  document.getElementById('modalShelf').innerText = p.shelf;
+  document.getElementById('modalDesc').innerText = p.desc;
+  document.getElementById('modalWeight').value = '250g';
+  document.getElementById('modalQty').innerText = '1';
+  const addBtn = document.querySelector('.modalAddBtn');
+  addBtn.disabled = p.inStock === false;
+  addBtn.innerText = p.inStock === false ? 'Out of Stock' : 'Add to Cart';
+  updateModalPrice();
+  document.getElementById('modalOverlay').classList.add('open');
+  trackEvent('view', p.name);
+}
+function closeProductModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  modalProductId = null;
+}
+function updateModalPrice() {
+  const p = shopProducts.find(x => x.id === modalProductId);
+  if (!p) return;
+  const weight = document.getElementById('modalWeight').value;
+  document.getElementById('modalPrice').innerText = `₹${priceFor(p, weight)}`;
+}
+function changeModalQty(delta) {
+  const span = document.getElementById('modalQty');
+  let qty = parseInt(span.innerText) + delta;
+  if (qty < 1) qty = 1;
+  span.innerText = qty;
+}
+function confirmAddToCart() {
+  const p = shopProducts.find(x => x.id === modalProductId);
+  if (!p || p.inStock === false) return;
+  const weight = document.getElementById('modalWeight').value;
+  const qty = parseInt(document.getElementById('modalQty').innerText);
+  const priceUnit = priceFor(p, weight);
+  const existingIndex = cart.findIndex(item => item.id === p.id && item.weight === weight);
+  if (existingIndex > -1) {
+    cart[existingIndex].qty += qty;
+  } else {
+    cart.push({ id: p.id, name: p.name, img: p.img || "", icon: p.icon || "🛍️", color: p.color, weight, priceUnit, qty });
+  }
+  trackEvent('add', p.name);
+  updateCartUI();
+  closeProductModal();
+  alert(`Added ${qty}x ${p.name} (${weight}) to your cart!`);
+}
+// Categories come from the circles on the home page, e.g. setCategory('masala',this) → "Blended Spices"
+function categoryList() {
+  return [...document.querySelectorAll('.categoryItem')].map(b => {
+    const m = (b.getAttribute('onclick') || "").match(/setCategory\('([^']+)'/);
+    return m ? { cat: m[1], label: b.querySelector('strong').innerText.replace(/\s+/g, " ").trim(), btn: b } : null;
+  }).filter(Boolean);
+}
+function categoryLabel(cat) {
+  const c = categoryList().find(x => x.cat === cat);
+  return c ? c.label : "All Products";
+}
+function fillCategoryFilter() {
+  const sel = document.getElementById('catFilter');
+  sel.innerHTML = categoryList().map(c => `<option value="${esc(c.cat)}">${esc(c.label)}</option>`).join("");
+  sel.value = currentCategory;
+}
+// Clicking a category (circle on the home page, or the dropdown) opens the Shop All page with that category
+function setCategory(cat, btn) {
+  currentCategory = cat;
+  categoryList().forEach(c => c.btn.classList.toggle('active', c.cat === cat));
+  document.getElementById('catFilter').value = cat;
+  if (location.hash !== "#shopall") { location.hash = "#shopall"; return; }
+  renderShop();
+}
+fillCategoryFilter();
+
+// "Shop All" dropdown: every category except All Products and Powdered Pure Spices
+const NAV_CATEGORY_ORDER = ["masala", "combo", "bestseller", "pickle"];   // Blended, Ready Mix, Combos, Flour
+function fillNavDropdown() {
+  const cats = categoryList().filter(c => c.cat !== "all" && c.cat !== "spice")
+    .sort((a, b) => (NAV_CATEGORY_ORDER.indexOf(a.cat) + 1 || 99) - (NAV_CATEGORY_ORDER.indexOf(b.cat) + 1 || 99));
+  document.getElementById('navDropMenu').innerHTML = cats.map(c =>
+    `<a href="#shopall" onclick="setCategory('${esc(c.cat)}'); this.blur(); return false;">${esc(c.label)}</a>`).join("");
+}
+fillNavDropdown();
+function toggleCart() {
+  const panel = document.getElementById('cartPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) {
+    panel.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+function updateCartUI() {
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.priceUnit * item.qty), 0);
+  document.getElementById('cartCount').innerText = totalItems;
+  document.getElementById('cartSummary').innerText = `🛒 Cart: ${totalItems} items | ₹${subtotal}`;
+  const container = document.getElementById('cartItems');
+  if (!container) return;
+  if (cart.length === 0) {
+    container.innerHTML = "<p style='padding:10px 0; color:#777;'>Your cart is currently empty.</p>";
+    document.getElementById('cartTotals').innerHTML = "";
+    return;
+  }
+  container.innerHTML = cart.map((item, index) => `
+    <div class="cartProduct">
+      <div class="cartProductImg">${item.img
+        ? `<img src="${esc(item.img)}" alt="${esc(item.name)}" onerror="this.style.display='none'">`
+        : esc(item.icon)}</div>
+      <div class="cartProductInfo">
+        <h4>${esc(item.name)}</h4>
+        <small>Weight: ${item.weight}</small>
+        <div class="cartProductPrice">₹${item.priceUnit * item.qty}</div>
+        <div class="cartQuantity">
+          <button onclick="updateCartQty(${index}, -1)">-</button>
+          <span>${item.qty}</span>
+          <button onclick="updateCartQty(${index}, 1)">+</button>
+        </div>
+      </div>
+      <button class="cartRemove" onclick="removeFromCart(${index})">✕ Remove</button>
+    </div>
+  `).join('');
+
+  document.getElementById('cartTotals').innerHTML = `
+    <p>Subtotal: <strong>₹${subtotal}</strong></p>
+    <p class="grand">Total Payable: ₹${subtotal}</p>
+  `;
+}
+function updateCartQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty <= 0) {
+    cart.splice(index, 1);
+  }
+  updateCartUI();
+}
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCartUI();
+}
+function openCheckout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+  trackEvent('checkout');
+  document.getElementById('orderForm').classList.add('open');
+  document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth' });
+}
+function buildOrderMessage(name, phone, address, pincode, payMethod, orderId) {
+  const itemLines = cart.map(item => `• ${item.name} (${item.weight}) x${item.qty} — ₹${item.priceUnit * item.qty}`);
+  const subtotal = cart.reduce((sum, item) => sum + (item.priceUnit * item.qty), 0);
+  const lines = [
+    `🧺 *New Order — Amma's Home Masala & Pickles*`,
+    `Order ID: ${orderId}`,
+    ``,
+    `👤 Name: ${name}`,
+    `📞 Phone: ${phone}`,
+    `🏠 Address: ${address}`,
+    `📮 Pincode: ${pincode}`,
+    selectedLocation ? `📍 Delivery Area: ${selectedLocation}` : null,
+    ``,
+    `🛒 Items:`,
+    ...itemLines,
+    ``,
+    `Subtotal: ₹${subtotal}`,
+    `💳 Payment Method: ${payMethod}`,
+    ``,
+    `Please confirm this order — thank you!`
+  ];
+  return lines.filter(line => line !== null).join('\n');
+}
+function placeOrder() {
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = document.getElementById('custAddress').value.trim();
+  const pincode = document.getElementById('custPincode').value.trim();
+  const payMethodEl = document.querySelector('input[name="pay"]:checked');
+  const payMethod = payMethodEl ? payMethodEl.value : "COD";
+
+  if (!name || !phone || !address || !pincode) {
+    alert("Please fill in your name, mobile number, address, and pincode.");
+    return;
+  }
+  const orderId = "AM" + Date.now().toString().slice(-6);
+  const message = buildOrderMessage(name, phone, address, pincode, payMethod, orderId);
+  lastOrder = { id: orderId, name: name };
+  saveOrderToAdmin({
+    id: orderId,
+    date: new Date().toISOString(),
+    name, phone, address, pincode,
+    location: selectedLocation || "",
+    payment: payMethod,
+    items: cart.map(i => ({ name: i.name, weight: i.weight, qty: i.qty, priceUnit: i.priceUnit })),
+    subtotal: cart.reduce((s, i) => s + i.priceUnit * i.qty, 0),
+    status: "Pending",
+    notes: ""
+  });
+  trackEvent('order');
+
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+  document.getElementById('confirmOrderId').innerText = orderId;
+  document.getElementById('orderForm').classList.remove('open');
+  document.getElementById('cartPanel').classList.remove('open');
+  document.getElementById('orderConfirm').classList.add('open');
+  document.getElementById('orderConfirm').scrollIntoView({ behavior: 'smooth' });
+
+  document.getElementById('feedbackOrderTag').style.display = 'inline-block';
+  document.getElementById('feedbackOrderTag').innerText = `Order ID: ${orderId}`;
+  document.getElementById('feedbackThanks').style.display = 'none';
+  document.getElementById('feedbackText').value = '';
+  document.getElementById('feedbackForm').classList.add('open');
+
+  cart = [];
+  updateCartUI();
+  document.getElementById('custName').value = '';
+  document.getElementById('custPhone').value = '';
+  document.getElementById('custAddress').value = '';
+  document.getElementById('custPincode').value = '';
+}
+function submitFeedback() {
+  const type = document.getElementById('feedbackType').value;
+  const text = document.getElementById('feedbackText').value.trim();
+  if (!text) {
+    alert("Please share a few words before sending.");
+    return;
+  }
+  saveFeedbackToAdmin(type, text, lastOrder ? lastOrder.id : "");
+  const orderTag = lastOrder ? ` — Order ${lastOrder.id}` : '';
+  const message = `📝 *Feedback${orderTag}*\nType: ${type}\n\n${text}`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+
+  document.getElementById('feedbackThanks').style.display = 'block';
+  document.getElementById('feedbackText').value = '';
+}
+function openWhatsAppChat() {
+  const text = "Hi! I have a question about your masalas & pickles.";
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
+function trackOnWhatsApp() {
+  const text = lastOrder
+    ? `Hi, I'd like to track my order ${lastOrder.id}. Could you share the current status?`
+    : `Hi, I'd like to check the status of my recent order. Could you help me track it?`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+}
+function selectLocation(loc, btn) {
+  selectedLocation = loc;
+  document.querySelectorAll('.loc-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  document.getElementById('deliveryNote').innerText = `Selected Delivery Location: ${loc}`;
+}
+renderShop();
+renderReviews();
+loadShopData();
+
+if (location.hash !== "#admin") try {
+  if (!sessionStorage.getItem("amma_visited")) {
+    sessionStorage.setItem("amma_visited", "1");
+    trackEvent('visit');
+  }
+} catch (e) { trackEvent('visit'); }
+</script>
+<script>
+const STATUSES = ["Pending","Confirmed","Packed","Dispatched","Delivered","Cancelled"];
+const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+let orders = [], events = [], feedback = [];
+let products = [], settings = {};
+let reviews = [];
+let usingDefaults = false;     
+let savingProducts = false;
+let settingsFilled = false;
+let adminKey = "";
+let knownIds = null;          
+let newIds = new Set();
+let pollTimer = null;
+const baseTitle = "Admin — Amma's Masala";
+
+const $ = id => document.getElementById(id);
+const money = n => "₹" + Math.round(n || 0).toLocaleString("en-IN");
+const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+const fmtDate = d => { const x = new Date(d); return isNaN(x) ? esc(d) : x.toLocaleString("en-IN", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); };
+const itemCount = o => (o.items || []).reduce((s, i) => s + (i.qty || 0), 0);
+const waNumber = phone => { const d = String(phone).replace(/\D/g, ""); return d.length === 10 ? "91" + d : d; };
+const within = (d, days) => (Date.now() - new Date(d)) <= days * 86400000;
+
+STATUSES.forEach(s => $("statusFilter").insertAdjacentHTML("beforeend", `<option value="${s}">${s}</option>`));
+if (!API_URL) $("demoNote").hidden = false;
+
+async function api(payload) {
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=utf-8" }, 
+    body: JSON.stringify(payload)
+  });
+  let data;
+  try {
+    data = await res.json();
+  } catch (e) {
+    throw new Error("Google Sheet didn't answer correctly. Check the Web App URL ends with /exec and access is set to 'Anyone'.");
+  }
+  if (!data.ok) throw new Error(data.error || "Request failed");
+  return data;
+}
+function copyBackendCode() {
+  const box = $("backendCodeBox");
+  box.select();
+  (navigator.clipboard ? navigator.clipboard.writeText(box.value) : Promise.reject())
+    .then(() => toast("Google Sheet code copied ✓"))
+    .catch(() => { document.execCommand("copy"); toast("Google Sheet code copied ✓"); });
+}
+
+async function testConnection() {
+  if (!API_URL) { toast("API_URL is empty — you're in test mode"); return; }
+  try {
+    const res = await fetch(`${API_URL}?action=ping`);
+    const d = await res.json();
+    toast(d.ok ? "✅ Connected to Google Sheet" : "Problem: " + d.error);
+  } catch (e) {
+    toast("❌ Can't reach Google Sheet — check the URL and 'Anyone' access");
+  }
+}
+const readLocal = key => { try { return JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) { return []; } };
+
+async function fetchData() {
+  if (API_URL) {
+    const d = await api({ action: "list", key: adminKey });
+    return { orders: d.orders || [], events: d.events || [], feedback: d.feedback || [],
+             products: d.products || [], settings: d.settings || {}, reviews: d.reviews || [] };
+  }
+  let s = {};
+  try { s = JSON.parse(localStorage.getItem("amma_settings") || "{}") || {}; } catch (e) {}
+  return { orders: readLocal("amma_orders"), events: readLocal("amma_events"), feedback: readLocal("amma_feedback"),
+           products: readLocal("amma_products"), settings: s, reviews: readLocal("amma_reviews") };
+}
+async function loadData(notify) {
+  const d = await fetchData();
+  orders = d.orders; events = d.events; feedback = d.feedback;
+  reviews = (d.reviews || []).slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+  if (!savingProducts) {
+    usingDefaults = !d.products.length;
+    products = usingDefaults ? DEFAULT_PRODUCTS.map(p => ({ ...p, prices: {}, visible: true, inStock: true })) : d.products;
+  }
+  settings = Object.assign({}, DEFAULT_SETTINGS, d.settings);
+  if (!settingsFilled) { fillSettings(settings); settingsFilled = true; }
+  orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+  feedback.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const ids = new Set(orders.map(o => o.id));
+  if (knownIds && notify) {
+    const fresh = orders.filter(o => !knownIds.has(o.id));
+    if (fresh.length) announceNewOrders(fresh);
+  }
+  knownIds = ids;
+  renderAll();
+  $("liveTxt").innerHTML = `<i></i>Live · updated ${new Date().toLocaleTimeString("en-IN", {hour:"2-digit",minute:"2-digit"})}`;
+}
+async function saveOrderChange(id, changes) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  const before = { status: o.status, notes: o.notes };
+  Object.assign(o, changes);
+  renderAll();
+  try {
+    if (API_URL) {
+      await api({ action: "update", key: adminKey, id, ...changes });
+    } else {
+      const all = readLocal("amma_orders");
+      const x = all.find(a => a.id === id);
+      if (x) Object.assign(x, changes);
+      localStorage.setItem("amma_orders", JSON.stringify(all));
+    }
+    toast("Saved ✓");
+  } catch (e) {
+    Object.assign(o, before);
+    renderAll();
+    toast("Could not save: " + e.message);
+  }
+}
+function announceNewOrders(fresh) {
+  fresh.forEach(o => newIds.add(o.id));
+  const n = newIds.size;
+  const latest = fresh[0];
+  $("newBannerTxt").innerHTML = `🎉 <b>${n} new order${n > 1 ? "s" : ""}!</b> Latest: ${esc(latest.name)} — ${money(latest.subtotal)} (${esc(latest.id)})`;
+  $("newBanner").classList.add("show");
+  document.title = `(${n}) New order${n > 1 ? "s" : ""} — ${baseTitle}`;
+  beep();
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("🧺 New order — Amma's Masala", {
+      body: `${latest.name} • ${money(latest.subtotal)} • ${itemCount(latest)} item(s)`
+    });
+  }
+}
+function seeNewOrders() {
+  $("newBanner").classList.remove("show");
+  document.title = baseTitle;
+  $("orderSearch").value = ""; $("statusFilter").value = "all"; $("dateFilter").value = "all";
+  showTab("orders");
+  renderOrders();
+  setTimeout(() => { newIds.clear(); }, 15000);   
+}
+function beep() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [880, 1175].forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = f; o.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.18);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.18 + 0.16);
+      o.start(ctx.currentTime + i * 0.18); o.stop(ctx.currentTime + i * 0.18 + 0.17);
+    });
+  } catch (e) {}
+}
+async function enableNotifications() {
+  if (!("Notification" in window)) { toast("This browser doesn't support notifications"); return; }
+  const p = await Notification.requestPermission();
+  updateNotifyBtn();
+  toast(p === "granted" ? "Alerts enabled — keep this tab open" : "Alerts blocked in browser settings");
+}
+function updateNotifyBtn() {
+  if ("Notification" in window && Notification.permission === "granted") {
+    $("notifyBtn").innerText = "🔔 Alerts on";
+    $("notifyBtn").disabled = true;
+  }
+}
+function startLive() {
+  clearInterval(pollTimer);
+  pollTimer = setInterval(() => loadData(true).catch(() => {}), POLL_SECONDS * 1000);
+}
+window.addEventListener("storage", e => {
+  if (!API_URL && adminKey !== null && !$("app").hidden && e.key && e.key.startsWith("amma_")) loadData(true);
+});
+const LOCAL_HASH_KEY = "amma_admin_hash";
+
+async function sha256(text) {
+  if (window.crypto && crypto.subtle) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode("amma-masala:" + text));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  let h = 5381;
+  for (const c of "amma-masala:" + text) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0;
+  return "x" + h.toString(16);
+}
+function localHash() { try { return localStorage.getItem(LOCAL_HASH_KEY); } catch (e) { return null; } }
+
+function setupLoginScreen() {
+  if (!API_URL && !localHash()) {
+    $("loginMsg").innerText = "First time here — create an admin password (at least 6 characters)";
+    $("adminKey2").hidden = false;
+    $("loginBtn").innerText = "Create password & login";
+  }
+}
+async function login(isAuto) {
+  const key = $("adminKey").value;
+  if (!key) { $("loginErr").innerText = "Please enter the admin password."; return; }
+
+  if (!API_URL) {
+    const stored = localHash();
+    if (!stored) {
+      if (key.length < 6) { $("loginErr").innerText = "Use at least 6 characters."; return; }
+      if (key !== $("adminKey2").value) { $("loginErr").innerText = "The two passwords don't match."; return; }
+      localStorage.setItem(LOCAL_HASH_KEY, await sha256(key));
+      $("adminKey2").hidden = true;
+    } else if (await sha256(key) !== stored) {
+      $("loginErr").innerText = "Wrong password.";
+      return;
+    }
+  }
+  adminKey = key;
+  $("loginErr").innerText = "Checking...";
+  try {
+    await loadData(false);
+    sessionStorage.setItem("amma_admin_key", adminKey);
+    $("loginErr").innerText = "";
+    $("loginScreen").hidden = true;
+    $("app").hidden = false;
+    $("securityInfo").innerHTML = API_URL
+      ? "Live mode: the password is checked by your Google Apps Script (<code>ADMIN_KEY</code>). Without it, nobody can see orders, customers or feedback, or change products. After 10 wrong attempts, login is blocked for 15 minutes. To change the password, edit <code>ADMIN_KEY</code> and deploy a new version."
+      : "Test mode: the password is stored (encrypted as a hash) in this browser only. <button class='btn light' style='padding:4px 10px;margin-left:6px' onclick='resetLocalPassword()'>Change password</button>";
+    updateNotifyBtn();
+    startLive();
+  } catch (e) {
+    adminKey = "";
+    sessionStorage.removeItem("amma_admin_key");
+    $("loginErr").innerText = e.message === "Wrong admin key" ? "Wrong password." : e.message;
+  }
+}
+function resetLocalPassword() {
+  if (!confirm("Log out and create a new admin password?")) return;
+  localStorage.removeItem(LOCAL_HASH_KEY);
+  logout();
+  setupLoginScreen();
+}
+function logout() {
+  clearInterval(pollTimer);
+  sessionStorage.removeItem("amma_admin_key");
+  adminKey = ""; orders = []; events = []; feedback = []; products = []; knownIds = null; settingsFilled = false;
+  $("adminKey").value = "";
+  $("app").hidden = true;
+  $("loginScreen").hidden = false;
+  document.title = baseTitle;
+}
+async function refresh(manual) {
+  try { await loadData(true); if (manual) toast("Updated ✓"); }
+  catch (e) { toast("Refresh failed: " + e.message); }
+}
+function renderAll() {
+  renderStats(); renderOrders(); renderInsights(); renderCustomers(); renderProducts(); renderFeedback(); renderAdminReviews();
+}
+function uniqueSessions(list, type) {
+  return new Set(list.filter(e => e.type === type).map(e => e.session)).size;
+}
+function renderStats() {
+  const active = orders.filter(o => o.status !== "Cancelled");
+  const todayStr = new Date().toDateString();
+  const yest = new Date(Date.now() - 86400000).toDateString();
+  const todayCount = orders.filter(o => new Date(o.date).toDateString() === todayStr).length;
+  const yestCount = orders.filter(o => new Date(o.date).toDateString() === yest).length;
+  const week = orders.filter(o => within(o.date, 7)).length;
+  const pending = orders.filter(o => o.status === "Pending").length;
+  const customers = getCustomers();
+  const repeat = customers.filter(c => c.orders > 1).length;
+  const ev30 = events.filter(e => within(e.date, 30));
+  const visitors = uniqueSessions(ev30, "visit");
+  const orders30 = orders.filter(o => within(o.date, 30)).length;
+
+  $("stTotal").innerText = orders.length;
+  $("stTotalHint").innerText = `${week} in last 7 days`;
+  $("stRevenue").innerText = money(active.reduce((s, o) => s + (o.subtotal || 0), 0));
+  $("stToday").innerText = todayCount;
+  $("stTodayHint").innerText = `yesterday: ${yestCount}`;
+  $("stPending").innerText = pending;
+  $("stCustomers").innerText = customers.length;
+  $("stRepeatHint").innerText = `${repeat} repeat (${pct(repeat, customers.length)}%)`;
+  $("stVisitors").innerText = visitors;
+  $("stConvHint").innerText = visitors ? `${pct(orders30, visitors)}% placed an order` : "no visit data yet";
+  $("pendingCount").hidden = !pending;
+  $("pendingCount").innerText = pending;
+  const fbNew = feedback.filter(f => within(f.date, 7)).length;
+  $("fbCount").hidden = !fbNew;
+  $("fbCount").innerText = fbNew;
+  const pendingReviews = reviews.filter(r => r.status === "Pending").length;
+  $("revCount").hidden = !pendingReviews;
+  $("revCount").innerText = pendingReviews;
+  const outOfStock = products.filter(p => p.inStock === false && p.visible !== false).length;
+  $("outCount").hidden = !outOfStock;
+  $("outCount").innerText = outOfStock;
+  $("outCount").title = `${outOfStock} product(s) out of stock`;
+}
+function statusSelect(o) {
+  return `<select class="statusSel" onclick="event.stopPropagation()" onchange="saveOrderChange('${esc(o.id)}',{status:this.value})">
+    ${STATUSES.map(s => `<option ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}
+  </select>`;
+}
+function renderOrders() {
+  const q = $("orderSearch").value.trim().toLowerCase();
+  const st = $("statusFilter").value;
+  const df = $("dateFilter").value;
+  const now = new Date();
+
+  const list = orders.filter(o => {
+    if (st !== "all" && o.status !== st) return false;
+    if (df === "today" && new Date(o.date).toDateString() !== now.toDateString()) return false;
+    if (df !== "all" && df !== "today" && !within(o.date, Number(df))) return false;
+    if (q) {
+      const hay = [o.id, o.name, o.phone, o.address, o.pincode, o.location, ...(o.items || []).map(i => i.name)].join(" ").toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  $("ordersBody").innerHTML = list.length ? list.map(o => `
+    <tr class="clickable ${newIds.has(o.id) ? "isNew" : ""}" onclick="openOrder('${esc(o.id)}')">
+      <td><b>${esc(o.id)}</b>${newIds.has(o.id) ? ' <span class="tag ok">NEW</span>' : ""}</td>
+      <td>${fmtDate(o.date)}</td>
+      <td>${esc(o.name)}<span class="sub">${esc(o.phone)}</span></td>
+      <td>${esc(o.location || "—")}<span class="sub">${esc(o.pincode)}</span></td>
+      <td>${itemCount(o)} item(s)<span class="sub">${esc((o.items || []).map(i => i.name).join(", ").slice(0, 60))}</span></td>
+      <td class="amt">${money(o.subtotal)}</td>
+      <td>${esc(o.payment)}</td>
+      <td>${statusSelect(o)}</td>
+    </tr>`).join("") : `<tr><td colspan="8" class="empty">No orders found.</td></tr>`;
+}
+function productStats(ordersP, eventsP) {
+  const map = {};
+  const get = name => map[name] || (map[name] = { name, views: 0, adds: 0, orders: 0, qty: 0, revenue: 0 });
+  const viewSeen = new Set(), addSeen = new Set();
+  eventsP.forEach(e => {
+    if (!e.product) return;
+    const k = e.session + "|" + e.product;
+    if (e.type === "view" && !viewSeen.has(k)) { viewSeen.add(k); get(e.product).views++; }
+    if (e.type === "add" && !addSeen.has(k)) { addSeen.add(k); get(e.product).adds++; }
+  });
+  ordersP.filter(o => o.status !== "Cancelled").forEach(o => {
+    const inOrder = new Set();
+    (o.items || []).forEach(i => {
+      const p = get(i.name);
+      p.qty += i.qty || 0;
+      p.revenue += (i.qty || 0) * (i.priceUnit || 0);
+      if (!inOrder.has(i.name)) { inOrder.add(i.name); p.orders++; }
+    });
+  });
+  return Object.values(map);
+}
+function renderInsights() {
+  const days = Number($("insPeriod").value);
+  const oP = orders.filter(o => within(o.date, days));
+  const eP = events.filter(e => within(e.date, days));
+  const fP = feedback.filter(f => within(f.date, days));
+  const active = oP.filter(o => o.status !== "Cancelled");
+
+  const visits = uniqueSessions(eP, "visit");
+  const viewers = uniqueSessions(eP, "view");
+  const adders = uniqueSessions(eP, "add");
+  const checkouts = uniqueSessions(eP, "checkout");
+  const placed = uniqueSessions(eP, "order");
+  const steps = [
+    ["Visited shop", visits], ["Viewed a product", viewers], ["Added to cart", adders],
+    ["Opened checkout", checkouts], ["Placed order", placed]
+  ];
+  const top = Math.max(visits, 1);
+  $("funnel").innerHTML = eP.length ? steps.map((s, i) => {
+    const drop = i > 0 && steps[i - 1][1] > 0 ? steps[i - 1][1] - s[1] : 0;
+    return `${i > 0 && drop > 0 ? `<div class="drop">↓ ${drop} left here (${pct(drop, steps[i - 1][1])}%)</div>` : ""}
+      <div class="funnelRow"><label>${s[0]}</label>
+        <div class="bar"><i style="width:${Math.min(100, pct(s[1], top))}%"></i></div>
+        <div class="num"><b>${s[1]}</b><small>${pct(s[1], top)}% of visitors</small></div></div>`;
+  }).join("") : `<div class="empty">No shop activity recorded yet in this period.</div>`;
+
+  // Key numbers
+  const revenue = active.reduce((s, o) => s + o.subtotal, 0);
+  const aov = active.length ? revenue / active.length : 0;
+  const cancelled = oP.filter(o => o.status === "Cancelled").length;
+  const payCount = {};
+  oP.forEach(o => payCount[o.payment] = (payCount[o.payment] || 0) + 1);
+  const topPay = Object.entries(payCount).sort((a, b) => b[1] - a[1])[0];
+  const customersAll = getCustomers();
+  const phonesP = new Set(oP.map(o => waNumber(o.phone)));
+  const repeatP = customersAll.filter(c => phonesP.has(waNumber(c.phone)) && c.orders > 1).length;
+  $("keyNums").innerHTML = [
+    ["Orders", oP.length], ["Revenue", money(revenue)], ["Average order value", money(aov)],
+    ["Cancelled", `${cancelled} (${pct(cancelled, oP.length)}%)`],
+    ["Repeat customers", `${repeatP} of ${phonesP.size}`],
+    ["Most used payment", topPay ? `${esc(topPay[0])} (${pct(topPay[1], oP.length)}%)` : "—"],
+    ["Feedback received", fP.length]
+  ].map(([k, v]) => `<div class="kv"><span>${k}</span><b>${v}</b></div>`).join("");
+
+  const areas = {};
+  oP.forEach(o => { const a = o.location || "Not selected"; areas[a] = (areas[a] || 0) + 1; });
+  const areaList = Object.entries(areas).sort((a, b) => b[1] - a[1]);
+  const maxA = Math.max(1, ...areaList.map(a => a[1]));
+  $("areaBars").innerHTML = areaList.length ? areaList.map(([a, n]) =>
+    `<div class="hbar"><span>${esc(a)}</span><div class="bar"><i style="width:${pct(n, maxA)}%"></i></div><b>${n}</b></div>`).join("")
+    : `<div class="empty">No orders yet.</div>`;
+
+  const dayC = [0, 0, 0, 0, 0, 0, 0];
+  oP.forEach(o => dayC[new Date(o.date).getDay()]++);
+  const maxD = Math.max(1, ...dayC);
+  $("dayBars").innerHTML = oP.length ? dayC.map((n, i) =>
+    `<div class="hbar"><span>${DAYS[i]}</span><div class="bar"><i style="width:${pct(n, maxD)}%"></i></div><b>${n}</b></div>`).join("")
+    : `<div class="empty">No orders yet.</div>`;
+
+  const perf = productStats(oP, eP).sort((a, b) => b.revenue - a.revenue || b.views - a.views);
+  $("perfBody").innerHTML = perf.length ? perf.map(p => {
+    const conv = pct(p.orders, p.views);
+    let verdict;
+    if (p.views >= 5 && p.orders === 0) verdict = `<span class="tag bad">Viewed, never bought</span>`;
+    else if (p.adds >= 3 && p.orders === 0) verdict = `<span class="tag bad">Left in carts</span>`;
+    else if (p.views >= 5 && conv < 10) verdict = `<span class="tag warn">Low conversion</span>`;
+    else if (p.orders >= 3) verdict = `<span class="tag ok">Selling well</span>`;
+    else verdict = `<span style="color:#aaa">—</span>`;
+    return `<tr><td><b>${esc(p.name)}</b></td><td>${p.views}</td><td>${p.adds}</td><td>${p.orders}</td>
+      <td>${p.qty}</td><td class="amt">${money(p.revenue)}</td><td>${p.views ? conv + "%" : "—"}</td><td>${verdict}</td></tr>`;
+  }).join("") : `<tr><td colspan="8" class="empty">No product data yet.</td></tr>`;
+
+  $("tips").innerHTML = buildTips({ days, oP, eP, fP, active, visits, viewers, adders, checkouts, placed, aov, cancelled, perf, areaList, dayC, phonesP, repeatP, payCount })
+    .map(t => `<div class="tip ${t.level}"><div class="ic">${t.icon}</div><div><b>${t.title}</b><span>${t.text}</span></div></div>`).join("");
+}
+function buildTips(d) {
+  const tips = [];
+  const add = (level, icon, title, text) => tips.push({ level, icon, title, text });
+
+  if (!d.oP.length && !d.eP.length) {
+    add("mid", "📣", "No activity yet in this period",
+      "Share your shop link on WhatsApp status, family groups, Instagram and local Facebook groups to bring in your first visitors.");
+    return tips;
+  }
+  const stale = orders.filter(o => o.status === "Pending" && !within(o.date, 1));
+  if (stale.length) add("high", "⏰", `${stale.length} order(s) still Pending for over 24 hours`,
+    `Confirm them on WhatsApp today. Slow confirmation is the #1 reason customers cancel. (${stale.slice(0, 3).map(o => esc(o.id)).join(", ")}${stale.length > 3 ? "…" : ""})`);
+
+  if (d.visits >= 10 && pct(d.viewers, d.visits) < 30)
+    add("high", "👀", `Only ${pct(d.viewers, d.visits)}% of visitors open a product`,
+      "Most people leave without looking at products. Use brighter, clearer product photos, show your offer at the top, and put best sellers first.");
+  if (d.viewers >= 10 && pct(d.adders, d.viewers) < 20)
+    add("high", "🛒", `Only ${pct(d.adders, d.viewers)}% of product viewers add to cart`,
+      "Customers look but don't buy. Check if prices feel high, add a 100g trial size price upfront, and show reviews/ratings inside the product popup.");
+  if (d.adders >= 5 && pct(d.checkouts, d.adders) < 50)
+    add("mid", "🧾", `${d.adders - d.checkouts} shopper(s) added to cart but never opened checkout`,
+      "Show the delivery charge and 'FREE delivery above ₹500' inside the cart, and make the 'Proceed to Checkout' button more visible.");
+  if (d.checkouts >= 3 && pct(d.placed, d.checkouts) < 60)
+    add("high", "📝", `${d.checkouts - d.placed} shopper(s) opened checkout but didn't place the order`,
+      "The checkout form may feel long or they may not trust paying. Reassure with 'Cash on Delivery available', keep fields few, and add your phone number near the form.");
+
+  const neverBought = d.perf.filter(p => p.views >= 5 && p.orders === 0);
+  if (neverBought.length) add("mid", "🌶️", `Viewed a lot but never bought: ${neverBought.slice(0, 3).map(p => esc(p.name)).join(", ")}`,
+    "Review the price, photo and description for these. Try a small-pack price or add them to a combo with a best seller.");
+  const leftInCart = d.perf.filter(p => p.adds >= 3 && p.orders === 0 && p.views < 5);
+  if (leftInCart.length) add("mid", "🧺", `Often left in carts: ${leftInCart.slice(0, 3).map(p => esc(p.name)).join(", ")}`,
+    "People want these but drop them. A small discount or free delivery push could convert them.");
+  const best = d.perf.filter(p => p.orders > 0).sort((a, b) => b.qty - a.qty)[0];
+  if (best) add("good", "⭐", `Best seller: ${esc(best.name)} (${best.qty} sold, ${money(best.revenue)})`,
+    "Keep this always in stock, feature it at the top of the shop, and build a combo around it to lift order value.");
+
+  if (d.active.length >= 3 && d.aov < 500)
+    add("mid", "💰", `Average order is ${money(d.aov)} — below the ₹500 free-delivery mark`,
+      "Suggest 'Add ₹X more for FREE delivery' in the cart, or promote combos (₹400+) so each order is bigger.");
+
+  if (d.oP.length >= 5 && pct(d.cancelled, d.oP.length) > 10)
+    add("high", "❌", `${pct(d.cancelled, d.oP.length)}% of orders were cancelled`,
+      "Call or WhatsApp customers soon after they order, add notes on why each order was cancelled, and fix the most common reason.");
+
+  if (d.phonesP.size >= 5 && pct(d.repeatP, d.phonesP.size) < 20)
+    add("mid", "🔁", `Only ${pct(d.repeatP, d.phonesP.size)}% of customers ordered again`,
+      "Send a WhatsApp message 3–4 weeks after delivery (when their masala runs out) with a small repeat-order discount.");
+  else if (d.phonesP.size >= 5)
+    add("good", "🔁", `${pct(d.repeatP, d.phonesP.size)}% of customers come back`,
+      "Customers like your products. Ask happy repeat customers for a review or photo to show on the shop.");
+
+  if (d.areaList.length) {
+    const noArea = d.areaList.find(a => a[0] === "Not selected");
+    if (noArea && d.oP.length >= 5 && pct(noArea[1], d.oP.length) > 40)
+      add("mid", "📍", `${pct(noArea[1], d.oP.length)}% of customers didn't choose a delivery area`,
+        "Move the delivery-area buttons into the checkout form so you always know where to deliver.");
+    const topArea = d.areaList.find(a => a[0] !== "Not selected");
+    if (topArea) add("good", "📍", `Most orders come from ${esc(topArea[0])} (${topArea[1]})`,
+      `Focus local promotions there — WhatsApp groups, apartment associations, local shops. Areas with few orders need more awareness.`);
+  }
+  if (d.oP.length >= 7) {
+    const maxI = d.dayC.indexOf(Math.max(...d.dayC));
+    add("good", "🗓️", `${DAYS[maxI]} is your busiest day`,
+      `Post offers and WhatsApp status updates the day before (${DAYS[(maxI + 6) % 7]}) to catch customers when they plan their cooking.`);
+  }
+  const onlineShare = pct((d.payCount.UPI || 0) + (d.payCount.Online || 0), d.oP.length);
+  if (d.oP.length >= 5 && onlineShare < 30)
+    add("mid", "💳", `Most customers pay Cash on Delivery (${100 - onlineShare}%)`,
+      "COD has more cancellations. Offer a small UPI discount (e.g. ₹10 off) to encourage prepaid orders.");
+
+  const questions = d.fP.filter(f => f.type === "Question about my order").length;
+  const ideas = d.fP.filter(f => f.type === "Product idea / suggestion").length;
+  if (questions) add("mid", "❓", `${questions} customer question(s) about orders`,
+    "Customers are asking about their orders — send proactive 'Packed' and 'Dispatched' updates so they don't need to ask. See the Feedback tab.");
+  if (ideas) add("good", "💡", `${ideas} product idea(s) from customers`,
+    "Check the Feedback tab — customer ideas are a great way to choose your next product.");
+  if (!d.eP.length && API_URL)
+    add("mid", "🔌", "No shop activity data yet",
+      "Make sure API_URL is pasted into amma-shop.html and the updated file is uploaded, so visits, views and cart activity are recorded.");
+  const order = { high: 0, mid: 1, good: 2 };
+  return tips.sort((a, b) => order[a.level] - order[b.level]);
+}
+function getCustomers() {
+  const map = {};
+  orders.forEach(o => {
+    const key = waNumber(o.phone);
+    if (!map[key]) map[key] = { name: o.name, phone: o.phone, address: o.address, pincode: o.pincode, location: o.location, orders: 0, spent: 0, last: o.date };
+    const c = map[key];
+    c.orders++;
+    if (o.status !== "Cancelled") c.spent += o.subtotal || 0;
+    if (new Date(o.date) >= new Date(c.last)) Object.assign(c, { last: o.date, name: o.name, address: o.address, pincode: o.pincode, location: o.location });
+  });
+  return Object.values(map).sort((a, b) => b.spent - a.spent);
+}
+function renderCustomers() {
+  const q = $("customerSearch").value.trim().toLowerCase();
+  const list = getCustomers().filter(c => !q || [c.name, c.phone, c.address, c.pincode, c.location].join(" ").toLowerCase().includes(q));
+  $("customersBody").innerHTML = list.length ? list.map(c => `
+    <tr>
+      <td><b>${esc(c.name)}</b> ${c.orders > 1 ? '<span class="tag ok">Repeat</span>' : ""}<span class="sub">📞 ${esc(c.phone)}</span></td>
+      <td>${esc(c.address)}<span class="sub">${esc(c.location ? c.location + " · " : "")}${esc(c.pincode)}</span></td>
+      <td>${c.orders}</td>
+      <td class="amt">${money(c.spent)}</td>
+      <td>${fmtDate(c.last)}</td>
+      <td style="white-space:nowrap">
+        <button class="btn light" onclick="viewCustomerOrders('${esc(c.phone)}')">Orders</button>
+        <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(c.phone)}">WhatsApp</a>
+      </td>
+    </tr>`).join("") : `<tr><td colspan="6" class="empty">No customers yet.</td></tr>`;
+}
+
+function viewCustomerOrders(phone) {
+  $("orderSearch").value = phone;
+  $("statusFilter").value = "all";
+  $("dateFilter").value = "all";
+  showTab("orders");
+  renderOrders();
+}
+
+// ---------- Product manager ----------
+Object.entries(CATEGORIES).forEach(([v, label]) => {
+  $("productCat").insertAdjacentHTML("beforeend", `<option value="${v}">${esc(label)}</option>`);
+  $("peCat").insertAdjacentHTML("beforeend", `<option value="${v}">${esc(label)}</option>`);
+});
+$("pePrices").innerHTML = WEIGHTS.map(w =>
+  `<div><small style="color:#888">${w}</small><input type="number" min="0" step="1" id="pePrice_${w}" oninput="updatePricePlaceholders()"></div>`).join("");
+
+function salesByProduct() {
+  const map = {};
+  orders.filter(o => o.status !== "Cancelled").forEach(o => (o.items || []).forEach(i => {
+    const s = map[i.name] || (map[i.name] = { qty: 0, revenue: 0 });
+    s.qty += i.qty || 0;
+    s.revenue += (i.qty || 0) * (i.priceUnit || 0);
+  }));
+  return map;
+}
+
+function renderProducts() {
+  $("defaultsNote").hidden = !usingDefaults;
+  const q = $("productSearch").value.trim().toLowerCase();
+  const cat = $("productCat").value;
+  const st = $("productState").value;
+  const sales = salesByProduct();
+  const list = products.filter(p => {
+    if (cat !== "all" && p.cat !== cat) return false;
+    if (st === "live" && (p.visible === false)) return false;
+    if (st === "hidden" && p.visible !== false) return false;
+    if (st === "out" && p.inStock !== false) return false;
+    if (q && ![p.name, p.ingredients, p.desc].join(" ").toLowerCase().includes(q)) return false;
+    return true;
+  });
+  $("productsBody").innerHTML = list.length ? list.map(p => {
+    const s = sales[p.name] || { qty: 0, revenue: 0 };
+    const tags = p.tags || [];
+    const status = [
+      p.visible === false ? '<span class="tag warn">Hidden</span>' : '<span class="tag ok">On website</span>',
+      p.inStock === false ? '<span class="tag bad">Out of stock</span>' : "",
+      tags.includes("bestseller") ? '<span class="tag ok">Best Seller</span>' : "",
+      tags.includes("new") ? '<span class="tag ok">New</span>' : ""
+    ].join(" ");
+    return `<tr class="${p.visible === false ? "hiddenRow" : ""}">
+      <td><img class="thumb" src="${esc(p.img)}" alt="" onerror="this.style.visibility='hidden'"></td>
+      <td><b>${esc(p.icon || "")} ${esc(p.name)}</b><span class="sub">${esc(p.ingredients)}</span><span class="sub">🕒 ${esc(p.shelf || "—")}</span></td>
+      <td>${esc(CATEGORIES[p.cat] || p.cat)}</td>
+      <td style="white-space:nowrap">${WEIGHTS.map(w => `<span title="${w}">${money(priceFor(p, w))}</span>`).join(" / ")}</td>
+      <td>${esc(p.spice)}</td>
+      <td>${s.qty}</td>
+      <td class="amt">${money(s.revenue)}</td>
+      <td>${status}</td>
+      <td><div class="rowBtns">
+        <button class="btn light" onclick="openProductEditor(${Number(p.id)})">✏️ Edit</button>
+        <button class="btn light" onclick="toggleProduct(${Number(p.id)},'visible')">${p.visible === false ? "👁 Show" : "🙈 Hide"}</button>
+        <button class="btn light" onclick="toggleProduct(${Number(p.id)},'inStock')">${p.inStock === false ? "✅ In stock" : "⛔ Out of stock"}</button>
+        <button class="btn danger" onclick="deleteProduct(${Number(p.id)})">🗑</button>
+      </div></td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="9" class="empty">No products match.</td></tr>`;
+}
+
+async function saveProducts(msg) {
+  savingProducts = true;
+  renderAll();
+  try {
+    if (API_URL) {
+      await api({ action: "saveProducts", key: adminKey, products });
+    } else {
+      localStorage.setItem("amma_products", JSON.stringify(products));
+    }
+    usingDefaults = false;
+    toast(msg || "Saved — website updated ✓");
+  } catch (e) {
+    toast("Could not save: " + e.message);
+    savingProducts = false;
+    await loadData(false).catch(() => {});   // go back to what the server has
+    return;
+  }
+  savingProducts = false;
+  renderAll();
+}
+
+function toggleProduct(id, field) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  p[field] = p[field] === false;
+  const label = field === "visible" ? (p.visible ? "now showing on website" : "hidden from website")
+                                    : (p.inStock ? "marked in stock" : "marked out of stock");
+  saveProducts(`${p.name} ${label} ✓`);
+}
+
+function deleteProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p || !confirm(`Delete "${p.name}" permanently?\n\nTip: use Hide instead if you may sell it again.`)) return;
+  products = products.filter(x => x.id !== id);
+  saveProducts(`${p.name} deleted`);
+}
+
+let editingId = null;
+function openProductEditor(id) {
+  const p = id ? products.find(x => x.id === id) : null;
+  editingId = p ? p.id : null;
+  $("peTitle").innerText = p ? "Edit product" : "Add product";
+  $("peErr").innerText = "";
+  $("peName").value = p ? p.name : "";
+  $("peCat").value = p ? p.cat : "spice";
+  $("peSpice").value = p ? p.spice : "Medium";
+  WEIGHTS.forEach(w => {
+    const v = p ? (w === "250g" ? p.price250 : (p.prices && p.prices[w]) || "") : "";
+    $("pePrice_" + w).value = v;
+  });
+  $("peShelf").value = p ? p.shelf : "6 months";
+  $("peIcon").value = p ? p.icon || "" : "";
+  $("peIngredients").value = p ? p.ingredients : "";
+  $("peDesc").value = p ? p.desc : "";
+  $("peImg").value = p ? p.img : "";
+  $("peImgPrev").src = p ? p.img : "";
+  $("peBest").checked = p ? (p.tags || []).includes("bestseller") : false;
+  $("peNew").checked = p ? (p.tags || []).includes("new") : !p;
+  $("peVisible").checked = p ? p.visible !== false : true;
+  $("peStock").checked = p ? p.inStock !== false : true;
+  updatePricePlaceholders();
+  $("productModal").classList.add("open");
+  $("peName").focus();
+}
+
+function updatePricePlaceholders() {
+  const base = Number($("pePrice_250g").value) || 0;
+  WEIGHTS.forEach(w => { if (w !== "250g") $("pePrice_" + w).placeholder = base ? "auto ₹" + Math.round(base * WEIGHT_MULT[w]) : "auto"; });
+}
+
+function closeProductEditor() { $("productModal").classList.remove("open"); }
+
+function saveProductEditor() {
+  const name = $("peName").value.trim();
+  const price250 = Number($("pePrice_250g").value);
+  if (!name) { $("peErr").innerText = "Please enter a product name."; return; }
+  if (!(price250 > 0)) { $("peErr").innerText = "Please enter the 250g price."; return; }
+  if (products.some(x => x.name.toLowerCase() === name.toLowerCase() && x.id !== editingId)) {
+    $("peErr").innerText = "Another product already has this name."; return;
+  }
+  const prices = {};
+  WEIGHTS.forEach(w => { const v = Number($("pePrice_" + w).value); if (w !== "250g" && v > 0) prices[w] = v; });
+  const tags = [];
+  if ($("peBest").checked) tags.push("bestseller");
+  if ($("peNew").checked) tags.push("new");
+
+  const data = {
+    name, cat: $("peCat").value, spice: $("peSpice").value, price250, prices, tags,
+    shelf: $("peShelf").value.trim(), icon: $("peIcon").value.trim(),
+    ingredients: $("peIngredients").value.trim(), desc: $("peDesc").value.trim(),
+    img: $("peImg").value.trim(), visible: $("peVisible").checked, inStock: $("peStock").checked
+  };
+  if (editingId) {
+    Object.assign(products.find(x => x.id === editingId), data);
+  } else {
+    const id = products.reduce((m, x) => Math.max(m, Number(x.id) || 0), 0) + 1;
+    products.push({ id, color: "c" + (((id - 1) % 20) + 1), ...data });
+  }
+  closeProductEditor();
+  saveProducts(`${name} saved — website updated ✓`);
+}
+function fillSettings(s) {
+  $("setHero").value = s.heroTitle || "";
+  $("setOffer").value = s.offerText || "";
+}
+
+async function saveSettings() {
+  const s = { heroTitle: $("setHero").value.trim() || DEFAULT_SETTINGS.heroTitle,
+              offerText: $("setOffer").value.trim() || DEFAULT_SETTINGS.offerText };
+  try {
+    if (API_URL) await api({ action: "saveSettings", key: adminKey, settings: s });
+    else localStorage.setItem("amma_settings", JSON.stringify(s));
+    settings = s;
+    toast("Settings saved — website updated ✓");
+  } catch (e) {
+    toast("Could not save: " + e.message);
+  }
+}
+// ---------- Reviews ----------
+const REVIEW_TAG = {
+  Pending: '<span class="tag warn">Waiting for approval</span>',
+  Approved: '<span class="tag ok">On website</span>',
+  Hidden: '<span class="tag bad">Hidden</span>'
+};
+
+function renderAdminReviews() {
+  const f = $("revFilter").value;
+  const rank = { Pending: 0, Approved: 1, Hidden: 2 };
+  const list = reviews.filter(r => f === "all" || r.status === f)
+    .sort((a, b) => (rank[a.status] - rank[b.status]) || (new Date(b.date) - new Date(a.date)));
+  $("adminReviewList").innerHTML = list.length ? list.map(r => {
+    const stars = Math.max(1, Math.min(5, Math.round(Number(r.rating)) || 5));
+    const id = esc(r.id);
+    const btns = [
+      r.status !== "Approved" ? `<button class="btn" onclick="reviewAction('${id}','Approved')">✅ ${r.status === "Pending" ? "Approve" : "Show"}</button>` : "",
+      r.status !== "Hidden" ? `<button class="btn light" onclick="reviewAction('${id}','Hidden')">🙈 Hide</button>` : "",
+      `<button class="btn danger" onclick="reviewAction('${id}','delete')">🗑</button>`
+    ].join("");
+    return `<div class="rv ${esc(r.status)}">
+      <div style="flex:1;min-width:240px">
+        <span class="stars">${"★".repeat(stars)}${"☆".repeat(5 - stars)}</span> ${REVIEW_TAG[r.status] || ""}
+        <p>${esc(r.text)}</p>
+        <div class="who"><b>${esc(r.name)}</b>${r.city ? ", " + esc(r.city) : ""}${r.product ? " · " + esc(r.product) : ""} · ${fmtDate(r.date)}</div>
+      </div>
+      <div class="rowBtns">${btns}</div>
+    </div>`;
+  }).join("") : `<div class="panel"><div class="empty">No reviews here yet.</div></div>`;
+}
+
+async function reviewAction(id, action) {
+  if (action === "delete" && !confirm("Delete this review permanently?")) return;
+  try {
+    if (API_URL) {
+      if (action === "delete") await api({ action: "deleteReview", key: adminKey, id });
+      else await api({ action: "setReviewStatus", key: adminKey, id, status: action });
+    } else {
+      let all = readLocal("amma_reviews");
+      all = action === "delete" ? all.filter(r => r.id !== id) : all.map(r => r.id === id ? { ...r, status: action } : r);
+      localStorage.setItem("amma_reviews", JSON.stringify(all));
+    }
+    reviews = action === "delete" ? reviews.filter(r => r.id !== id) : reviews.map(r => r.id === id ? { ...r, status: action } : r);
+    renderAll();
+    toast(action === "delete" ? "Review deleted" : action === "Approved" ? "Review is now on the website ✓" : "Review hidden");
+  } catch (e) {
+    toast("Could not save: " + e.message);
+  }
+}
+
+function openReviewEditor() {
+  $("arName").value = ""; $("arCity").value = ""; $("arText").value = ""; $("arRating").value = "5"; $("arErr").innerText = "";
+  $("arProduct").innerHTML = '<option value="">—</option>' + products.map(p => `<option>${esc(p.name)}</option>`).join("");
+  $("reviewModal").classList.add("open");
+  $("arName").focus();
+}
+function closeReviewEditor() { $("reviewModal").classList.remove("open"); }
+
+async function saveReviewEditor() {
+  const r = { name: $("arName").value.trim(), city: $("arCity").value.trim(), rating: Number($("arRating").value),
+              product: $("arProduct").value, text: $("arText").value.trim() };
+  if (!r.name || !r.text) { $("arErr").innerText = "Please enter the customer's name and their review."; return; }
+  try {
+    let id = "R" + Date.now();
+    const saved = { ...r, id, date: new Date().toISOString(), status: "Approved" };
+    if (API_URL) {
+      const d = await api({ action: "addReview", key: adminKey, review: r });
+      saved.id = d.id || id;
+    } else {
+      const all = readLocal("amma_reviews");
+      all.push(saved);
+      localStorage.setItem("amma_reviews", JSON.stringify(all));
+    }
+    reviews.unshift(saved);
+    closeReviewEditor();
+    renderAll();
+    toast("Review added — now showing on the website ✓");
+  } catch (e) {
+    $("arErr").innerText = "Could not save: " + e.message;
+  }
+}
+
+function renderFeedback() {
+  const f = $("fbFilter").value;
+  const list = feedback.filter(x => f === "all" || x.type === f);
+  $("feedbackList").innerHTML = list.length ? list.map(x => {
+    const order = x.orderId ? orders.find(o => o.id === x.orderId) : null;
+    return `<div class="fb">
+      <div class="fbHead"><span class="fbType">${esc(x.type)}</span>
+        <span>${fmtDate(x.date)}${x.orderId ? ` · Order <a href="#" onclick="openOrder('${esc(x.orderId)}');return false">${esc(x.orderId)}</a>` : ""}${order ? ` · ${esc(order.name)}` : ""}</span></div>
+      <p>${esc(x.message)}</p>
+      ${order ? `<div style="margin-top:8px"><a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(order.phone)}">Reply on WhatsApp</a></div>` : ""}
+    </div>`;
+  }).join("") : `<div class="panel"><div class="empty">No feedback yet.</div></div>`;
+}
+function showTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  ["orders", "insights", "customers", "products", "reviews", "feedback", "settings"].forEach(t => $("tab-" + t).hidden = t !== name);
+}
+function openOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) { toast("Order not found"); return; }
+  const prevOrders = orders.filter(x => waNumber(x.phone) === waNumber(o.phone)).length;
+  const waMsg = `Hi ${o.name}, this is Amma's Home Masala & Pickles. Your order ${o.id} is now: ${o.status}. Thank you!`;
+
+  $("modalContent").innerHTML = `
+    <button class="modalClose" onclick="closeModal()">✕</button>
+    <h2>Order ${esc(o.id)}</h2>
+    <div class="meta">${fmtDate(o.date)} &nbsp; <span class="status s-${esc(o.status)}">${esc(o.status)}</span></div>
+    <div class="grid2">
+      <div class="box">
+        <h4>👤 Customer</h4>
+        <b>${esc(o.name)}</b><br>
+        📞 ${esc(o.phone)}<br>
+        🧾 ${prevOrders} order(s) in total ${prevOrders > 1 ? '<span class="tag ok">Repeat</span>' : '<span class="tag warn">First order</span>'}
+      </div>
+      <div class="box">
+        <h4>🏠 Delivery Address</h4>
+        ${esc(o.address)}<br>
+        Pincode: <b>${esc(o.pincode)}</b><br>
+        ${o.location ? "Area: " + esc(o.location) : ""}
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>Product</th><th>Weight</th><th>Qty</th><th>Price</th><th>Total</th></tr></thead>
+      <tbody>
+        ${(o.items || []).map(i => `<tr>
+          <td>${esc(i.name)}</td><td>${esc(i.weight)}</td><td>${i.qty}</td>
+          <td>${money(i.priceUnit)}</td><td class="amt">${money(i.qty * i.priceUnit)}</td></tr>`).join("")}
+        <tr class="totalRow"><td colspan="4">Subtotal</td><td>${money(o.subtotal)}</td></tr>
+      </tbody>
+    </table>
+    <div>💳 Payment method: <b>${esc(o.payment)}</b></div>
+
+    <div class="noPrint">
+      <label>Update status</label>
+      <select id="mStatus">${STATUSES.map(s => `<option ${s === o.status ? "selected" : ""}>${s}</option>`).join("")}</select>
+      <label>Admin notes (only you see this)</label>
+      <textarea id="mNotes" rows="3" placeholder="e.g. Paid via UPI, dispatched with courier, cancelled because...">${esc(o.notes || "")}</textarea>
+    </div>
+
+    <div class="modalActions">
+      <button class="btn" onclick="saveModal('${esc(o.id)}')">Save</button>
+      <a class="btn wa" target="_blank" rel="noopener" href="https://wa.me/${waNumber(o.phone)}?text=${encodeURIComponent(waMsg)}">WhatsApp customer</a>
+      <a class="btn light" href="tel:${esc(String(o.phone).replace(/[^\d+]/g, ""))}">📞 Call</a>
+      <button class="btn light" onclick="window.print()">🖨 Print</button>
+    </div>`;
+  $("orderModal").classList.add("open");
+}
+function saveModal(id) {
+  saveOrderChange(id, { status: $("mStatus").value, notes: $("mNotes").value });
+  closeModal();
+}
+function closeModal() { $("orderModal").classList.remove("open"); }
+function exportCSV() {
+  const cell = v => `"${String(v == null ? "" : v).replace(/"/g, '""')}"`;
+  const rows = [["Order ID", "Date", "Name", "Phone", "Address", "Pincode", "Area", "Payment", "Items", "Subtotal", "Status", "Notes"]];
+  orders.forEach(o => rows.push([
+    o.id, new Date(o.date).toLocaleString("en-IN"), o.name, o.phone, o.address, o.pincode, o.location, o.payment,
+    (o.items || []).map(i => `${i.name} (${i.weight}) x${i.qty}`).join("; "), o.subtotal, o.status, o.notes
+  ]));
+  const blob = new Blob(["﻿" + rows.map(r => r.map(cell).join(",")).join("\n")], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `amma-orders-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+}
+function toast(msg) {
+  const t = $("toast");
+  t.innerText = msg; t.style.display = "block";
+  clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 2500);
+}
+let adminStarted = false;
+function adminInit() {
+  if (adminStarted) return;
+  adminStarted = true;
+  $("backendCodeBox").value = document.getElementById("backendCode").textContent.trim();
+  $("connInfo").innerHTML = API_URL
+    ? "✅ Live mode — connected to: <code>" + esc(API_URL) + "</code>"
+    : "⚠️ Test mode — data is saved only in this browser. Follow these steps so customers' orders reach you from any phone.";
+  setupLoginScreen();
+  const saved = sessionStorage.getItem("amma_admin_key");
+  if (saved) { $("adminKey").value = saved; login(true); }
+}
+const SHOP_TITLE = "Amma's Home Masala & Pickles";
+let routeReady = false;
+function applyRoute() {
+  const isAdmin = location.hash === "#admin";
+  document.body.classList.toggle("adminMode", isAdmin);
+  document.getElementById("mainPage").hidden = isAdmin;
+  document.getElementById("cartBox").hidden = isAdmin;
+  document.querySelector(".whatsappFloat").hidden = isAdmin;
+  document.getElementById("modalOverlay").classList.remove("open");
+  document.getElementById("adminRoot").hidden = !isAdmin;
+  document.title = isAdmin ? "Admin — Amma's Masala" : SHOP_TITLE;
+  if (isAdmin) {
+    window.scrollTo(0, 0);
+    adminInit();
+    if (adminKey && !$("app").hidden) startLive();   
+  } else {
+    clearInterval(pollTimer);
+    const shopAll = location.hash === "#shopall";
+    document.body.classList.toggle("shopAllPage", shopAll);         // Shop All: no banner / category circles
+    if (!shopAll) {                                                  // back on the home page: show best sellers again
+      currentCategory = "all";
+      searchQuery = "";
+      document.getElementById('searchInput').value = "";
+      document.getElementById('searchBar').hidden = true;
+      document.querySelectorAll('.categoryItem').forEach((b, i) => b.classList.toggle('active', i === 0));
+      document.getElementById('catFilter').value = "all";
+    }
+    renderShop();
+    if (routeReady) loadShopData();
+    if (shopAll) window.scrollTo(0, 0);
+  }
+  routeReady = true;
+}
+window.addEventListener("hashchange", applyRoute);
+applyRoute();
+</script>
+</body>
+</html>
